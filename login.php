@@ -18,6 +18,7 @@
     <link href="assets/build/css/custom.min.css" rel="stylesheet">
 
 </head>
+bayu
 
 <body class="login" style="background-color:grey">
     <div class="login_wrapper">
@@ -60,7 +61,7 @@
                     </div>
                     <h4>Silahkan Login</h4>
                 </div>
-
+                fgfgfgf
                 <div class="clearfix"></div>
                 <p></p>
                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
