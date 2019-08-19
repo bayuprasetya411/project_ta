@@ -81,7 +81,7 @@ if (isset($_SESSION['login'])) {
                         <label>
                             <h2><b>Peringkat Teknisi Periode <a style="color:blue;">Maret-2019</a></b></h2>
                         </label>
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <table id="example2" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Rank</th>
@@ -148,6 +148,18 @@ if (isset($_SESSION['login'])) {
     <!-- Custom Theme Scripts -->
     <script src="assets/build/js/custom.min.js"></script>
 
+    <script>
+        $(function() {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
 
     <?php
     } else {

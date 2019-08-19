@@ -65,23 +65,12 @@ if (isset($_SESSION['login'])) {
           </div>
         </div>
 
-        <form action="" method="get">
-          <div class="input-group col-md-4 col-md-offset-8">
-            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-            <select type="submit" name="tanggal" class="form-control" id="tanggal">
-              <option>Pilih Periode</option>
-              <option></option>
-            </select>
-          </div>
-        </form>
-
-        <p></p>
         <div class="clearfix"></div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Hasil Penilain Bulan <a style='color:blue'> Maret-2019</a></h2>
+              <h2>Grafik Penilaian</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -91,6 +80,23 @@ if (isset($_SESSION['login'])) {
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
+
+              <form action="" method="get">
+                <div class="input-group col-md-4 col-md-offset-8">
+                  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+                  <select type="submit" name="tanggal" class="form-control" id="tanggal">
+                    <option>Pilih Periode</option>
+                    <option></option>
+                  </select>
+                </div>
+              </form>
+
+              <div style="padding:1%">
+                <h2><b>Hasil Penilaian Teknisi Periode <a style="color:blue;">Maret-2019</b></a></h2>
+              </div>
+
+              <p></p>
+
               <canvas id="mybarChart"></canvas>
             </div>
           </div>
