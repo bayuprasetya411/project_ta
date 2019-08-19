@@ -60,6 +60,7 @@
                     </div>
                     <h4>Silahkan Login</h4>
                 </div>
+
                 <div class="clearfix"></div>
                 <p></p>
                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">

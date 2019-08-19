@@ -58,29 +58,30 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="x_content">
                         <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Sub Kriteria</button>
-                        <p></p>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Kriteria</th>
-                                    <th>Nama Sub Kriteria</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Presensi</td>
-                                    <td> >= 22 100 <button type="button" id="" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
-                                        <button type="button" id="" name="edit" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="example2" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Kriteria</th>
+                                        <th>Nama Sub Kriteria</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Presensi</td>
+                                        <td> >= 22 100 <button type="button" id="" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
+                                            <button type="button" id="" name="edit" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="clearfix"></div>
+            <!--/Page Content -->
         </div>
-        <div class="clearfix"></div>
-        <!--/Page Content -->
     </div>
     <?php include('footer.php'); ?>
     </div>
@@ -206,6 +207,19 @@ if (isset($_SESSION['login'])) {
     <script src="assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="assets/build/js/custom.min.js"></script>
+
+    <script>
+        $(function() {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
 
     <?php
     } else {
