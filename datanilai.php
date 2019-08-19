@@ -39,8 +39,6 @@ if (isset($_SESSION['login'])) {
 <!-- header -->
 <?php include('header.php');
     include('koneksi.php');
-
-
     ?>
 
 <!-- page content -->
