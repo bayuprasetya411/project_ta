@@ -2,7 +2,7 @@
 <footer>
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>© 2019 All Rights Reserved. <a href="#">SPK Teknisi Corporate Service</a></span>
+            <span>© 2019 All Rights Reserved. SPK | <a href="#">Telkom Corporate Service</a></span>
         </div>
     </div>
     <div class="clearfix"></div>

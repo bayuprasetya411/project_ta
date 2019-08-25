@@ -15,6 +15,11 @@ if (isset($_SESSION['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SPK | Data Teknisi</title>
+
+    <!-- jQuery -->
+    <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Bootstrap -->
     <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -86,7 +91,7 @@ if (isset($_SESSION['login'])) {
                                     <td><?php echo $data['no_telpon']; ?></td>
                                     <td><?php echo $data['area']; ?></td>
                                     <td><button type="button" id="<?php echo $data['nik']; ?>" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
-                                        <button type="button" id="<?php echo $data['nik']; ?>" name="edit" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
+                                        <button type="button" id="<?php echo $data['nik']; ?>" name="ubah" class="btn btn-primary btn-sm ubah_data"><i class="fa fa-wrench"></i></button>
                                     </td>
                                 </tr>
                                 <?php
@@ -162,7 +167,7 @@ if (isset($_SESSION['login'])) {
 
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class=" btn btn-danger">Reset</button>
+                    <button type="" class=" btn btn-danger">Reset</button>
                     <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
 
                 </div>
@@ -183,51 +188,12 @@ if (isset($_SESSION['login'])) {
             </div>
 
             <form method="post" id="form_ubah" role="form" action="">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label" for="nik">
-                            <h4>Nik Karyawan</h4>
-                        </label>
-                        <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" required readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="nama">
-                            <h4>Nama Karyawan</h4>
-                        </label>
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Karyawan" autofocus="autofocus" required>
-                    </div>
-
-                    <?php
-                        $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC");
-                        ?>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_area">
-                            <h4>Area</h4>
-                        </label>
-                        <select name="id_area" class="form-control" aria-controls="dataTable" id="id_area">
-                            <option>Pilih Area</option>
-                            <?php while ($data = mysqli_fetch_array($query_area)) { ?>
-                            <option value="<?php echo $tampil['id_area']; ?>"><?php echo $data['area']; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="no_telpon">
-                            <h4>No Telpon (08xxxxxxxxxxxxxx)</h4>
-                        </label>
-                        <input type="text" name="no_telpon" class="form-control" id="no_telpon" placeholder="Notel Karyawan" required>
-                    </div>
+                <div class="modal-body" id="info_ubah">
 
                 </div>
-
                 <div class="modal-footer">
-                    <button type="reset" class=" btn btn-danger">Reset</button>
-                    <button type="submit" name="editdata" id="editdata" class=" btn btn-primary">Simpan</button>
-
-
+                    <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Batal</button>
+                    <button type="submit" name="ubahdata" id="ubahdata" class=" btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -260,10 +226,7 @@ if (isset($_SESSION['login'])) {
 </div>
 <!-- /Modal hapus teknisi -->
 
-<!-- jQuery -->
-<script src="assets/vendors/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <!-- NProgress -->
 <script src="assets/vendors/nprogress/nprogress.js"></script>
 <!-- iCheck -->
@@ -284,36 +247,41 @@ if (isset($_SESSION['login'])) {
 <script src="assets/build/js/custom.min.js"></script>
 
 
-
-
-<!-- Script tambah teknisi -->
 <script>
     $(document).ready(function() {
 
-        $(document).on('click', '.edit_data', function() {
-            var nik = $(this).attr('nik');
+        // Script ubah teknisi
+        $(document).on('click', '.ubah_data', function() {
+            var nik = $(this).attr('id');
             $.ajax({
                 url: "ubahteknisi.php",
                 method: "POST",
                 data: {
                     nik: nik
                 },
-                dataType: "json",
                 success: function(data) {
-                    $('#nik').val(data.nik);
-                    $('#nama').val(data.nama);
-                    $('#id_area').val(data.id_area);
-                    $('#no_telpon').val(data.no_telpon);
 
-                    $('#editdata').val("Update");
+                    $('#info_ubah').html(data);
                     $('#modal-ubah').modal('show');
+
+
+
+                    // $('#nik').val(data.nik);
+                    // $('#nama').val(data.nama);
+                    // $('#id_area').val(data.id_area);
+                    // $('#no_telpon').val(data.no_telpon);
+
+                    // $('#editdata').val("Update");
+
                 }
 
 
             });
 
         });
+        // end Script ubah teknisi
 
+        // Script tambah teknisi
         $('#form_tambah').on('submit', function(event) {
             event.preventDefault();
 
@@ -338,9 +306,10 @@ if (isset($_SESSION['login'])) {
                 });
             }
         });
+        // end Script tambah teknisi
     });
 </script>
-<!-- Script tambah teknisi -->
+
 
 
 <script>

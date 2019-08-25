@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="login" style="background-color:grey;">
+<body class="login" style="background:grey;">
     <div class="login_wrapper">
         <div class="card-body">
 
@@ -83,7 +83,7 @@
         <div class="separator">
 
             <div style="text-align:center; color:white; mar">
-                <p>© 2019 All Rights Reserved. SPK Teknisi Corporate Service</p>
+                <p>©2019 All Rights Reserved. SPK | Telkom Corporate Service</p>
             </div>
         </div>
         </form>
