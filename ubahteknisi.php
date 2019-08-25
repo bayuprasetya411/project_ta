@@ -63,7 +63,20 @@ $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC")
     <input type="text" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
 </div>
 
+<?php
 
+// $ubah_nik = $_POST['nik'];
+// $ubah_nama = $_POST['nama'];
+// $ubah_area = $_POST['id_area'];
+// $ubah_notel = $_POST['no_telpon'];
+
+// $sql = "UPDATE tb_teknisi SET nama ='" . $ubah_nama . "', id_area ='" . $ubah_area . "', no_telpon='" . $ubah_notel . "'";
+// $queryubah = mysqli_query($conn, $sql);
+
+
+
+
+?>
 
 
 <!-- Script hapus teknisi -->

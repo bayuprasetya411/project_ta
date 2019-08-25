@@ -82,7 +82,7 @@ if (isset($_SESSION['login'])) {
                                 <?php
                                     $query = mysqli_query($conn, 'SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
                                     inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area');
-                                    $no = 1;
+
                                     while ($data = mysqli_fetch_array($query)) {
                                         ?>
                                 <tr>
@@ -263,15 +263,6 @@ if (isset($_SESSION['login'])) {
 
                     $('#info_ubah').html(data);
                     $('#modal-ubah').modal('show');
-
-
-
-                    // $('#nik').val(data.nik);
-                    // $('#nama').val(data.nama);
-                    // $('#id_area').val(data.id_area);
-                    // $('#no_telpon').val(data.no_telpon);
-
-                    // $('#editdata').val("Update");
 
                 }
 
