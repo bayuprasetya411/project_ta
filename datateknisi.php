@@ -90,8 +90,8 @@ if (isset($_SESSION['login'])) {
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['no_telpon']; ?></td>
                                     <td><?php echo $data['area']; ?></td>
-                                    <td><button type="button" id="<?php echo $data['nik']; ?>" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
-                                        <button type="button" id="<?php echo $data['nik']; ?>" name="ubah" class="btn btn-primary btn-sm ubah_data"><i class="fa fa-wrench"></i></button>
+                                    <td> <button type="button" id="hapus" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
+                                        <a href="update_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="ubah" name="ubah" class="btn btn-primary btn-sm ubah_data"><i class="fa fa-wrench"></i></button></a>
                                     </td>
                                 </tr>
                                 <?php
@@ -129,16 +129,12 @@ if (isset($_SESSION['login'])) {
             <form id="form_tambah" method="post" role="form" action="">
                 <div class="modal-body">
                     <div class="form-group" id="tabel_tambah">
-                        <label class="control-label" for="nik">
-                            <h4>Nik Karyawan</h4>
-                        </label>
+                        <label class="control-label" for="nik">Nik Karyawan</label>
                         <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" autofocus="autofocus" />
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="nama">
-                            <h4>Nama Karyawan</h4>
-                        </label>
+                        <label class="control-label" for="nama">Nama Karyawan</label>
                         <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Karyawan">
                     </div>
 
@@ -147,9 +143,7 @@ if (isset($_SESSION['login'])) {
                         ?>
 
                     <div class="form-group">
-                        <label class="control-label" for="id_area">
-                            <h4> Area</h4>
-                        </label>
+                        <label class="control-label" for="id_area">Area</label>
                         <select name="id_area" class="form-control" id="id_area">
                             <option></option>
                             <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
@@ -159,9 +153,7 @@ if (isset($_SESSION['login'])) {
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="no_telpon">
-                            <h4>No Telpon (08xxxxxxxxxxxx)</h4>
-                        </label>
+                        <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxx)</label>
                         <input type="number" name="no_telpon" class="form-control" id="no_telpon" placeholder="Notel Karyawan">
                     </div>
 
@@ -178,7 +170,7 @@ if (isset($_SESSION['login'])) {
 <!-- /Modal Tambah Teknisi -->
 
 <!-- Modal ubah Teknisi-->
-<div class="modal fade" id="modal-ubah" role="dialog" aria-labelledby="modalubah">
+<!-- <div class="modal fade" id="modal-ubah" role="dialog" aria-labelledby="modalubah">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -193,12 +185,12 @@ if (isset($_SESSION['login'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Batal</button>
-                    <button type="submit" name="ubahdata" id="ubahdata" class=" btn btn-primary">Simpan</button>
+                    <button type="submit" name="ubah" id="ubah" class=" btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
-</div>
+</div> -->
 <!-- /Modal ubah Teknisi-->
 
 <!-- Modal hapus teknisi -->
@@ -211,14 +203,14 @@ if (isset($_SESSION['login'])) {
 
             </div>
 
-            <form method="post" role="form" action="crudteknisi.php">
-                <div class="modal-body">
+            <form method="post" id="form_hapus" role="form" action="">
+                <div class="modal-body" id="info_hapus">
                     <input type="hidden" name="nik" class="form-control" id="nik">
                     <H4>Anda Akan Menghapus Data???</H4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Tidak</button>
-                    <button type="submit" name="hapusdata" class=" btn btn-primary">Ya</button>
+                    <button type="submit" name="hapus" id="hapus" class="btn btn-primary">Ya</button>
                 </div>
             </form>
         </div>
@@ -250,27 +242,6 @@ if (isset($_SESSION['login'])) {
 <script>
     $(document).ready(function() {
 
-        // Script ubah teknisi
-        $(document).on('click', '.ubah_data', function() {
-            var nik = $(this).attr('id');
-            $.ajax({
-                url: "ubahteknisi.php",
-                method: "POST",
-                data: {
-                    nik: nik
-                },
-                success: function(data) {
-
-                    $('#info_ubah').html(data);
-                    $('#modal-ubah').modal('show');
-
-                }
-
-
-            });
-
-        });
-        // end Script ubah teknisi
 
         // Script tambah teknisi
         $('#form_tambah').on('submit', function(event) {
@@ -298,6 +269,76 @@ if (isset($_SESSION['login'])) {
             }
         });
         // end Script tambah teknisi
+
+        // Script ubah teknisi
+        // $(document).on('click', '.ubah_data', function() {
+        //     var nik = $(this).attr('id');
+        //     $.ajax({
+        //         url: "ubahteknisi.php",
+        //         method: "POST",
+        //         data: {
+        //             nik: nik
+        //         },
+        //         success: function(data) {
+
+        //             $('#info_ubah').html(data);
+        //             $('#modal-ubah').modal('show');
+
+        //         }
+
+        //     });
+        // });
+
+        // $(document).on('click', '#ubah', function() {
+
+        //     $.ajax({
+        //         url: "simpanubahteknisi.php",
+        //         method: "POST",
+        //         data: $("#form_ubah").serialize(),
+        //         success: function(data) {
+
+        //             $('#modal-ubah').modal('hide');
+        //             window.location('datateknisi.php');
+        //             $('#tabel_ubah').html(data);
+        //         }
+        //     });
+        // });
+        // end Script ubah teknisi
+
+        // Script hapus teknisi
+
+        // $(document).on('click', '.hapus_data', function() {
+        //     var nik = $(this).attr('id');
+        //     $.ajax({
+        //         url: "hapusteknisi.php",
+        //         method: "POST",
+        //         data: {
+        //             nik: nik
+        //         },
+        //         success: function(data) {
+
+        //             $('#info_hapus').html(data);
+        //             $('#modal-hapus').modal('show');
+
+        //         }
+
+        //     });
+        // });
+
+        // $(document).on('click', '#hapus', function() {
+
+        //     $.ajax({
+        //         url: "simpanhapusteknisi.php",
+        //         method: "POST",
+        //         data: $("#form_hapus").serialize(),
+        //         success: function(data) {
+        //             $('#modal-hapus').modal('hide');
+        //         }
+
+        //     });
+        // });
+
+        // end Script hapus teknisi
     });
 </script>
 

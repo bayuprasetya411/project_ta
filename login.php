@@ -90,6 +90,8 @@
     </div>
     </div>
 
+    <!-- sweetalert -->
+    <script src="assets/dist/sweetalert2.all.min.js"></script>
     <!-- jQuery -->
     <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
