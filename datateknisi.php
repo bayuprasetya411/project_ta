@@ -90,7 +90,7 @@ if (isset($_SESSION['login'])) {
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['no_telpon']; ?></td>
                                     <td><?php echo $data['area']; ?></td>
-                                    <td> <button type="button" id="hapus" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
+                                    <td> <a href="hapus_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="hapus" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button></a>
                                         <a href="update_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="ubah" name="ubah" class="btn btn-primary btn-sm ubah_data"><i class="fa fa-wrench"></i></button></a>
                                     </td>
                                 </tr>

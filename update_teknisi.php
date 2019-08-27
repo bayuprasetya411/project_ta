@@ -81,58 +81,43 @@ if (isset($_POST['update'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nik">Nik Karyawan</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="nik" class="form-control col-md-7 col-xs-12" id="nik" value="<?php echo $nik ?>" readonly>
-                                </div>
-                            </div>
+                        <form id="demo-form" data-parsley-validate method="post">
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">Nama Karyawan</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="nama" class="form-control col-md-7 col-xs-12" id="nama" value="<?php echo $nama ?>" autofocus="autofocus" required>
-                                </div>
-                            </div>
+                            <label class="control-label" for="nik">Nik Karyawan</label>
+                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" readonly>
+
+                            <label class="control-label" for="nama">Nama Karyawan</label>
+                            <input type="text" name="nama" class="form-control" id="nama" value="<?php echo $nama ?>" autofocus="autofocus" required>
 
                             <?php
                             $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC");
                             ?>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_area">
-                                    Area
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="id_area" class="form-control" aria-controls="dataTable" id="id_area">
-                                        <?php
-                                        while ($data = mysqli_fetch_array($query_area)) {
-                                            if ($data['id_area'] == $id_area) {
-                                                ?>
-                                        <option value="<?php echo $data['id_area'] ?>" selected> <?php echo $data['area']; ?></option>
-                                        <?php
-                                            } else {
-                                                ?>
-                                        <option value="<?php echo $data['id_area'] ?>"> <?php echo $data['area']; ?></option>
-                                        <?php
-                                            }
-                                        }
+                            <label class="control-label" for="id_area">
+                                Area
+                            </label>
+                            <select name="id_area" class="form-control" aria-controls="dataTable" id="id_area">
+                                <?php
+                                while ($data = mysqli_fetch_array($query_area)) {
+                                    if ($data['id_area'] == $id_area) {
                                         ?>
-                                    </select>
-                                </div>
-                            </div>
+                                <option value="<?php echo $data['id_area'] ?>" selected> <?php echo $data['area']; ?></option>
+                                <?php
+                                    } else {
+                                        ?>
+                                <option value="<?php echo $data['id_area'] ?>"> <?php echo $data['area']; ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="no_telpon">No Telpon (08xxxxxxxxxxxxxx)</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
-                                </div>
-                            </div>
+                            <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxxxx)</label>
+                            <input type="text" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
 
                             <div class="ln_solid"></div>
                             <div class="form-group">
-                                <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-7">
+                                <div class="">
                                     <a href="datateknisi.php" class="btn btn-default">Batal</a>
                                     <button type="submit" class="btn btn-primary" name="update" id="update">Update</button>
                                 </div>
