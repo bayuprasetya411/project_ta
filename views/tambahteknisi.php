@@ -1,7 +1,7 @@
 
     <?php
 
-    include('koneksi.php');
+    include('../config/koneksi.php');
 
     if (!empty($_POST)) {
         $nik = mysqli_real_escape_string($conn, $_POST["nik"]);

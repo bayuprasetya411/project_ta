@@ -15,7 +15,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="assets/logoccan.jpg" alt="..." class="img-circle profile_img">
+                            <img src="../assets/logoccan.jpg" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <h2>Admin</h2>
@@ -59,7 +59,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="assets/logoccan.jpg" alt=""><b>Hallo, Admin</b>
+                                    <img src="../assets/logoccan.jpg" alt=""><b>Hallo, Admin</b>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -87,7 +87,7 @@
                             <h5>Anda Akan Keluar dari Halaman Admin?</h5>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal">Tidak</button>
                             <a class="btn btn-primary" href="index.php?aksi=logout">Keluar</a>
                         </div>
                     </div>

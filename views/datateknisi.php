@@ -17,27 +17,27 @@ if (isset($_SESSION['login'])) {
     <title>SPK | Data Teknisi</title>
 
     <!-- jQuery -->
-    <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Bootstrap -->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Datatables -->
-    <link href="assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="assets/build/css/custom.min.css" rel="stylesheet">
+    <link href="../assets/build/css/custom.min.css" rel="stylesheet">
 
 </head>
 
 <!-- header -->
 <?php include('header.php');
-    include('koneksi.php');
+    include('../config/koneksi.php');
     ?>
 
 <!-- page content -->
@@ -66,7 +66,7 @@ if (isset($_SESSION['login'])) {
                 <div class="x_content">
                     <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
                     <div class="table-responsive">
-                        <table id="example2" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Nik</th>
@@ -90,7 +90,7 @@ if (isset($_SESSION['login'])) {
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['no_telpon']; ?></td>
                                     <td><?php echo $data['area']; ?></td>
-                                    <td> <a href="hapus_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="hapus" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button></a>
+                                    <td> <a href="hapus_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="hapus" name="hapus" class="btn btn-danger btn-sm hapus_data" data-toggle="modal" data-target="#modal-hapus"><i class="fa fa-trash"></i></button></a>
                                         <a href="update_teknisi.php?nik=<?php echo $data['nik']; ?>"><button type="button" id="ubah" name="ubah" class="btn btn-primary btn-sm ubah_data"><i class="fa fa-wrench"></i></button></a>
                                     </td>
                                 </tr>
@@ -145,7 +145,7 @@ if (isset($_SESSION['login'])) {
                     <div class="form-group">
                         <label class="control-label" for="id_area">Area</label>
                         <select name="id_area" class="form-control" id="id_area">
-                            <option></option>
+                            <option>Pilih Area</option>
                             <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
                             <option value="<?php echo $tampil['id_area']; ?>"><?php echo $tampil['area']; ?></option>
                             <?php } ?>
@@ -159,7 +159,7 @@ if (isset($_SESSION['login'])) {
 
                 </div>
                 <div class="modal-footer">
-                    <button type="" class=" btn btn-danger">Reset</button>
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                     <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
 
                 </div>
@@ -194,7 +194,7 @@ if (isset($_SESSION['login'])) {
 <!-- /Modal ubah Teknisi-->
 
 <!-- Modal hapus teknisi -->
-<div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
+<!-- <div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
     <div class="modal-dialog" role="documnet">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,28 +215,28 @@ if (isset($_SESSION['login'])) {
             </form>
         </div>
     </div>
-</div>
+</div> -->
 <!-- /Modal hapus teknisi -->
 
 
 <!-- NProgress -->
-<script src="assets/vendors/nprogress/nprogress.js"></script>
+<script src="../assets/vendors/nprogress/nprogress.js"></script>
 <!-- iCheck -->
-<script src="assets/vendors/iCheck/icheck.min.js"></script>
+<script src="../assets/vendors/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
-<script src="assets/vendors/fastclick/lib/fastclick.js"></script>
+<script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
 <!-- Datatables -->
-<script src="assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-<script src="assets/vendors/jszip/dist/jszip.min.js"></script>
-<script src="assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="assets/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
 <!-- Custom Theme Scripts -->
-<script src="assets/build/js/custom.min.js"></script>
+<script src="../assets/build/js/custom.min.js"></script>
 
 
 <script>
@@ -339,21 +339,6 @@ if (isset($_SESSION['login'])) {
         // });
 
         // end Script hapus teknisi
-    });
-</script>
-
-
-
-<script>
-    $(function() {
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true
-        });
     });
 </script>
 

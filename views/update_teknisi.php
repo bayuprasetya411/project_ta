@@ -1,5 +1,5 @@
 <?php
-include('koneksi.php');
+include('../config/koneksi.php');
 
 $nik = $_GET['nik'];
 $query = "SELECT * FROM tb_teknisi WHERE nik = $nik ";
@@ -38,17 +38,17 @@ if (isset($_POST['update'])) {
     <title>SPK | Update Teknisi</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- jQuery -->
-    <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Bootstrap -->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="assets/build/css/custom.min.css" rel="stylesheet">
+    <link href="../assets/build/css/custom.min.css" rel="stylesheet">
 
 </head>
 
@@ -84,7 +84,7 @@ if (isset($_POST['update'])) {
                         <form id="demo-form" data-parsley-validate method="post">
 
                             <label class="control-label" for="nik">Nik Karyawan</label>
-                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" readonly>
+                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" required>
 
                             <label class="control-label" for="nama">Nama Karyawan</label>
                             <input type="text" name="nama" class="form-control" id="nama" value="<?php echo $nama ?>" autofocus="autofocus" required>
@@ -136,20 +136,17 @@ if (isset($_POST['update'])) {
 </div>
 
 
-
-
-
 <!-- NProgress -->
-<script src="assets/vendors/nprogress/nprogress.js"></script>
+<script src="../assets/vendors/nprogress/nprogress.js"></script>
 <!-- iCheck -->
-<script src="assets/vendors/iCheck/icheck.min.js"></script>
+<script src="../assets/vendors/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
-<script src="assets/vendors/fastclick/lib/fastclick.js"></script>
-<script src="assets/vendors/jszip/dist/jszip.min.js"></script>
-<script src="assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="assets/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
+<script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
 <!-- Custom Theme Scripts -->
-<script src="assets/build/js/custom.min.js"></script>
+<script src="../assets/build/js/custom.min.js"></script>
 </body>
 
 </html>

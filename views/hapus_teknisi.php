@@ -1,6 +1,6 @@
 <?php
 
-include('koneksi.php');
+include('../config/koneksi.php');
 
 $nik = $_GET['nik'];
 $query = "DELETE FROM tb_teknisi WHERE nik ='$nik'";

@@ -9,13 +9,13 @@
     <title>SPK | Login</title>
 
     <!-- Bootstrap -->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="assets/build/css/custom.min.css" rel="stylesheet">
+    <link href="../assets/build/css/custom.min.css" rel="stylesheet">
 
 </head>
 
@@ -27,7 +27,7 @@
                 <div class="" style="text-align:center; color:white; ">
                     <?php
 
-                    include 'koneksi.php';
+                    include('../config/koneksi.php');
                     session_start();
 
                     if (isset($_POST['submit'])) {
@@ -91,15 +91,15 @@
     </div>
 
     <!-- sweetalert -->
-    <script src="assets/dist/sweetalert2.all.min.js"></script>
+    <script src="../assets/dist/sweetalert2.all.min.js"></script>
     <!-- jQuery -->
-    <script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- NProgress -->
-    <script src="assets/vendors/nprogress/nprogress.js"></script>
+    <script src="../assets/vendors/nprogress/nprogress.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/js/custom.min.js"></script>
 </body>
 
 </html>

@@ -13,23 +13,23 @@ if (isset($_SESSION['login'])) {
     <title>SPK | Data Sub Kriteria</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- Bootstrap -->
-    <link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Datatables -->
-    <link href="assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="assets/build/css/custom.min.css" rel="stylesheet">
+    <link href="../assets/build/css/custom.min.css" rel="stylesheet">
 
 </head>
 
 <!-- header -->
 <?php
-    include('koneksi.php');
+    include('../config/koneksi.php');
     include('header.php');
     ?>
 
@@ -59,7 +59,7 @@ if (isset($_SESSION['login'])) {
                 <div class="x_content">
                     <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Sub Kriteria</button>
                     <div class="table-responsive">
-                        <table id="example2" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                        <table id="example2" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Kriteria</th>
@@ -71,7 +71,7 @@ if (isset($_SESSION['login'])) {
                                     <td>Presensi</td>
                                     <td> >= 22 100 <button type="button" id="" name="hapus" class="btn btn-danger btn-sm hapus_data"><i class="fa fa-trash"></i></button>
                                         <button type="button" id="" name="edit" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
-                                    </td>
+                                        </<button>
                                 </tr>
                             </tbody>
                         </table>
@@ -186,27 +186,27 @@ if (isset($_SESSION['login'])) {
 
 
 <!-- jQuery -->
-<script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+<script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- NProgress -->
-<script src="assets/vendors/nprogress/nprogress.js"></script>
+<script src="../assets/vendors/nprogress/nprogress.js"></script>
 <!-- iCheck -->
-<script src="assets/vendors/iCheck/icheck.min.js"></script>
+<script src="../assets/vendors/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
-<script src="assets/vendors/fastclick/lib/fastclick.js"></script>
+<script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
 <!-- Datatables -->
-<script src="assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-<script src="assets/vendors/jszip/dist/jszip.min.js"></script>
-<script src="assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="assets/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
 <!-- Custom Theme Scripts -->
-<script src="assets/build/js/custom.min.js"></script>
+<script src="../assets/build/js/custom.min.js"></script>
 
 <script>
     $(function() {
