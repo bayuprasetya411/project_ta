@@ -3,7 +3,7 @@
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
+                    <div class="navbar nav_title" style="border: 0; background-color:#d73925;">
                         <a href="" class="site_title">
                             SPK CORPORATE
                         </a>
@@ -22,9 +22,6 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <!-- /menu profile quick info -->
-
-                    <br />
                     <!-- /menu profile quick info -->
 
                     <br />
@@ -50,17 +47,17 @@
 
             <!-- top navigation -->
             <div class="top_nav">
-                <div class="nav_menu">
+                <div class="nav_menu" style="border: 0; background-color:#dd4b39;">
                     <nav>
                         <div class="nav toggle">
-                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            <a id="menu_toggle"><i class="fa fa-bars" style="color:white;"></i></a>
                         </div>
 
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="../assets/logoccan.jpg" alt=""><b>Hallo, Admin</b>
-                                    <span class=" fa fa-angle-down"></span>
+                                    <img src="../assets/logoccan.jpg" alt=""><b style="color:white;">Hallo, Admin</b>
+                                    <span class=" fa fa-angle-down" style="color:white;"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="#" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out pull-right"></i> Logout</a></li>
