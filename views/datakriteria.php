@@ -106,7 +106,7 @@ if (isset($_SESSION['login'])) {
         $sql = mysqli_query($conn, "SELECT id_kriteria FROM td_kriteria ORDER BY id_kriteria DESC");
         $id = mysqli_fetch_array($sql);
         $id_kriteria = $id['id_kriteria'];
-        $no = substr($id_kriteria, 2);
+        $no = substr($id_kriteria, 0);
         $tambah = (int) $no + 1;
 
         if (strlen($tambah) == 1) {
@@ -127,28 +127,28 @@ if (isset($_SESSION['login'])) {
                     <div class="modal-body">
                         <div class="form-group" id="tabel_tambah">
                             <label class="control-label" for="id_kriteria">
-                                <h4>ID Kriteria</h5>
+                                ID Kriteria
                             </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode; ?>" required="" readonly />
+                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required="" />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama_kriteria">
-                                <h4>Nama Kriteria</h4>
+                                Nama Kriteria
                             </label>
                             <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" autofocus="" />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="bobot_kriteria">
-                                <h4>Bobot Kriteria</h4>
+                                Bobot Kriteria
                             </label>
                             <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" placeholder="Bobot Kriteria (1-100)">
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class=" btn btn-danger">Reset</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
 
                     </div>
@@ -241,7 +241,19 @@ if (isset($_SESSION['login'])) {
                 } else if ($('#nama_kriteria').val() == '') {
                     alert('Data Nama Kriteria Tidak Boleh Kosong!!!');
                 } else if ($('#bobot_kriteria').val() == '') {
-                    alert('Data Bobot Kriteria Tidak Boleh Kosong dan maksimal bobot 100!!!');
+                    alert('Data Bobot Kriteria Tidak Boleh Kosong !!!');
+                } else {
+                    $.ajax({
+                        url: "tambah_kriteria.php",
+                        method: "POST",
+                        data: $('#form_tambah').serialize(),
+                        success: function(data) {
+                            $('#form_tambah')[0].reset();
+                            $('#modal-input').modal('hide');
+                            $('#tabel_tambah').html(data);
+                        }
+
+                    });
                 }
 
             });

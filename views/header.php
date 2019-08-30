@@ -4,7 +4,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0; background-color:#d73925;">
-                        <a href="" class="site_title">
+                        <a href="" class="site_title ">
                             SPK CORPORATE
                         </a>
                     </div>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="profile_info">
                             <h2>Admin</h2>
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="#" style="color:white;"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -29,7 +29,7 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <h3>Menu Utama</h3>
+                            <h3>MENU UTAMA</h3>
                             <ul class="nav side-menu">
                                 <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datateknisi.php"><i class="fa fa-user"></i> Data Teknisi <span class="fa fa-chevron-right"></span></a></li>
