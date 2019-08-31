@@ -10,10 +10,7 @@ if (!empty($_POST)) {
 
     if ($_POST['bobot_kriteria'] <= 100) {
 
-        $total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_kriteria");
-        $row = mysqli_fetch_array($total_bobot);
-        $bobot_normalisasi1 = $bobot_kriteria / $row['total_bobot'];
-        $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria, bobot_normalisasi_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria','$bobot_normalisasi1')";
+        $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
         $insert = mysqli_query($conn, $querytambah);
         if ($insert) {
             echo "<script> window.alert('Data Berhasil Disimpan');

@@ -72,7 +72,9 @@ if (isset($_SESSION['login'])) {
                                 <tbody>
                                     <?php
                                         $query = "SELECT * FROM tb_kriteria ";
+                                        $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_kriteria");
                                         $result = mysqli_query($conn, $query);
+                                        $data_total_bobot = mysqli_fetch_array($result_total_bobot);
                                         while ($data = mysqli_fetch_array($result)) {
 
                                             ?>
@@ -80,9 +82,10 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $data['id_kriteria']; ?></td>
                                             <td><?php echo $data['nama_kriteria']; ?></td>
                                             <td><?php echo $data['bobot_kriteria']; ?></td>
-                                            <td><?php echo $data['bobot_normalisasi_kriteria']; ?></td>
-                                            <td>
-                                                <button type="button" id="" name="edit" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
+                                            <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
+                                            <td><a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
+                                                    <button type="button" id="" name="update" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -102,11 +105,11 @@ if (isset($_SESSION['login'])) {
 
     <!-- Modal Tambah kriteria -->
     <?php
-        error_reporting(0);
-        $sql = mysqli_query($conn, "SELECT id_kriteria FROM td_kriteria ORDER BY id_kriteria DESC");
+
+        $sql = mysqli_query($conn, "SELECT id_kriteria FROM tb_kriteria ORDER BY id_kriteria DESC");
         $id = mysqli_fetch_array($sql);
         $id_kriteria = $id['id_kriteria'];
-        $no = substr($id_kriteria, 0);
+        $no = substr($id_kriteria, 1);
         $tambah = (int) $no + 1;
 
         if (strlen($tambah) == 1) {
@@ -129,7 +132,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_kriteria">
                                 ID Kriteria
                             </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required="" />
+                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required="" readonly />
                         </div>
 
                         <div class="form-group">

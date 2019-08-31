@@ -1,29 +1,32 @@
 <?php
 include('../config/koneksi.php');
 
-$nik = $_GET['nik'];
-$query = "SELECT * FROM tb_teknisi WHERE nik = $nik ";
+$id_kriteria = $_GET['id_kriteria'];
+$query = "SELECT * FROM tb_kriteria WHERE id_kriteria = '$id_kriteria' ";
 $result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_array($result)) {
-    $nik = $row['nik'];
-    $nama = $row['nama'];
-    $id_area = $row['id_area'];
-    $no_telpon = $row['no_telpon'];
+    $id_kriteria = $row['id_kriteria'];
+    $nama_kriteria = $row['nama_kriteria'];
+    $bobot_kriteria = $row['bobot_kriteria'];
 }
 
 if (isset($_POST['update'])) {
-    $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
-    $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
-    $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
-    $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
-    $sql = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
-    $update = mysqli_query($conn, $sql);
-    if ($update) {
-        echo "<script>window.alert('Data Berhasil Diubah');
-                window.location=(href='datateknisi.php')</script>";
+
+    if ($_POST['bobot_kriteria'] <= 100) {
+        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+        $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
+        $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+        $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
+        $update = mysqli_query($conn, $sql);
+        if ($update) {
+            echo "<script>window.alert('Data Berhasil Diubah');
+                window.location=(href='datakriteria.php')</script>";
+        } else {
+            echo "<script>window.alert('Data Gagal Diubah');
+    window.location=(href='update_kriteria.php?id_kriteria=" . $id_kriteria . "')</script>";
+        }
     } else {
-        echo "<script>window.alert('Data Gagal Diubah');
-    window.location=(href='update_teknisi.php?nik=" . $nik . "')</script>";
+        echo "<script> window.alert('bobot kriteria maksimal 100') </script>";
     }
 }
 
@@ -63,7 +66,7 @@ if (isset($_POST['update'])) {
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Data Teknisi</h3>
+                <h3>Data Kriteria</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -71,7 +74,7 @@ if (isset($_POST['update'])) {
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Form Ubah Data Teknisi<small>Corporate Service</small></h2>
+                        <h2>Form Ubah Data Kriteria<small>Corporate Service</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -83,42 +86,19 @@ if (isset($_POST['update'])) {
                     <div class="x_content">
                         <form id="demo-form" data-parsley-validate method="post">
 
-                            <label class="control-label" for="nik">Nik Karyawan</label>
-                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" required>
+                            <label class="control-label" for="nik">ID_Kriteria</label>
+                            <input type="text" name="id_kriteria" class="form-control" id="nik" value="<?php echo $id_kriteria ?>" required readonly>
 
-                            <label class="control-label" for="nama">Nama Karyawan</label>
-                            <input type="text" name="nama" class="form-control" id="nama" value="<?php echo $nama ?>" autofocus="autofocus" required>
+                            <label class="control-label" for="nama_kriteria">Nama Kriteria</label>
+                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" value="<?php echo $nama_kriteria ?>" autofocus="autofocus" required>
 
-                            <?php
-                            $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC");
-                            ?>
-
-                            <label class="control-label" for="id_area">
-                                Area
-                            </label>
-                            <select name="id_area" class="form-control" aria-controls="dataTable" id="id_area">
-                                <?php
-                                while ($data = mysqli_fetch_array($query_area)) {
-                                    if ($data['id_area'] == $id_area) {
-                                        ?>
-                                        <option value="<?php echo $data['id_area'] ?>" selected> <?php echo $data['area']; ?></option>
-                                    <?php
-                                        } else {
-                                            ?>
-                                        <option value="<?php echo $data['id_area'] ?>"> <?php echo $data['area']; ?></option>
-                                <?php
-                                    }
-                                }
-                                ?>
-                            </select>
-
-                            <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxxxx)</label>
-                            <input type="text" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
+                            <label class="control-label" for="bobot_kriteria">Bobot Kriteria</label>
+                            <input type="text" name="bobot_kriteria" class="form-control" id="bobot_kriteria" value="<?php echo $bobot_kriteria ?>" required>
 
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="">
-                                    <a href="datateknisi.php" class="btn btn-default">Batal</a>
+                                    <a href="datakriteria.php" class="btn btn-default">Batal</a>
                                     <button type="submit" class="btn btn-primary" name="update" id="update">Ubah</button>
                                 </div>
                             </div>
