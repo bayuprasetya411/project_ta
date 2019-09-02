@@ -84,7 +84,7 @@ if (isset($_POST['update'])) {
                         <form id="demo-form" data-parsley-validate method="post">
 
                             <label class="control-label" for="nik">Nik Karyawan</label>
-                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" required>
+                            <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" readonly>
 
                             <label class="control-label" for="nama">Nama Karyawan</label>
                             <input type="text" name="nama" class="form-control" id="nama" value="<?php echo $nama ?>" autofocus="autofocus" required>

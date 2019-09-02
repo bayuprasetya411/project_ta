@@ -34,7 +34,6 @@
                                 <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datateknisi.php"><i class="fa fa-user"></i> Data Teknisi <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datakriteria.php"><i class="fa fa-pie-chart"></i> Data Kriteria <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="datasubkriteria.php"><i class="fa fa-bars"></i> Data Sub Kriteria <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datanilai.php"><i class="fa fa-calculator"></i> Data Nilai <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="prosesperangkingan.php"><i class="fa fa-trophy"></i> Proses Perangkingan <span class="fa fa-chevron-right"></span></a></li>
                             </ul>

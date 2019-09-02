@@ -84,8 +84,15 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $data['bobot_kriteria']; ?></td>
                                             <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
                                             <td><a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
-                                                    <button type="button" id="" name="update" class="btn btn-primary btn-sm edit_data"><i class="fa fa-wrench"></i></button>
+                                                    <button type="button" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
                                                 </a>
+                                                <a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
+                                                    <button type="button" class="btn btn-warning btn-xs detail_data"><i class="fa fa-book"></i></button>
+                                                </a>
+                                                <a href="tambah_subkriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
+                                                    <button type="button" class="btn btn-success btn-xs tambahsub_data"><i class="fa fa-plus"></i></button>
+                                                </a>
+
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -225,7 +232,7 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../ssets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
     <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
@@ -234,6 +241,7 @@ if (isset($_SESSION['login'])) {
 
     <!-- script tambah kriteria -->
     <script>
+        
         $(document).ready(function() {
 
             $('#form_tambah').on('submit', function(event) {
@@ -253,15 +261,12 @@ if (isset($_SESSION['login'])) {
                         success: function(data) {
                             $('#form_tambah')[0].reset();
                             $('#modal-input').modal('hide');
-                            $('#tabel_tambah').html(data);
                         }
 
                     });
                 }
 
             });
-
-
         });
     </script>
     <!-- script tambah kriteria -->

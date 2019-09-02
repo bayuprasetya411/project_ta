@@ -4,6 +4,7 @@
     include('../config/koneksi.php');
 
     if (!empty($_POST)) {
+
         $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
         $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
