@@ -1,35 +1,3 @@
-<?php
-include('../config/koneksi.php');
-
-$id_kriteria = $_GET['id_kriteria'];
-$query = "SELECT * FROM tb_kriteria WHERE id_kriteria = '$id_kriteria' ";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_array($result)) {
-    $id_kriteria = $row['id_kriteria'];
-    $nama_kriteria = $row['nama_kriteria'];
-}
-
-if (isset($_POST['simpan'])) {
-    if ($_POST['nilai_sub_kriteria'] <= 100) {
-        $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
-        $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
-        $query_tambah = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
-        $tambah = mysqli_query($conn, $query_tambah);
-        if ($tambah) {
-            echo "<script>  window.alert('Data Berhasil Disimpan');
-            window.location = (href = 'datakriteria.php')
-                </script>";
-        } else {
-            echo "<script>
-                        window.alert('Data Gagal Disimpan');
-            </script>";
-        }
-    } else {
-        echo "<script> window.alert('Nilai Sub Kriteria maksimal 100') </script>";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -55,9 +23,7 @@ if (isset($_POST['simpan'])) {
 
 
 <!-- header -->
-<?php include('header.php');
-
-?>
+<?php include('header.php'); ?>
 
 <!-- page content -->
 <div class="right_col" role="main">
@@ -83,11 +49,22 @@ if (isset($_POST['simpan'])) {
                     </div>
                     <div class="x_content">
                         <form id="demo-form" data-parsley-validate method="post">
+                            <?php
+                            include('../config/koneksi.php');
+
+                            $id_kriteria = $_GET['id_kriteria'];
+                            $query = "SELECT * FROM tb_kriteria WHERE id_kriteria = '$id_kriteria' ";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_array($result)) {
+                                $id_kriteria = $row['id_kriteria'];
+                                $nama_kriteria = $row['nama_kriteria'];
+                            }
+                            ?>
 
                             <input type="hidden" name="id_kriteria" class="form-control" id="nik" value="<?php echo $id_kriteria ?>">
 
                             <label class="control-label" for="nama_kriteria">Nama Kriteria</label>
-                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" value="<?php echo $nama_kriteria ?>"  readonly>
+                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" value="<?php echo $nama_kriteria ?>" readonly>
 
                             <label class="control-label" for="nama_sub_kriteria">Nama Sub Kriteria</label>
                             <input type="text" name="nama_sub_kriteria" class="form-control" id="nama_sub_kriteria" placeholder="Nama Sub Kriteria" required autofocus="autofocus" />
@@ -102,8 +79,31 @@ if (isset($_POST['simpan'])) {
                                     <button type="submit" class="btn btn-primary" name="simpan" id="update">Simpan</button>
                                 </div>
                             </div>
-
                         </form>
+
+                        <?php
+
+                        if (isset($_POST['simpan'])) {
+                            if ($_POST['nilai_sub_kriteria'] <= 100) {
+                                $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
+                                $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
+                                $query_tambah = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
+                                $tambah = mysqli_query($conn, $query_tambah);
+                                if ($tambah) {
+                                    echo "<script>  window.alert('Data Berhasil Disimpan');
+                                    window.location = (href = 'datakriteria.php')
+                                        </script>";
+                                } else {
+                                    echo "<script>
+                                                window.alert('Data Gagal Disimpan');
+                                    </script>";
+                                }
+                            } else {
+                                echo "<script> window.alert('Nilai Sub Kriteria maksimal 100') </script>";
+                            }
+                        }
+
+                        ?>
                     </div>
                 </div>
             </div>

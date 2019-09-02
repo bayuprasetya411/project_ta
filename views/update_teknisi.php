@@ -1,34 +1,3 @@
-<?php
-include('../config/koneksi.php');
-
-$nik = $_GET['nik'];
-$query = "SELECT * FROM tb_teknisi WHERE nik = $nik ";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_array($result)) {
-    $nik = $row['nik'];
-    $nama = $row['nama'];
-    $id_area = $row['id_area'];
-    $no_telpon = $row['no_telpon'];
-}
-
-if (isset($_POST['update'])) {
-    $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
-    $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
-    $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
-    $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
-    $sql = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
-    $update = mysqli_query($conn, $sql);
-    if ($update) {
-        echo "<script>window.alert('Data Berhasil Diubah');
-                window.location=(href='datateknisi.php')</script>";
-    } else {
-        echo "<script>window.alert('Data Gagal Diubah');
-    window.location=(href='update_teknisi.php?nik=" . $nik . "')</script>";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -55,8 +24,7 @@ if (isset($_POST['update'])) {
 
 <!-- header -->
 <?php include('header.php');
-
-?>
+include('../config/koneksi.php') ?>
 
 <!-- page content -->
 <div class="right_col" role="main">
@@ -71,7 +39,7 @@ if (isset($_POST['update'])) {
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Form Ubah Data Teknisi<small>Corporate Service</small></h2>
+                        <h2>Ubah Data Teknisi</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -82,6 +50,18 @@ if (isset($_POST['update'])) {
                     </div>
                     <div class="x_content">
                         <form id="demo-form" data-parsley-validate method="post">
+                            <?php
+
+                            $nik = $_GET['nik'];
+                            $query = "SELECT * FROM tb_teknisi WHERE nik = $nik ";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_array($result)) {
+                                $nik = $row['nik'];
+                                $nama = $row['nama'];
+                                $id_area = $row['id_area'];
+                                $no_telpon = $row['no_telpon'];
+                            }
+                            ?>
 
                             <label class="control-label" for="nik">Nik Karyawan</label>
                             <input type="text" name="nik" class="form-control" id="nik" value="<?php echo $nik ?>" readonly>
@@ -123,6 +103,28 @@ if (isset($_POST['update'])) {
                                 </div>
                             </div>
 
+                            <?php
+                            if (isset($_POST['update'])) {
+                                $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
+                                $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
+                                $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
+                                $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
+                                $sql = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
+                                $update = mysqli_query($conn, $sql);
+                                if ($update) {
+                                    echo "<script>
+                                    window.alert('Data Berhasil Diubah');
+                                    window.location = (href = 'datateknisi.php')
+                                </script>";
+                                } else {
+                                    echo "<script>
+                                    window.alert('Data Gagal Diubah');
+                                    window.location = (href = 'update_teknisi.php?nik=" . $nik . "')
+                                </script>";
+                                }
+                            }
+                            ?>
+
                         </form>
                     </div>
                 </div>
@@ -134,6 +136,7 @@ if (isset($_POST['update'])) {
 </div>
 <?php include('footer.php'); ?>
 </div>
+
 
 
 <!-- NProgress -->
