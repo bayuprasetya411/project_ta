@@ -115,8 +115,8 @@ include('../config/koneksi.php'); ?>
                                         </script>";
                                     } else {
                                         echo "<script>
-                                                window.alert('Data Gagal Disimpan');
-                                                window.location = (href = 'datakriteria.php');
+                                            window.alert('Data Gagal Disimpan');
+                                            window.location = (href = 'datakriteria.php');
                                     </script>";
                                     }
                                 } else {
