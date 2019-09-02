@@ -1,37 +1,3 @@
-<?php
-include('../config/koneksi.php');
-
-$id_kriteria = $_GET['id_kriteria'];
-$query = "SELECT * FROM tb_kriteria WHERE id_kriteria = '$id_kriteria' ";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_array($result)) {
-    $id_kriteria = $row['id_kriteria'];
-    $nama_kriteria = $row['nama_kriteria'];
-    $bobot_kriteria = $row['bobot_kriteria'];
-}
-
-if (isset($_POST['update'])) {
-
-    if ($_POST['bobot_kriteria'] <= 100) {
-        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-        $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
-        $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
-        $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
-        $update = mysqli_query($conn, $sql);
-        if ($update) {
-            echo "<script>window.alert('Data Berhasil Diubah');
-                window.location=(href='datakriteria.php')</script>";
-        } else {
-            echo "<script>window.alert('Data Gagal Diubah');
-    window.location=(href='update_kriteria.php?id_kriteria=" . $id_kriteria . "')</script>";
-        }
-    } else {
-        echo "<script> window.alert('bobot kriteria maksimal 100') </script>";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -58,7 +24,7 @@ if (isset($_POST['update'])) {
 
 <!-- header -->
 <?php include('header.php');
-
+include('../config/koneksi.php');
 ?>
 
 <!-- page content -->
@@ -74,7 +40,7 @@ if (isset($_POST['update'])) {
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Form Ubah Data Kriteria<small>Corporate Service</small></h2>
+                        <h2>Ubah Data Kriteria</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -85,6 +51,17 @@ if (isset($_POST['update'])) {
                     </div>
                     <div class="x_content">
                         <form id="demo-form" data-parsley-validate method="post">
+
+                            <?php
+                            $id_kriteria = $_GET['id_kriteria'];
+                            $query = "SELECT * FROM tb_kriteria WHERE id_kriteria = '$id_kriteria' ";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_array($result)) {
+                                $id_kriteria = $row['id_kriteria'];
+                                $nama_kriteria = $row['nama_kriteria'];
+                                $bobot_kriteria = $row['bobot_kriteria'];
+                            }
+                            ?>
 
                             <label class="control-label" for="nik">ID_Kriteria</label>
                             <input type="text" name="id_kriteria" class="form-control" id="nik" value="<?php echo $id_kriteria ?>" required readonly>
@@ -102,6 +79,29 @@ if (isset($_POST['update'])) {
                                     <button type="submit" class="btn btn-primary" name="update" id="update">Ubah</button>
                                 </div>
                             </div>
+                            <?php
+
+                            if (isset($_POST['update'])) {
+
+                                if ($_POST['bobot_kriteria'] <= 100) {
+                                    $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+                                    $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
+                                    $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+                                    $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
+                                    $update = mysqli_query($conn, $sql);
+                                    if ($update) {
+                                        echo "<script>window.alert('Data Berhasil Diubah');
+                                                window.location=(href='datakriteria.php')</script>";
+                                    } else {
+                                        echo "<script>window.alert('Data Gagal Diubah');
+                                    window.location=(href='update_kriteria.php?id_kriteria=" . $id_kriteria . "')</script>";
+                                    }
+                                } else {
+                                    echo "<script> window.alert('bobot kriteria maksimal 100') </script>";
+                                }
+                            }
+
+                            ?>
 
                         </form>
                     </div>
