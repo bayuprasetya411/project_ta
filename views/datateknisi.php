@@ -241,10 +241,9 @@ if (isset($_SESSION['login'])) {
 
 
     <script>
+        // Script tambah teknisi
         $(document).ready(function() {
 
-
-            // Script tambah teknisi
             $('#form_tambah').on('submit', function(event) {
                 event.preventDefault();
 
@@ -269,78 +268,9 @@ if (isset($_SESSION['login'])) {
                     });
                 }
             });
-            // end Script tambah teknisi
 
-            // Script ubah teknisi
-            // $(document).on('click', '.ubah_data', function() {
-            //     var nik = $(this).attr('id');
-            //     $.ajax({
-            //         url: "ubahteknisi.php",
-            //         method: "POST",
-            //         data: {
-            //             nik: nik
-            //         },
-            //         success: function(data) {
-
-            //             $('#info_ubah').html(data);
-            //             $('#modal-ubah').modal('show');
-
-            //         }
-
-            //     });
-            // });
-
-            // $(document).on('click', '#ubah', function() {
-
-            //     $.ajax({
-            //         url: "simpanubahteknisi.php",
-            //         method: "POST",
-            //         data: $("#form_ubah").serialize(),
-            //         success: function(data) {
-
-            //             $('#modal-ubah').modal('hide');
-            //             window.location('datateknisi.php');
-            //             $('#tabel_ubah').html(data);
-            //         }
-            //     });
-            // });
-            // end Script ubah teknisi
-
-            // Script hapus teknisi
-
-            // $(document).on('click', '.hapus_data', function() {
-            //     var nik = $(this).attr('id');
-            //     $.ajax({
-            //         url: "hapusteknisi.php",
-            //         method: "POST",
-            //         data: {
-            //             nik: nik
-            //         },
-            //         success: function(data) {
-
-            //             $('#info_hapus').html(data);
-            //             $('#modal-hapus').modal('show');
-
-            //         }
-
-            //     });
-            // });
-
-            // $(document).on('click', '#hapus', function() {
-
-            //     $.ajax({
-            //         url: "simpanhapusteknisi.php",
-            //         method: "POST",
-            //         data: $("#form_hapus").serialize(),
-            //         success: function(data) {
-            //             $('#modal-hapus').modal('hide');
-            //         }
-
-            //     });
-            // });
-
-            // end Script hapus teknisi
         });
+        // end Script tambah teknisi
     </script>
 
 <?php
