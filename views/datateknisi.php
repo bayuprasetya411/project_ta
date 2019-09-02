@@ -170,30 +170,6 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Tambah Teknisi -->
 
-    <!-- Modal ubah Teknisi-->
-    <!-- <div class="modal fade" id="modal-ubah" role="dialog" aria-labelledby="modalubah">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                <h2 class="modal-title" id="#modalubah">Ubah Data Teknisi</h2>
-
-            </div>
-
-            <form method="post" id="form_ubah" role="form" action="">
-                <div class="modal-body" id="info_ubah">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Batal</button>
-                    <button type="submit" name="ubah" id="ubah" class=" btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-    <!-- /Modal ubah Teknisi-->
-
     <!-- Modal hapus teknisi -->
     <!-- <div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
     <div class="modal-dialog" role="documnet">

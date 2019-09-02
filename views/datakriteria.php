@@ -169,53 +169,6 @@ if (isset($_SESSION['login'])) {
 
     <!-- /Modal Tambah kriteria -->
 
-    <!-- Modal Ubah kriteria -->
-
-    <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
-        <div class="modal-dialog" role="documnet">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Ubah Data Kriteria</h2>
-
-                </div>
-
-                <form id="form_ubah" method="post" role="form" action="">
-                    <div class="modal-body">
-                        <div class="form-group" id="tabel_ubah">
-                            <label class="control-label" for="id_kriteria">
-                                <h4>ID Kriteria</h5>
-                            </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label" for="nama_kriteria">
-                                <h4>Nama Kriteria</h4>
-                            </label>
-                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" autofocus="autofocus">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label" for="bobot_kriteria">
-                                <h4>Bobot Kriteria</h4>
-                            </label>
-                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" placeholder="Bobot Kriteria (1-100)">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class=" btn btn-danger">Reset</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="ubah">Simpan</button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- /Modal Ubah kriteria -->
-
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -241,7 +194,6 @@ if (isset($_SESSION['login'])) {
 
     <!-- script tambah kriteria -->
     <script>
-        
         $(document).ready(function() {
 
             $('#form_tambah').on('submit', function(event) {
