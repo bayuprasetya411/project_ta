@@ -92,10 +92,41 @@ include('../config/koneksi.php'); ?>
                                 <div class="form-group">
                                     <div class="">
                                         <a href="datakriteria.php" class="btn btn-default">Batal</a>
-                                        <button type="submit" class="btn btn-primary" name="simpan" id="update">Ubah</button>
+                                        <button type="submit" class="btn btn-primary" name="update" id="update">Ubah</button>
                                     </div>
                                 </div>
                             </div>
+
+                            <?php
+
+                            if (isset($_POST['update'])) {
+
+                                if ($_POST['nilai_sub_kriteria'] <= 100) {
+
+                                    $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+                                    $id_sub_kriteria = mysqli_real_escape_string($conn, $_POST["id_sub_kriteria"]);
+                                    $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
+                                    $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
+                                    $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
+                                    $ubah = mysqli_query($conn, $query_ubah);
+                                    if ($ubah) {
+                                        echo "<script>  window.alert('Data Berhasil Disimpan');
+                                    window.location = (href = 'datakriteria.php');
+                                        </script>";
+                                    } else {
+                                        echo "<script>
+                                                window.alert('Data Gagal Disimpan');
+                                                window.location = (href = 'datakriteria.php');
+                                    </script>";
+                                    }
+                                } else {
+                                    echo "<script> window.alert('Nilai Sub Kriteria maksimal 100'); 
+                                    window.location = (href = 'datasubkriteria.php?id_kriteria=" . $id_kriteria . "');
+                                    </script>";
+                                }
+                            }
+
+                            ?>
                         </form>
                     </div>
                 </div>

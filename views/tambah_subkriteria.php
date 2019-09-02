@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <div class="">
                                     <a href="datakriteria.php" class="btn btn-default">Batal</a>
-                                    <button type="submit" class="btn btn-primary" name="simpan" id="update">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" name="simpan" id="simpan">Simpan</button>
                                 </div>
                             </div>
                         </form>

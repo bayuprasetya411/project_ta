@@ -119,7 +119,7 @@ include('../config/koneksi.php') ?>
                                 } else {
                                     echo "<script>
                                     window.alert('Data Gagal Diubah');
-                                    window.location = (href = 'update_teknisi.php?nik=" . $nik . "')
+                                    window.location = (href = 'update_teknisi.php?nik=" . $nik . "');
                                 </script>";
                                 }
                             }
