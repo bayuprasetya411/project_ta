@@ -86,13 +86,12 @@ if (isset($_SESSION['login'])) {
                                             <td><a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
                                                     <button type="button" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
                                                 </a>
-                                                <a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
-                                                    <button type="button" class="btn btn-warning btn-xs detail_data"><i class="fa fa-book"></i></button>
-                                                </a>
                                                 <a href="tambah_subkriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
                                                     <button type="button" class="btn btn-success btn-xs tambahsub_data"><i class="fa fa-plus"></i></button>
                                                 </a>
-
+                                                <a href="datasubkriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
+                                                    <button type="button" class="btn btn-warning btn-xs detail_data"><i class="fa fa-book"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -168,6 +167,60 @@ if (isset($_SESSION['login'])) {
     </div>
 
     <!-- /Modal Tambah kriteria -->
+
+    <!-- Modal Data Subkriteria -->
+
+    <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modalinput">Ubah Data Sub Kriteria</h2>
+
+                </div>
+
+                <form id="form_tambah" method="post" role="form" action="">
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+
+                                <input type='hidden' class="form-control" name="id_sub_kriteria" id="id_sub_kriteria" />
+
+                                <div class='col-sm-4'>
+                                    <label> Nama Kriteria </label>
+                                    <div class="form-group">
+                                        <input type='text' class="form-control" name="id_kriteria" id="id_kriteria" readonly />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-4'>
+                                    <label> Nama Sub Kriteria </label>
+                                    <div class="form-group">
+                                        <input type='text' class="form-control" name="nama_sub_kriteria" id="nama_sub_kriteria" autofocus required />
+                                    </div>
+                                </div>
+
+                                <div class='col-sm-4'>
+                                    <label> Nilai Sub Kriteria</label>
+                                    <div class="form-group">
+                                        <input type='text' name="nilai_sub_kriteria" id="nilai_sub_kriteria" class="form-control" required />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Ubah</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Data Subkriteria -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
