@@ -170,31 +170,6 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Tambah Teknisi -->
 
-    <!-- Modal hapus teknisi -->
-    <!-- <div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
-    <div class="modal-dialog" role="documnet">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
-
-            </div>
-
-            <form method="post" id="form_hapus" role="form" action="">
-                <div class="modal-body" id="info_hapus">
-                    <input type="hidden" name="nik" class="form-control" id="nik">
-                    <H4>Anda Akan Menghapus Data???</H4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Tidak</button>
-                    <button type="submit" name="hapus" id="hapus" class="btn btn-primary">Ya</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-    <!-- /Modal hapus teknisi -->
-
 
     <!-- NProgress -->
     <script src="../assets/vendors/nprogress/nprogress.js"></script>
