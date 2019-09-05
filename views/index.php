@@ -26,6 +26,12 @@ if (isset($_SESSION['login'])) {
     <!-- Custom Theme Style -->
     <link href="../assets/build/css/custom.min.css" rel="stylesheet">
 
+    <style>
+      .count {
+        color: gray;
+      }
+    </style>
+
   </head>
 
   <body class="nav-md">
