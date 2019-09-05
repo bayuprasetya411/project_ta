@@ -154,7 +154,6 @@ if (isset($_SESSION['login'])) {
                                 <label class="control-label" for="id_sub_kriteria">
                                     <?php echo $row['nama_kriteria'] ?>
                                 </label>
-
                                 <select name="kriteria[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
                                     <option>Pilih Sub Kriteria</option>
                                     <?php

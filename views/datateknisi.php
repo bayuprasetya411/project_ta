@@ -81,8 +81,8 @@ if (isset($_SESSION['login'])) {
 
                                 <tbody>
                                     <?php
-                                        $query = 'SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
-                                        inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area';
+                                        $query = "SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
+                                        inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area";
                                         $result = mysqli_query($conn, $query);
                                         while ($data = mysqli_fetch_array($result)) {
                                             ?>

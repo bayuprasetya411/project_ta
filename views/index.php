@@ -30,7 +30,8 @@ if (isset($_SESSION['login'])) {
 
   <body class="nav-md">
 
-    <?php include('header.php') ?>
+    <?php include('header.php');
+      include('../config/koneksi.php'); ?>
 
     <!-- page content -->
     <div class="right_col" role="main">
@@ -44,19 +45,30 @@ if (isset($_SESSION['login'])) {
           <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <div class="tile-stats" id="dashboardteknisi">
               <div class="icon"><i class="fa fa-user"></i></div>
-              <div class="count">0</div>
+              <?php
+                $query_teknisi = mysqli_query($conn, "SELECT count(nik) as jumlah_teknisi FROM tb_teknisi");
+                while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
+                <div class="count"><?php echo $tampil['jumlah_teknisi']; ?></div>
+              <?php } ?>
               <h3>Jumlah Teknisi</h3>
               <p><a href=" datateknisi.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
             </div>
           </div>
+
           <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardkriteria">
             <div class="tile-stats">
               <div class="icon"><i class="fa fa-pie-chart"></i></div>
-              <div class="count">0</div>
+              <?php
+                $query_kriteria = mysqli_query($conn, "SELECT count(id_kriteria) as jumlah_kriteria FROM tb_kriteria");
+                while ($row = mysqli_fetch_array($query_kriteria)) {
+                  ?>
+                <div class="count"><?php echo $row['jumlah_kriteria']; ?></div>
+              <?php } ?>
               <h3>Jumlah Kriteria</h3>
               <p><a href="datakriteria.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
             </div>
           </div>
+
           <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardsub">
             <div class="tile-stats">
               <div class="icon"><i class="fa fa-bars"></i></div>
