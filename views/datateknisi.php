@@ -96,6 +96,29 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $no_telpon ?></td>
                                             <td><?php echo $area ?></td>
                                             <td><button type="button" id="hapus" name="hapus" class="btn btn-danger btn-xs hapus_data" data-toggle="modal" data-target="#modal-hapus"><i class="fa fa-trash"></i></button>
+                                                <!-- Modal hapus Teknisi -->
+                                                <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+                                                    <div class="modal-dialog" role="documnet">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                                                                <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+
+                                                            </div>
+
+                                                            <form id="form_tambah" method="post" role="form" action="">
+                                                                <div class="modal-body">
+                                                                    <h5>Yakin Anda Akan Menghapus Data?</h5>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                                                                    <a class="btn btn-primary" href="hapus_teknisi.php?nik=<?php echo $nik ?>">Ya</a>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Modal Hapus Teknisi -->
                                                 <a href="update_teknisi.php?nik=<?php echo $nik ?>"><button type="button" id="ubah" name="ubah" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button></a>
                                             </td>
                                         </tr>
@@ -121,7 +144,6 @@ if (isset($_SESSION['login'])) {
     </div>
 
     <!-- Modal Tambah Teknisi -->
-
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
@@ -173,30 +195,6 @@ if (isset($_SESSION['login'])) {
         </div>
     </div>
     <!-- /Modal Tambah Teknisi -->
-
-    <!-- Modal hapus Teknisi -->
-    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
-        <div class="modal-dialog" role="documnet">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
-
-                </div>
-
-                <form id="form_tambah" method="post" role="form" action="">
-                    <div class="modal-body">
-                        <h5>Yakin Anda Akan Menghapus Data?</h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <a class="btn btn-primary" href="hapus_teknisi.php?nik=<?php echo $nik ?>">Ya</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- /Modal Hapus Teknisi -->
 
 
     <!-- NProgress -->
