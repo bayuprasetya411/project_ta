@@ -1,7 +1,6 @@
 <?php
 session_start();
 if (isset($_SESSION['login'])) {
-
     ?>
 
     <!DOCTYPE html>
@@ -266,12 +265,10 @@ if (isset($_SESSION['login'])) {
                         success: function(data) {
                             $('#form_tambah')[0].reset();
                             $('#modal-input').modal('hide');
-
                         }
 
                     });
                 }
-
             });
         });
     </script>

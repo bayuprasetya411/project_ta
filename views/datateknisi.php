@@ -32,7 +32,6 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <link href="../assets/build/css/style.css" rel="stylesheet">
 
     </head>
 
@@ -106,7 +105,7 @@ if (isset($_SESSION['login'])) {
 
                                                             </div>
 
-                                                            <form id="form_tambah" method="post" role="form" action="">
+                                                            <form id="form_hapus" method="post" role="form" action="">
                                                                 <div class="modal-body">
                                                                     <h5>Yakin Anda Akan Menghapus Data?</h5>
                                                                 </div>
@@ -154,8 +153,8 @@ if (isset($_SESSION['login'])) {
                 </div>
 
                 <form id="form_tambah" method="post" role="form" action="">
-                    <div class="modal-body">
-                        <div class="form-group" id="tabel_tambah">
+                    <div class="modal-body" id="tabel_tambah">
+                        <div class="form-group">
                             <label class="control-label" for="nik">Nik Karyawan</label>
                             <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" autofocus="autofocus" />
                         </div>
@@ -215,16 +214,13 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
-
-
     <script>
         // Script tambah teknisi
         $(document).ready(function() {
 
             $('#form_tambah').on('submit', function(event) {
                 event.preventDefault();
-
-                if ($('#nik').val() == '') {
+                if ($('#nik').val() == "") {
                     alert('Data Nik Tidak Boleh Kosong!!!');
                 } else if ($('#nama').val() == "") {
                     alert('Data Nama Tidak Boleh Kosong!!!');
