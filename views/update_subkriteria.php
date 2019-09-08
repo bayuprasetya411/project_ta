@@ -29,14 +29,14 @@ if (isset($_POST['edit_id_subkriteria'])) {
                 <div class='col-sm-4'>
                     <label> Nama Sub Kriteria </label>
                     <div class="form-group">
-                        <input type='text' class="form-control" name="nama_sub_kriteria[<?php echo $i ?>]" id="nama_sub_kriteria" value="<?php echo $row['nama_sub_kriteria'] ?>" autofocus />
+                        <input type='text' class="form-control" name="nama_sub_kriteria[<?php echo $i ?>]" id="nama_sub_kriteria" value="<?php echo $row['nama_sub_kriteria'] ?>" required autofocus />
                     </div>
                 </div>
 
                 <div class='col-sm-4'>
                     <label> Nilai Sub Kriteria</label>
                     <div class="form-group">
-                        <input type='text' name="nilai_sub_kriteria[<?php echo $i ?>]" id="nilai_sub_kriteria" class="form-control" value="<?php echo $row['nilai_sub_kriteria'] ?>" />
+                        <input type='text' name="nilai_sub_kriteria[<?php echo $i ?>]" id="nilai_sub_kriteria" class="form-control" value="<?php echo $row['nilai_sub_kriteria'] ?>" required />
                     </div>
                 </div>
 

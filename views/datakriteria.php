@@ -385,7 +385,7 @@ if (isset($_SESSION['login'])) {
 
                 var get_id_kriteria = $(this).attr('id');
                 $.ajax({
-                    url: "get_datasubkriteria.php",
+                    url: "tambah_subkriteria.php",
                     method: "POST",
                     data: {
                         get_id_kriteria: get_id_kriteria

@@ -2,6 +2,50 @@
 session_start();
 if (isset($_SESSION['login'])) {
 
+    include('../config/koneksi.php');
+
+    // aksi tambah teknisi
+    if (isset($_POST['tambah'])) {
+
+        $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
+        $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
+        $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
+        $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
+        $querytambah = "INSERT INTO tb_teknisi (nik, nama, no_telpon, id_area) VALUES ('$nik','$nama','$no_telpon','$id_area')";
+        $insert = mysqli_query($conn, $querytambah);
+
+        if ($insert) {
+            echo "<script>window.alert('Data Berhasil Disimpan');
+                            window.location=(href='datateknisi.php')</script>";
+        } else {
+            echo "<script>window.alert('Data Gagal Disimpan');
+                window.location=(href='datateknisi.php')</script>";
+        }
+    }
+    // aksi tambah teknisi
+
+    // aksi ubah teknisi
+    if (isset($_POST['ubah'])) {
+        $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
+        $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
+        $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
+        $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
+        $sql = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
+        $update = mysqli_query($conn, $sql);
+        if ($update) {
+            echo "<script>
+            window.alert('Data Berhasil Diubah');
+            window.location = (href = 'datateknisi.php')
+        </script>";
+        } else {
+            echo "<script>
+            window.alert('Data Gagal Diubah');
+            window.location = (href = 'update_teknisi.php?nik=" . $nik . "');
+        </script>";
+        }
+    }
+    // aksi ubah teknisi
+
     ?>
 
     <!DOCTYPE html>
@@ -36,9 +80,7 @@ if (isset($_SESSION['login'])) {
     </head>
 
     <!-- header -->
-    <?php include('header.php');
-        include('../config/koneksi.php');
-        ?>
+    <?php include('header.php'); ?>
 
     <!-- page content -->
     <div class="right_col" role="main">
@@ -118,7 +160,7 @@ if (isset($_SESSION['login'])) {
                                                     </div>
                                                 </div>
                                                 <!-- /Modal Hapus Teknisi -->
-                                                <a href="update_teknisi.php?nik=<?php echo $nik ?>"><button type="button" id="ubah" name="ubah" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button></a>
+                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button>
                                             </td>
                                         </tr>
                                     <?php
@@ -126,7 +168,6 @@ if (isset($_SESSION['login'])) {
                                         ?>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -156,12 +197,12 @@ if (isset($_SESSION['login'])) {
                     <div class="modal-body" id="tabel_tambah">
                         <div class="form-group">
                             <label class="control-label" for="nik">Nik Karyawan</label>
-                            <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" autofocus="autofocus" />
+                            <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" required autofocus="autofocus" />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama">Nama Karyawan</label>
-                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Karyawan">
+                            <input type="text" name="nama" class="form-control" id="nama" required placeholder="Nama Karyawan">
                         </div>
 
                         <?php
@@ -180,20 +221,43 @@ if (isset($_SESSION['login'])) {
 
                         <div class="form-group">
                             <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxx)</label>
-                            <input type="number" name="no_telpon" class="form-control" id="no_telpon" placeholder="Notel Karyawan">
+                            <input type="number" name="no_telpon" class="form-control" id="no_telpon" required placeholder="Notel Karyawan">
                         </div>
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- /Modal Tambah Teknisi -->
+
+    <!-- Modal ubah Teknisi -->
+    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modaliedit">Ubah Data Teknisi</h2>
+                </div>
+
+                <form id="form_edit" method="post" role="form" action="">
+                    <div class="modal-body" id="info-teknisi">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="ubah" class="btn btn-primary" id="ubah">Ubah</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal ubah Teknisi -->
 
 
     <!-- NProgress -->
@@ -214,36 +278,30 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+
     <script>
-        // Script tambah teknisi
+        // Script ubah teknisi
         $(document).ready(function() {
 
-            $('#form_tambah').on('submit', function(event) {
-                event.preventDefault();
-                if ($('#nik').val() == "") {
-                    alert('Data Nik Tidak Boleh Kosong!!!');
-                } else if ($('#nama').val() == "") {
-                    alert('Data Nama Tidak Boleh Kosong!!!');
-                } else if ($('#id_area').val() == "Pilih Area") {
-                    alert('Pilih Data Area!!!');
-                } else if ($('#no_telpon').val() == "") {
-                    alert('Data No Telpon Tidak Boleh Kosong!!!');
-                } else {
-                    $.ajax({
-                        url: "tambahteknisi.php",
-                        type: "POST",
-                        data: $('#form_tambah').serialize(),
-                        success: function(data) {
-                            $('#form_tambah')[0].reset();
-                            $('#modal-input').modal('hide');
-                            $('#tabel_tambah').html(data);
-                        }
-                    });
-                }
+            $(document).on('click', '.ubah_data', function() {
+
+                var edit_nik = $(this).attr('id');
+                $.ajax({
+                    url: "update_teknisi.php",
+                    method: "POST",
+                    data: {
+                        edit_nik: edit_nik
+                    },
+                    success: function(data) {
+                        $("#info-teknisi").html(data);
+                        $("#modal-edit").modal("show");
+                    }
+                });
+
             });
 
         });
-        // end Script tambah teknisi
+        // end Script ubah teknisi
     </script>
 
 <?php
