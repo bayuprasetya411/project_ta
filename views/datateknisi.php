@@ -46,6 +46,26 @@ if (isset($_SESSION['login'])) {
     }
     // aksi ubah teknisi
 
+    // aksi hapus teknisi
+    if (isset($_POST['hapus'])) {
+        $nik = $_POST['nik'];
+        $query_deleted = "DELETE FROM tb_teknisi WHERE nik ='$nik'";
+        $deleted = mysqli_query($conn, $query_deleted);
+
+        if ($deleted) {
+            echo "<script>
+        alert('Data Berhasil Terhapus');
+            window.location=(href='datateknisi.php')
+        </script>";
+        } else {
+            echo "<script>
+        alert('Data Gagal Terhapus');
+            window.location=(href='datateknisi.php')
+        </script>";
+        }
+    }
+    // aksi hapus teknisi
+
     ?>
 
     <!DOCTYPE html>
@@ -76,6 +96,8 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
+        <link href="../assets/build/css/style.css" rel="stylesheet">
+
 
     </head>
 
@@ -136,31 +158,9 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $nama ?></td>
                                             <td><?php echo $no_telpon ?></td>
                                             <td><?php echo $area ?></td>
-                                            <td><button type="button" id="hapus" name="hapus" class="btn btn-danger btn-xs hapus_data" data-toggle="modal" data-target="#modal-hapus"><i class="fa fa-trash"></i></button>
-                                                <!-- Modal hapus Teknisi -->
-                                                <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
-                                                    <div class="modal-dialog" role="documnet">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                                                                <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button>
+                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
 
-                                                            </div>
-
-                                                            <form id="form_hapus" method="post" role="form" action="">
-                                                                <div class="modal-body">
-                                                                    <h5>Yakin Anda Akan Menghapus Data?</h5>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                                                                    <a class="btn btn-primary" href="hapus_teknisi.php?nik=<?php echo $nik ?>">Ya</a>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Modal Hapus Teknisi -->
-                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button>
                                             </td>
                                         </tr>
                                     <?php
@@ -259,6 +259,30 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal ubah Teknisi -->
 
+    <!-- Modal hapus Teknisi -->
+    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+
+                </div>
+
+                <form id="form_hapus" method="post" role="form" action="">
+                    <div class="modal-body" id="info_hapus">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="hapus" class="btn btn-primary" id="hapus">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal Hapus Teknisi -->
+
 
     <!-- NProgress -->
     <script src="../assets/vendors/nprogress/nprogress.js"></script>
@@ -280,9 +304,9 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/build/js/custom.min.js"></script>
 
     <script>
-        // Script ubah teknisi
         $(document).ready(function() {
 
+            // Script ubah teknisi
             $(document).on('click', '.ubah_data', function() {
 
                 var edit_nik = $(this).attr('id');
@@ -299,9 +323,27 @@ if (isset($_SESSION['login'])) {
                 });
 
             });
+            // Script ubah teknisi
 
+            // Script hapus teknisi
+            $(document).on('click', '.hapus_data', function() {
+
+                var hapus_nik = $(this).attr('id');
+                $.ajax({
+                    url: "hapus_teknisi.php",
+                    method: "POST",
+                    data: {
+                        hapus_nik: hapus_nik
+                    },
+                    success: function(data) {
+                        $("#info_hapus").html(data);
+                        $("#modal-hapus").modal("show");
+                    }
+                });
+
+            });
+            // Script hapus teknisi
         });
-        // end Script ubah teknisi
     </script>
 
 <?php

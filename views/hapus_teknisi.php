@@ -2,14 +2,14 @@
 
 include('../config/koneksi.php');
 
-$nik = $_GET['nik'];
-$query = "DELETE FROM tb_teknisi WHERE nik ='$nik'";
-$deleted = mysqli_query($conn, $query);
-
-if ($deleted) {
-    echo "<script>alert('Data Berhasil Terhapus');
-    window.location=(href='datateknisi.php')</script>";
-} else {
-    echo "<script>alert('Data Gagal Terhapus');
-    window.location=(href='update_teknisi.php')</script>";
+if (isset($_POST['hapus_nik'])) {
+    $hapus_nik = $_POST['hapus_nik'];
+    $query = "SELECT *  FROM tb_teknisi WHERE nik = '$hapus_nik' ";
+    $result = mysqli_query($conn, $query);
+    while ($row = mysqli_fetch_array($result)) {
+        $nik = $row['nik'];
+    }
 }
+?>
+<input type="hidden" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" value="<?php echo $nik ?>" required autofocus="autofocus" />
+<h5>Yakin Anda Akan Menghapus Data?</h5>
