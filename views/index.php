@@ -75,11 +75,11 @@ if (isset($_SESSION['login'])) {
             </div>
           </div>
 
-          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardsub">
+          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardperangkingan">
             <div class="tile-stats">
-              <div class="icon"><i class="fa fa-bars"></i></div>
+              <div class="icon"><i class="fa fa-trophy"></i></div>
               <div class="count">0</div>
-              <h3>Jumlah Sub Kriteria</h3>
+              <h3>Hasil Perangkingan</h3>
               <p><a href="datasubkriteria.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
             </div>
           </div>

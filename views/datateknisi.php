@@ -190,7 +190,6 @@ if (isset($_SESSION['login'])) {
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
                     <h2 class="modal-title" id="modalinput">Tambah Data Teknisi</h2>
-
                 </div>
 
                 <form id="form_tambah" method="post" role="form" action="">
@@ -266,7 +265,6 @@ if (isset($_SESSION['login'])) {
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
                     <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
-
                 </div>
 
                 <form id="form_hapus" method="post" role="form" action="">

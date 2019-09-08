@@ -304,7 +304,7 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Tambah</button>
+                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Simpan</button>
                     </div>
 
                 </form>
