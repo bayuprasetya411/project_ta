@@ -1,6 +1,111 @@
 <?php
 session_start();
 if (isset($_SESSION['login'])) {
+
+    include('../config/koneksi.php');
+
+    // aksi tambah kriteria
+    if (isset($_POST['tambah_kriteria'])) {
+
+        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+        $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
+        $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+
+        if ($_POST['bobot_kriteria'] <= 100) {
+
+            $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
+            $insert = mysqli_query($conn, $querytambah);
+            if ($insert) {
+                echo "<script> window.alert('Data Berhasil Disimpan');
+                            window.location=(href='datakriteria.php') </script>";
+            } else {
+                echo "<script> window.alert('Data Gagal Disimpan');
+                window.location=(href='datakriteria.php') </script>";
+            }
+        } else {
+            echo "<script> window.alert('bobot kriteria maksimal 100');
+            window.location=(href='datakriteria.php'); </script>";
+        }
+    }
+    // aksi tambah kriteria
+
+    // aksi ubah kriteria
+    if (isset($_POST['edit_kriteria'])) {
+
+        if ($_POST['bobot_kriteria'] <= 100) {
+            $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+            $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
+            $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+            $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
+            $update = mysqli_query($conn, $sql);
+            if ($update) {
+                echo "<script>window.alert('Data Berhasil Diubah');
+                        window.location=(href='datakriteria.php')</script>";
+            } else {
+                echo "<script>window.alert('Data Gagal Diubah');
+                window.location=(href='datakriteria.php')</script>";
+            }
+        } else {
+            echo "<script> window.alert('bobot kriteria maksimal 100');
+            window.location=(href='datakriteria.php') </script>";
+        }
+    }
+    // aksi ubah kriteria
+
+    // aksi tambah sub Kriteria
+    if (isset($_POST['tambah_sub'])) {
+        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
+        $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
+        $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
+
+        if ($nilai_sub_kriteria <= 100) {
+
+
+            $query_tambah = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
+            $tambah = mysqli_query($conn, $query_tambah);
+            if ($tambah) {
+                echo "<script>
+                alert('Data Berhasil di Simpan');
+                window.location = (href = 'datakriteria.php');
+                </script>";
+            } else {
+                echo "<script>
+                alert('Data Gagal Diubah');
+                window.location = (href = 'datakriteria.php')
+                </script>";
+            }
+        } else {
+            echo "<script>
+        alert('Nilai Sub Kriteria Maksimal 100');
+        window.location = (href = 'datakriteria.php')
+        </script>";
+        }
+    }
+    // aksi tambah sub Kriteria
+
+    // aksi ubah sub kriteria
+    if (isset($_POST['edit_subkriteria'])) {
+        for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
+
+            $id_kriteria =  $_POST["id_kriteria"][$i];
+            $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
+            $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
+            $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
+            $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
+            $ubah = mysqli_query($conn, $query_ubah);
+        }
+        if ($ubah) {
+            echo "<script>  window.alert('Data Berhasil di Ubah');
+            window.location = (href = 'datakriteria.php');
+                </script>";
+        } else {
+            echo "<script>
+                    window.alert('Data Gagal di Ubah');
+                    window.location = (href = 'datakriteria.php');
+            </script>";
+        }
+    }
+    // aksi ubah sub kriteria
     ?>
 
     <!DOCTYPE html>
@@ -27,10 +132,7 @@ if (isset($_SESSION['login'])) {
     </head>
 
     <!-- header -->
-    <?php
-        include('../config/koneksi.php');
-        include('header.php');
-        ?>
+    <?php include('header.php'); ?>
 
     <!-- Page Content -->
 
@@ -82,15 +184,10 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $data['nama_kriteria']; ?></td>
                                             <td><?php echo $data['bobot_kriteria']; ?></td>
                                             <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
-                                            <td><a href="update_kriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
-                                                    <button type="button" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
-                                                </a>
-                                                <a href="tambah_subkriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
-                                                    <button type="button" class="btn btn-success btn-xs tambahsub_data"><i class="fa fa-plus"></i></button>
-                                                </a>
-                                                <a href="datasubkriteria.php?id_kriteria=<?php echo $data['id_kriteria']; ?>">
-                                                    <button type="button" class="btn btn-warning btn-xs detail_data"><i class="fa fa-book"></i></button>
-                                                </a>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-xs edit_datakriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i></button>
+                                                <button type="button" class="btn btn-success btn-xs tambahsub_data" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-warning btn-xs detail_datasubkriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-book"></i></button>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -104,9 +201,11 @@ if (isset($_SESSION['login'])) {
             <!--/Page Content -->
         </div>
     </div>
+    <!-- Footer -->
     <?php include('footer.php'); ?>
     </div>
     <!-- /menu content -->
+
 
     <!-- Modal Tambah kriteria -->
     <?php
@@ -137,89 +236,106 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_kriteria">
                                 ID Kriteria
                             </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required="" readonly />
+                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required readonly />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama_kriteria">
                                 Nama Kriteria
                             </label>
-                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" autofocus="" />
+                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" required autofocus="" />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="bobot_kriteria">
                                 Bobot Kriteria
                             </label>
-                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" placeholder="Bobot Kriteria (1-100)">
+                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" required placeholder="Bobot Kriteria (1-100)">
                         </div>
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
+                        <button type="submit" name="tambah_kriteria" class="btn btn-primary" id="tambah">Simpan</button>
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <!-- /Modal Tambah kriteria -->
 
-    <!-- Modal Data Subkriteria -->
-
-    <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <!-- Modal edit kriteria -->
+    <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Ubah Data Sub Kriteria</h2>
+                    <h2 class="modal-title" id="modaleditkriteria">Ubah Data Kriteria</h2>
 
                 </div>
 
-                <form id="form_tambah" method="post" role="form" action="">
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
+                <form id="form_edit_kriteria" method="post" role="form" action="">
+                    <div class="modal-body" id="info-editkriteria">
 
-                                <input type='hidden' class="form-control" name="id_sub_kriteria" id="id_sub_kriteria" />
-
-                                <div class='col-sm-4'>
-                                    <label> Nama Kriteria </label>
-                                    <div class="form-group">
-                                        <input type='text' class="form-control" name="id_kriteria" id="id_kriteria" readonly />
-                                    </div>
-                                </div>
-
-                                <div class='col-sm-4'>
-                                    <label> Nama Sub Kriteria </label>
-                                    <div class="form-group">
-                                        <input type='text' class="form-control" name="nama_sub_kriteria" id="nama_sub_kriteria" autofocus required />
-                                    </div>
-                                </div>
-
-                                <div class='col-sm-4'>
-                                    <label> Nilai Sub Kriteria</label>
-                                    <div class="form-group">
-                                        <input type='text' name="nilai_sub_kriteria" id="nilai_sub_kriteria" class="form-control" required />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Ubah</button>
+                        <button type="submit" name="edit_kriteria" class="btn btn-primary" id="edit_kriteria">Ubah</button>
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- /Modal edit kriteria -->
 
     <!-- Modal Data Subkriteria -->
+    <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+        <div class="modal-dialog" role="documnet" id="info-sub">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modalinput">Tambah Data Sub Kriteria</h2>
+                </div>
+                <form id="form_tambah_sub" method="post" role="form" action="">
+                    <div class="modal-body" id="info-subkriteria">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Tambah</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Data Subkriteria -->
+
+    <!-- Modal edit subkriteria -->
+    <div id="modal-edit-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modaledit">Ubah Data Sub Kriteria</h2>
+
+                </div>
+
+                <form id="form_edit_subkriteria" method="post" role="form" action="">
+                    <div class="modal-body" id="info-editsub">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="edit_subkriteria" class="btn btn-primary" id="edit_subkriteria">Ubah</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal edit subkriteria -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -248,27 +364,55 @@ if (isset($_SESSION['login'])) {
     <script>
         $(document).ready(function() {
 
-            $('#form_tambah').on('submit', function(event) {
-                event.preventDefault();
-                if ($('#id_kriteria').val() == "") {
-                    alert('Data Id Kriteria Tidak Boleh Kosong!!!');
+            $(document).on('click', '.edit_datakriteria', function() {
 
-                } else if ($('#nama_kriteria').val() == '') {
-                    alert('Data Nama Kriteria Tidak Boleh Kosong!!!');
-                } else if ($('#bobot_kriteria').val() == '') {
-                    alert('Data Bobot Kriteria Tidak Boleh Kosong !!!');
-                } else {
-                    $.ajax({
-                        url: "tambah_kriteria.php",
-                        method: "POST",
-                        data: $('#form_tambah').serialize(),
-                        success: function(data) {
-                            $('#form_tambah')[0].reset();
-                            $('#modal-input').modal('hide');
-                        }
+                var edit_id_kriteria = $(this).attr('id');
+                $.ajax({
+                    url: "update_kriteria.php",
+                    method: "POST",
+                    data: {
+                        edit_id_kriteria: edit_id_kriteria
+                    },
+                    success: function(data) {
+                        $("#info-editkriteria").html(data);
+                        $("#modal-edit-kriteria").modal("show");
+                    }
+                });
 
-                    });
-                }
+            });
+
+            $(document).on('click', '.tambahsub_data', function() {
+
+                var get_id_kriteria = $(this).attr('id');
+                $.ajax({
+                    url: "get_datasubkriteria.php",
+                    method: "POST",
+                    data: {
+                        get_id_kriteria: get_id_kriteria
+                    },
+                    success: function(data) {
+                        $("#info-subkriteria").html(data);
+                        $("#modal-subkriteria").modal("show");
+                    }
+                });
+
+            });
+
+            $(document).on('click', '.detail_datasubkriteria', function() {
+
+                var edit_id_subkriteria = $(this).attr('id');
+                $.ajax({
+                    url: "update_subkriteria.php",
+                    method: "POST",
+                    data: {
+                        edit_id_subkriteria: edit_id_subkriteria
+                    },
+                    success: function(data) {
+                        $("#info-editsub").html(data);
+                        $("#modal-edit-subkriteria").modal("show");
+                    }
+                });
+
             });
         });
     </script>
