@@ -2,6 +2,12 @@
 session_start();
 if (isset($_SESSION['login'])) {
 
+    include('../config/koneksi.php');
+
+    // aksi tambah data nilai
+
+    // aksi tambah data nilai
+
     ?>
 
     <!DOCTYPE html>
@@ -32,13 +38,10 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-
     </head>
 
     <!-- header -->
-    <?php include('header.php');
-        include('../config/koneksi.php');
-        ?>
+    <?php include('header.php'); ?>
 
     <!-- page content -->
     <div class="right_col" role="main">

@@ -36,7 +36,7 @@ if (isset($_POST['edit_id_subkriteria'])) {
                 <div class='col-sm-4'>
                     <label> Nilai Sub Kriteria</label>
                     <div class="form-group">
-                        <input type='text' name="nilai_sub_kriteria[<?php echo $i ?>]" id="nilai_sub_kriteria" class="form-control" value="<?php echo $row['nilai_sub_kriteria'] ?>" required />
+                        <input type='text' name="nilai_sub_kriteria[<?php echo $i ?>]" id="nilai_sub_kriteria" class="form-control" value="<?php echo $row['nilai_sub_kriteria'] ?>" placeholder="Nilai Maksimal 100" required />
                     </div>
                 </div>
 
