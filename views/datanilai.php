@@ -14,7 +14,7 @@ if (isset($_SESSION['login'])) {
                 $id_kriteria = $data['id_kriteria'];
                 $kri = $_POST['kri'][$id_kriteria];
                 $subkri = $_POST['subkri'][$id_kriteria];
-                $query_tambah = "INSERT INTO tb_nilai (id_nilai, nik, id_kriteria, periode, nilai_ultility ) VALUE ('','$nik','$kri','$periode','$subkri')";
+                $query_tambah = "INSERT INTO tb_nilai (id_nilai, nik, id_kriteria, periode, id_sub_kriteria ) VALUE ('','$nik','$kri','$periode','$subkri')";
                 $tambah = mysqli_query($conn, $query_tambah);
                 if ($tambah) {
                     echo "<script>window.alert('Data Berhasil Disimpan');
@@ -25,8 +25,6 @@ if (isset($_SESSION['login'])) {
                 }
             }
         }
-
-        $query = "INSERT INTO tb_nilai (id_nilai, nik) ";
     }
     // aksi tambah data nilai
 
@@ -108,23 +106,42 @@ if (isset($_SESSION['login'])) {
                                 </thead>
 
                                 <tbody>
-                                    <?php
 
-                                        $query_nilai = mysqli_query($conn, "SELECT tb_nilai.id_nilai, tb_teknisi.nama, tb_nilai.id_kriteria, tb_nilai.periode, tb_nilai.nilai_ultility, tb_nilai.nik FROM `tb_nilai` 
-                                        INNER JOIN tb_teknisi
-                                        on tb_nilai.nik = tb_teknisi.nik");
-                                        while ($row2 = mysqli_fetch_array($query_nilai)) { ?>
-                                        <tr>
+                                    <tr>
+                                        <?php
+                                            $query_nilai = mysqli_query($conn, "SELECT tb_nilai.id_nilai, tb_teknisi.nama, tb_nilai.id_kriteria, tb_nilai.periode, tb_nilai.id_sub_kriteria , tb_nilai.nik FROM `tb_nilai` 
+                                            INNER JOIN tb_teknisi
+                                            on tb_nilai.nik = tb_teknisi.nik
+                                            INNER JOIN tb_subkriteria
+                                            on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria");
+                                            while ($row2 = mysqli_fetch_array($query_nilai)) {
+                                                $nik = $row2['nik'];
+                                                $nama = $row2['nama']; ?>
 
-                                            <td><?php echo $row2['nama'] ?></td>
+                                            <td><?php echo $nama ?></td>
+
                                             <?php
                                                     $kriteria1 = mysqli_query($conn, "SELECT * FROM tb_kriteria");
-                                                    while ($row4 = mysqli_fetch_array($kriteria1)) { ?>
+                                                    while ($row4 = mysqli_fetch_array($kriteria1)) {
+                                                        $id_kriteria1 = $row4['id_kriteria'] ?>
                                                 <td>
                                                     <?php
-                                                                $query_nilai_ultility = mysqli_query($conn, "SELECT * FROM `tb_nilai` WHERE id_kriteria = '" . $row4['id_kriteria'] . "'and '" . $row2['nik'] . "'");
+                                                                $query_nilai_ultility = mysqli_query($conn, "SELECT tb_nilai.id_kriteria, tb_nilai.nik ,tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
+                                                                INNER JOIN tb_subkriteria
+                                                                on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                                                WHERE tb_nilai.id_kriteria = '$id_kriteria1'  and tb_nilai.nik = $nik ");
+
+                                                                // echo "<pre>";
+                                                                // print_r(mysqli_query($conn, "SELECT tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
+                                                                // INNER JOIN tb_subkriteria
+                                                                // on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                                                // WHERE id_kriteria = '" . $row4['id_kriteria'] . "'and nik = '" . $row2['nik'] . "'"));
+                                                                // echo "</pre>";
+
+                                                                // exit();
+
                                                                 while ($row3 = mysqli_fetch_array($query_nilai_ultility)) {
-                                                                    echo $row3['nilai_ultility'];
+                                                                    echo $row3['nilai_sub_kriteria'];
                                                                 }
                                                                 ?>
                                                 </td>
@@ -133,9 +150,9 @@ if (isset($_SESSION['login'])) {
                                             <td><button type="button" id="" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
                                                 <button type="button" id="" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
                                             </td>
+                                    </tr>
+                                <?php } ?>
 
-                                        </tr>
-                                    <?php } ?>
                                 </tbody>
                             </table>
 
@@ -207,7 +224,7 @@ if (isset($_SESSION['login'])) {
                                             $result_subkriteria = mysqli_query($conn, $query_subkriteria);
                                             while ($data = mysqli_fetch_array($result_subkriteria)) {
                                                 ?>
-                                        <option value="<?php echo $data['nilai_sub_kriteria'] ?>"> <?php echo $data['nama_sub_kriteria'] ?></option>
+                                        <option value="<?php echo $data['id_sub_kriteria'] ?>"> <?php echo $data['nama_sub_kriteria'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
