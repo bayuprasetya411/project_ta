@@ -5,7 +5,29 @@ if (isset($_SESSION['login'])) {
     include('../config/koneksi.php');
 
     // aksi tambah data nilai
+    if (isset($_POST['tambah'])) {
+        $periode = $_POST['periode'];
+        $nik = $_POST['nik'];
+        $query_sub = mysqli_query($conn, "SELECT *FROM tb_kriteria");
+        while ($data = mysqli_fetch_array($query_sub)) {
+            if ($data['id_kriteria'] == true) {
+                $id_kriteria = $data['id_kriteria'];
+                $kri = $_POST['kri'][$id_kriteria];
+                $subkri = $_POST['subkri'][$id_kriteria];
+                $query_tambah = "INSERT INTO tb_nilai (id_nilai, nik, id_kriteria, periode, nilai_ultility ) VALUE ('','$nik','$kri','$periode','$subkri')";
+                $tambah = mysqli_query($conn, $query_tambah);
+                if ($tambah) {
+                    echo "<script>window.alert('Data Berhasil Disimpan');
+                    window.location=(href='datanilai.php')</script>";
+                } else {
+                    echo "<script>window.alert('Data Gagal Disimpan');
+                    window.location=(href='datanilai.php')</script>";
+                }
+            }
+        }
 
+        $query = "INSERT INTO tb_nilai (id_nilai, nik) ";
+    }
     // aksi tambah data nilai
 
     ?>
@@ -75,27 +97,45 @@ if (isset($_SESSION['login'])) {
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>Presensi</th>
-                                        <th>Disiplin</th>
-                                        <th>Produktifitas</th>
-                                        <th>Gaul</th>
+                                        <?php
+                                            $kriteria = mysqli_query($conn, "SELECT * FROM tb_kriteria");
+                                            while ($row1 = mysqli_fetch_array($kriteria)) { ?>
+                                            <th><?php echo $row1['nama_kriteria'] ?></th>
+                                        <?php } ?>
                                         <th>Periode</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td>I Gede Suartama</td>
-                                        <td>100</td>
-                                        <td>80</td>
-                                        <td>65</td>
-                                        <td>0</td>
-                                        <td>Maret-2019</td>
-                                        <td><button type="button" id="" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
-                                            <button type="button" id="" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    <?php
+
+                                        $query_nilai = mysqli_query($conn, "SELECT tb_nilai.id_nilai, tb_teknisi.nama, tb_nilai.id_kriteria, tb_nilai.periode, tb_nilai.nilai_ultility, tb_nilai.nik FROM `tb_nilai` 
+                                        INNER JOIN tb_teknisi
+                                        on tb_nilai.nik = tb_teknisi.nik");
+                                        while ($row2 = mysqli_fetch_array($query_nilai)) { ?>
+                                        <tr>
+
+                                            <td><?php echo $row2['nama'] ?></td>
+                                            <?php
+                                                    $kriteria1 = mysqli_query($conn, "SELECT * FROM tb_kriteria");
+                                                    while ($row4 = mysqli_fetch_array($kriteria1)) { ?>
+                                                <td>
+                                                    <?php
+                                                                $query_nilai_ultility = mysqli_query($conn, "SELECT * FROM `tb_nilai` WHERE id_kriteria = '" . $row4['id_kriteria'] . "'and '" . $row2['nik'] . "'");
+                                                                while ($row3 = mysqli_fetch_array($query_nilai_ultility)) {
+                                                                    echo $row3['nilai_ultility'];
+                                                                }
+                                                                ?>
+                                                </td>
+                                            <?php } ?>
+                                            <td><?php echo $row2['periode'] ?></td>
+                                            <td><button type="button" id="" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
+                                                <button type="button" id="" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
+                                            </td>
+
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
 
@@ -156,10 +196,11 @@ if (isset($_SESSION['login'])) {
                             while ($row = mysqli_fetch_array($result_kriteria)) {
                                 ?>
                             <div class="form-group">
-                                <label class="control-label" for="id_sub_kriteria">
+                                <label class="control-label" for="id_kriteria">
+                                    <input type="hidden" name="kri[<?php echo $row['id_kriteria'] ?>]" value="<?php echo $row['id_kriteria'] ?>">
                                     <?php echo $row['nama_kriteria'] ?>
                                 </label>
-                                <select name="kriteria[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
+                                <select name="subkri[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
                                     <option>Pilih Sub Kriteria</option>
                                     <?php
                                             $query_subkriteria = "SELECT * FROM tb_subkriteria where id_kriteria ='" . $row['id_kriteria'] . "'";
