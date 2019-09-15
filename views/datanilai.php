@@ -125,17 +125,24 @@ if (isset($_SESSION['login'])) {
                                                     while ($row4 = mysqli_fetch_array($kriteria1)) {
                                                         $id_kriteria1 = $row4['id_kriteria'] ?>
                                                 <td>
-                                                    <?php
-                                                                $query_nilai_ultility = mysqli_query($conn, "SELECT tb_nilai.id_kriteria, tb_nilai.nik ,tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
+                                                    <?php $raw_query =  "SELECT tb_nilai.id_kriteria, tb_nilai.nik ,tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
                                                                 INNER JOIN tb_subkriteria
                                                                 on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                                                WHERE tb_nilai.id_kriteria = '$id_kriteria1'  and tb_nilai.nik = $nik ");
+                                                                WHERE tb_nilai.id_kriteria = '$id_kriteria1'  and tb_nilai.nik = $nik ";
+                                                                $query_nilai_ultility = mysqli_query($conn, $raw_query);
 
                                                                 // echo "<pre>";
                                                                 // print_r(mysqli_query($conn, "SELECT tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
                                                                 // INNER JOIN tb_subkriteria
                                                                 // on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
                                                                 // WHERE id_kriteria = '" . $row4['id_kriteria'] . "'and nik = '" . $row2['nik'] . "'"));
+                                                                // echo "</pre>";
+
+                                                                // exit();
+
+                                                                // echo "<pre>";
+                                                                // echo  $raw_query;
+                                                                // // print_r(mysqli_fetch_array($query_nilai_ultility));
                                                                 // echo "</pre>";
 
                                                                 // exit();
@@ -147,8 +154,8 @@ if (isset($_SESSION['login'])) {
                                                 </td>
                                             <?php } ?>
                                             <td><?php echo $row2['periode'] ?></td>
-                                            <td><button type="button" id="" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
-                                                <button type="button" id="" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
+                                            <td><button type="button" id="<?php echo $row2['id_nilai'] ?>" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
+                                                <button type="button" id="<?php echo $row2['id_nilai'] ?>" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
                                             </td>
                                     </tr>
                                 <?php } ?>
@@ -172,7 +179,6 @@ if (isset($_SESSION['login'])) {
     </div>
 
     <!-- Modal Tambah Nilai -->
-
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
@@ -242,6 +248,32 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Tambah Nilai -->
 
+    <!-- Modal ubah Nilai -->
+    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalubah">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modalubah">Ubah Data Nilai</h2>
+
+                </div>
+
+                <form id="form_ubah" method="post" role="form" action="">
+                    <div class="modal-body" id="info-edit">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="update" class="btn btn-primary" id="update">Ubah</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal ubah Nilai -->
+
 
     <!-- Modal hapus teknisi -->
     <!-- <div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
@@ -287,6 +319,28 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.edit_data', function() {
+                var edit_id_nilai = $(this).attr('id');
+                $.ajax({
+                    url: "update_nilai.php",
+                    method: "POST",
+                    data: {
+                        edit_id_nilai: edit_id_nilai
+                    },
+                    success: function(data) {
+                        $("#info-edit").html(data);
+                        $("#modal-edit").modal("show");
+                    }
+                });
+
+            });
+
+
+        });
+    </script>
 
 
 <?php
