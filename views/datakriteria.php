@@ -361,10 +361,11 @@ if (isset($_SESSION['login'])) {
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
 
-    <!-- script tambah kriteria -->
+
     <script>
         $(document).ready(function() {
 
+            // script edit kriteria
             $(document).on('click', '.edit_datakriteria', function() {
 
                 var edit_id_kriteria = $(this).attr('id');
@@ -381,7 +382,9 @@ if (isset($_SESSION['login'])) {
                 });
 
             });
+            // script edit kriteria
 
+            // script tambah sub kriteria
             $(document).on('click', '.tambahsub_data', function() {
 
                 var get_id_kriteria = $(this).attr('id');
@@ -398,7 +401,9 @@ if (isset($_SESSION['login'])) {
                 });
 
             });
+            // script tambah sub kriteria
 
+            // script detail sub kriteria
             $(document).on('click', '.detail_datasubkriteria', function() {
 
                 var edit_id_subkriteria = $(this).attr('id');
@@ -415,9 +420,9 @@ if (isset($_SESSION['login'])) {
                 });
 
             });
+            // script detail sub kriteria
         });
     </script>
-    <!-- script tambah kriteria -->
 
 <?php
 } else {
