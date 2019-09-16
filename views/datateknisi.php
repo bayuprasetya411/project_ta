@@ -196,12 +196,12 @@ if (isset($_SESSION['login'])) {
                     <div class="modal-body" id="tabel_tambah">
                         <div class="form-group">
                             <label class="control-label" for="nik">Nik Karyawan</label>
-                            <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" required autofocus="autofocus" />
+                            <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" autofocus="autofocus" />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama">Nama Karyawan</label>
-                            <input type="text" name="nama" class="form-control" id="nama" required placeholder="Nama Karyawan">
+                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Karyawan">
                         </div>
 
                         <?php
@@ -211,7 +211,7 @@ if (isset($_SESSION['login'])) {
                         <div class="form-group">
                             <label class="control-label" for="id_area">Area</label>
                             <select name="id_area" class="form-control" id="id_area">
-                                <option>Pilih Area</option>
+                                <option value="0">--- Pilih Area ----</option>
                                 <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
                                     <option value="<?php echo $tampil['id_area']; ?>"><?php echo $tampil['area']; ?></option>
                                 <?php } ?>
@@ -220,7 +220,7 @@ if (isset($_SESSION['login'])) {
 
                         <div class="form-group">
                             <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxx)</label>
-                            <input type="number" name="no_telpon" class="form-control" id="no_telpon" required placeholder="Notel Karyawan">
+                            <input type="number" name="no_telpon" class="form-control" id="no_telpon" placeholder="Notel Karyawan">
                         </div>
 
                     </div>
@@ -249,7 +249,7 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="ubah" class="btn btn-primary" id="ubah">Ubah</button>
+                        <button type="submit" name="ubah" class="btn btn-primary " id="ubah">Ubah</button>
 
                     </div>
                 </form>
@@ -303,6 +303,29 @@ if (isset($_SESSION['login'])) {
 
     <script>
         $(document).ready(function() {
+
+
+            // Script  Validasi
+            $(document).on('click', '#tambah', function() {
+
+                var nik = $('#nik').val();
+                var nama = $('#nama').val();
+                var id_area = $('#id_area').val();
+                var no_telpon = $('#no_telpon').val();
+
+                if (nik == '') {
+                    alert('Maaf , Data Nik Tidak Boleh Kosong');
+                } else if (nama == '') {
+                    alert('Maaf , Data Nama Tidak Boleh Kosong');
+                } else if (id_area == '0') {
+                    alert('Maaf , Pilih Area Kosong');
+                } else if (no_telpon == '') {
+                    alert('Maaf , Data No Telpon Tidak Boleh Kosong');
+                }
+            });
+
+
+            // Script Validasi
 
             // Script ubah teknisi
             $(document).on('click', '.ubah_data', function() {

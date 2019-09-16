@@ -36,6 +36,7 @@ $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC")
         Area
     </label>
     <select name="id_area" class="form-control" aria-controls="dataTable" id="id_area">
+        <option value="0">--- Pilih Area ----</option>
         <?php
         while ($data = mysqli_fetch_array($query_area)) {
             if ($data['id_area'] == $id_area) {
