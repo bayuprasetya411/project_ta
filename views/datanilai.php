@@ -93,7 +93,7 @@ if (isset($_SESSION['login'])) {
                             <div class="input-group col-md-4 col-md-offset-8">
                                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
                                 <select type="submit" name="periode" class="form-control" id="periode">
-                                    <option>Pilih Periode</option>
+                                    <option>-- Pilih Periode --</option>
                                     <option></option>
                                 </select>
                             </div>
@@ -130,8 +130,8 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $nama ?></td>
 
                                             <?php
-                                                    $kriteria1 = mysqli_query($conn, "SELECT * FROM tb_kriteria");
-                                                    while ($row4 = mysqli_fetch_array($kriteria1)) {
+                                                    $query_kriteria1 = mysqli_query($conn, "SELECT * FROM tb_kriteria");
+                                                    while ($row4 = mysqli_fetch_array($query_kriteria1)) {
                                                         $id_kriteria1 = $row4['id_kriteria'] ?>
                                                 <td>
                                                     <?php $raw_query =  "SELECT tb_nilai.id_kriteria, tb_nilai.nik ,tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 

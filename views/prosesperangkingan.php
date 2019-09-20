@@ -117,7 +117,7 @@ if (isset($_SESSION['login'])) {
 
     <!-- /page content -->
 
-    <?php include('footer.php') ?>
+    <?php include('footer.php'); ?>
 
     </div>
     </div>

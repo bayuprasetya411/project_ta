@@ -104,7 +104,7 @@ if (isset($_SESSION['login'])) {
                   <div class="input-group col-md-4 col-md-offset-8">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
                     <select type="submit" name="periode" class="form-control" id="periode">
-                      <option>Pilih Periode</option>
+                      <option>-- Pilih Periode --</option>
                       <option></option>
                     </select>
                   </div>
@@ -144,7 +144,7 @@ if (isset($_SESSION['login'])) {
                 <div class="input-group col-md-4 col-md-offset-8">
                   <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
                   <select type="submit" name="tahun" class="form-control" id="tahun">
-                    <option>Pilih Tahun</option>
+                    <option>-- Pilih Tahun --</option>
                     <option></option>
                   </select>
                 </div>
