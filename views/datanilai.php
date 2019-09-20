@@ -89,6 +89,15 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        <form action="" method="get">
+                            <div class="input-group col-md-4 col-md-offset-8">
+                                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+                                <select type="submit" name="periode" class="form-control" id="periode">
+                                    <option>Pilih Periode</option>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </form>
                         <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -206,7 +215,7 @@ if (isset($_SESSION['login'])) {
                                 Nama Teknisi
                             </label>
                             <select name="nik" class="form-control" aria-controls="dataTable" id="nik" required>
-                                <option>Pilih Teknisi</option>
+                                <option>-- Pilih Teknisi --</option>
                                 <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
                                     <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
                                 <?php } ?>
@@ -224,7 +233,7 @@ if (isset($_SESSION['login'])) {
                                     <?php echo $row['nama_kriteria'] ?>
                                 </label>
                                 <select name="subkri[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
-                                    <option>Pilih Sub Kriteria</option>
+                                    <option>-- Pilih Sub Kriteria --</option>
                                     <?php
                                             $query_subkriteria = "SELECT * FROM tb_subkriteria where id_kriteria ='" . $row['id_kriteria'] . "'";
                                             $result_subkriteria = mysqli_query($conn, $query_subkriteria);

@@ -83,9 +83,9 @@ if (isset($_SESSION['login'])) {
               <p><a href="datasubkriteria.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
             </div>
           </div>
-
           <div class="clearfix"></div>
 
+          <!-- Bar graph -->
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
@@ -103,7 +103,7 @@ if (isset($_SESSION['login'])) {
                 <form action="" method="get">
                   <div class="input-group col-md-4 col-md-offset-8">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <select type="submit" name="tanggal" class="form-control" id="tanggal">
+                    <select type="submit" name="periode" class="form-control" id="periode">
                       <option>Pilih Periode</option>
                       <option></option>
                     </select>
@@ -123,8 +123,58 @@ if (isset($_SESSION['login'])) {
             </div>
           </div>
         </div>
-        <div class="clearfix"></div>
+        <!-- Bar graph -->
+
+        <!-- line graph -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Grafik Individu Teknisi Per Tahun</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <form action="" method="get">
+                <div class="input-group col-md-4 col-md-offset-8">
+                  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+                  <select type="submit" name="tahun" class="form-control" id="tahun">
+                    <option>Pilih Tahun</option>
+                    <option></option>
+                  </select>
+                </div>
+              </form>
+
+              <div style="padding:1%">
+                <h2>
+                  <td>Teknisi</td>
+                  <td>:</td>
+                  <td>
+                    I Gusti Agung Bayu Prasetya Dikayana
+                  </td>
+                </h2>
+                <h4>
+                  Hasil Penilaian Teknisi Periode <a style="color:blue;"> Tahun 2019</a>
+                </h4>
+              </div>
+
+              <p></p>
+              <div class="x_content2">
+                <div id="graph_line" style="width:100%; height:300px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- Bar graph -->
+
+      <div class="clearfix"></div>
+    </div>
     </div>
     </div>
     <!-- page content -->
@@ -142,6 +192,9 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
     <script src="../assets/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- morris.js -->
+    <script src="../assets/vendors/raphael/raphael.min.js"></script>
+    <script src="../assets/vendors/morris.js/morris.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>

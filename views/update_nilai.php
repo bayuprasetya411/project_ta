@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_array($result_kriteria)) {
             <?php echo $row['nama_kriteria'] ?>
         </label>
         <select name="subkri[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
-            <option>Pilih Sub Kriteria</option>
+            <option>-- Pilih Sub Kriteria --</option>
             <?php
                 $query_subkriteria = "SELECT * FROM tb_subkriteria where id_kriteria ='" . $row['id_kriteria'] . "'";
                 $result_subkriteria = mysqli_query($conn, $query_subkriteria);

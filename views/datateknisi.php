@@ -16,7 +16,7 @@ if (isset($_SESSION['login'])) {
 
         if ($insert) {
             echo "<script>window.alert('Data Berhasil Disimpan');
-                            window.location=(href='datateknisi.php')</script>";
+                window.location=(href='datateknisi.php')</script>";
         } else {
             echo "<script>window.alert('Data Gagal Disimpan');
                 window.location=(href='datateknisi.php')</script>";
@@ -128,6 +128,7 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        <div id="alert_tambah"></div>
                         <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -140,7 +141,6 @@ if (isset($_SESSION['login'])) {
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-
 
                                 <tbody>
                                     <?php
@@ -160,7 +160,6 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $area ?></td>
                                             <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button>
                                                 <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
-
                                             </td>
                                         </tr>
                                     <?php
@@ -211,7 +210,7 @@ if (isset($_SESSION['login'])) {
                         <div class="form-group">
                             <label class="control-label" for="id_area">Area</label>
                             <select name="id_area" class="form-control" id="id_area">
-                                <option value="0">--- Pilih Area ----</option>
+                                <option value="0">-- Pilih Area --</option>
                                 <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
                                     <option value="<?php echo $tampil['id_area']; ?>"><?php echo $tampil['area']; ?></option>
                                 <?php } ?>
