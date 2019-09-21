@@ -28,6 +28,27 @@ if (isset($_SESSION['login'])) {
     }
     // aksi tambah data nilai
 
+
+    // aksi hapus nilai
+    if (isset($_POST['hapus'])) {
+        $id_nilai = $_POST['id_nilai'];
+        $query_deleted = "DELETE FROM tb_nilai WHERE id_nilai ='$id_nilai'";
+        $deleted = mysqli_query($conn, $query_deleted);
+
+        if ($deleted) {
+            echo "<script>
+        alert('Data Berhasil Terhapus');
+            window.location=(href='datanilai.php')
+        </script>";
+        } else {
+            echo "<script>
+        alert('Data Gagal Terhapus');
+            window.location=(href='datanilai..php')
+        </script>";
+        }
+    }
+    // aksi hapus nilai
+
     ?>
 
     <!DOCTYPE html>
@@ -283,31 +304,28 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal ubah Nilai -->
 
+    <!-- Modal hapus Teknisi -->
+    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+                </div>
 
-    <!-- Modal hapus teknisi -->
-    <!-- <div id="modal-hapus" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalhapus">
-    <div class="modal-dialog" role="documnet">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+                <form id="form_hapus" method="post" role="form" action="">
+                    <div class="modal-body" id="info_hapus">
 
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="hapus" class="btn btn-primary" id="hapus">Hapus</button>
+                    </div>
+                </form>
             </div>
-
-            <form method="post" id="form_hapus" role="form" action="">
-                <div class="modal-body" id="info_hapus">
-                    <input type="hidden" name="nik" class="form-control" id="nik">
-                    <H4>Anda Akan Menghapus Data???</H4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class=" btn btn-delfaut" data-dismiss="modal">Tidak</button>
-                    <button type="submit" name="hapus" id="hapus" class="btn btn-primary">Ya</button>
-                </div>
-            </form>
         </div>
     </div>
-</div> -->
-    <!-- /Modal hapus teknisi -->
+    <!-- /Modal Hapus Teknisi -->
 
 
     <!-- NProgress -->
@@ -331,6 +349,8 @@ if (isset($_SESSION['login'])) {
 
     <script>
         $(document).ready(function() {
+
+            // Script edit teknisi
             $(document).on('click', '.edit_data', function() {
                 var edit_id_nilai = $(this).attr('id');
                 $.ajax({
@@ -346,7 +366,26 @@ if (isset($_SESSION['login'])) {
                 });
 
             });
+            // Script edit teknisi
 
+            // Script hapus teknisi
+            $(document).on('click', '.hapus_data', function() {
+
+                var hapus_id_nilai = $(this).attr('id');
+                $.ajax({
+                    url: "hapus_nilai.php",
+                    method: "POST",
+                    data: {
+                        hapus_id_nilai: hapus_id_nilai
+                    },
+                    success: function(data) {
+                        $("#info_hapus").html(data);
+                        $("#modal-hapus").modal("show");
+                    }
+                });
+
+            });
+            // Script hapus teknisi
 
         });
     </script>
