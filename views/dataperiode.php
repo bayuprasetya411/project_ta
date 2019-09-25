@@ -4,107 +4,62 @@ if (isset($_SESSION['login'])) {
 
     include('../config/koneksi.php');
 
-    // aksi tambah kriteria
-    if (isset($_POST['tambah_kriteria'])) {
-
-        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-        $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
-        $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
-
-        if ($_POST['bobot_kriteria'] <= 100) {
-
-            $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
-            $insert = mysqli_query($conn, $querytambah);
-            if ($insert) {
-                echo "<script> window.alert('Data Berhasil Disimpan');
-                            window.location=(href='datakriteria.php') </script>";
-            } else {
-                echo "<script> window.alert('Data Gagal Disimpan');
-                window.location=(href='datakriteria.php') </script>";
-            }
-        } else {
-            echo "<script> window.alert('bobot kriteria maksimal 100');
-            window.location=(href='datakriteria.php'); </script>";
-        }
-    }
-    // aksi tambah kriteria
-
-    // aksi ubah kriteria
-    if (isset($_POST['edit_kriteria'])) {
-
-        if ($_POST['bobot_kriteria'] <= 100) {
-            $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-            $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
-            $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
-            $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
-            $update = mysqli_query($conn, $sql);
-            if ($update) {
-                echo "<script>window.alert('Data Berhasil Diubah');
-                        window.location=(href='datakriteria.php')</script>";
-            } else {
-                echo "<script>window.alert('Data Gagal Diubah');
-                window.location=(href='datakriteria.php')</script>";
-            }
-        } else {
-            echo "<script> window.alert('bobot kriteria maksimal 100');
-            window.location=(href='datakriteria.php') </script>";
-        }
-    }
-    // aksi ubah kriteria
-
-    // aksi tambah sub Kriteria
-    if (isset($_POST['tambah_sub'])) {
-        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-        $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
-        $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
-
-        if ($nilai_sub_kriteria <= 100) {
-
-
-            $query_tambah = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
-            $tambah = mysqli_query($conn, $query_tambah);
-            if ($tambah) {
-                echo "<script>
-                alert('Data Berhasil di Simpan');
-                window.location = (href = 'datakriteria.php');
-                </script>";
-            } else {
-                echo "<script>
-                alert('Data Gagal Diubah');
-                window.location = (href = 'datakriteria.php')
-                </script>";
-            }
+    // aksi tambah periode
+    if (isset($_POST['tambah'])) {
+        $nama_periode = $_POST['nama_periode'];
+        $id_kriteria = $_POST['id_kriteria'];
+        // echo "<pre>";
+        // print($nama_periode);
+        // print_r($id_kriteria);
+        // echo "</pre>";
+        // exit();
+        $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
+        $tambah = mysqli_query($conn, $query_tambah);
+        if ($tambah) {
+            echo "<script>
+            alert('Data Berhasil di Simpan');
+            window.location = (href = 'dataperiode.php');
+            </script>";
         } else {
             echo "<script>
-        alert('Nilai Sub Kriteria Maksimal 100');
-        window.location = (href = 'datakriteria.php')
-        </script>";
-        }
-    }
-    // aksi tambah sub Kriteria
-
-    // aksi ubah sub kriteria
-    if (isset($_POST['edit_subkriteria'])) {
-        for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
-
-            $id_kriteria =  $_POST["id_kriteria"][$i];
-            $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
-            $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
-            $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
-            $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
-            $ubah = mysqli_query($conn, $query_ubah);
-        }
-        if ($ubah) {
-            echo "<script>  window.alert('Data Berhasil di Ubah');
-            window.location = (href = 'datakriteria.php');
-                </script>";
-        } else {
-            echo "<script>
-                    window.alert('Data Gagal di Ubah');
-                    window.location = (href = 'datakriteria.php');
+            alert('Data Gagal di Simpan');
+            window.location = (href = 'dataperiode.php')
             </script>";
         }
     }
+
+    // aksi tambah kriteria
+
+    // aksi ubah kriteria
+
+    // aksi ubah kriteria
+
+    // aksi tambah sub Kriteria
+
+    // aksi tambah sub Kriteria
+
+    // aksi ubah sub kriteria
+    // if (isset($_POST['edit_subkriteria'])) {
+    //     for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
+
+    //         $id_kriteria =  $_POST["id_kriteria"][$i];
+    //         $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
+    //         $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
+    //         $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
+    //         $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
+    //         $ubah = mysqli_query($conn, $query_ubah);
+    //     }
+    //     if ($ubah) {
+    //         echo "<script>  window.alert('Data Berhasil di Ubah');
+    //         window.location = (href = 'datakriteria.php');
+    //             </script>";
+    //     } else {
+    //         echo "<script>
+    //                 window.alert('Data Gagal di Ubah');
+    //                 window.location = (href = 'datakriteria.php');
+    //         </script>";
+    //     }
+    // }
     // aksi ubah sub kriteria
     ?>
 
@@ -114,7 +69,7 @@ if (isset($_SESSION['login'])) {
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>SPK | Data Kriteria</title>
+        <title>SPK | Data Periode</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <!-- Bootstrap -->
         <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -129,6 +84,8 @@ if (isset($_SESSION['login'])) {
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
         <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- Select2 -->
+        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
     </head>
 
@@ -149,7 +106,7 @@ if (isset($_SESSION['login'])) {
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Tabel Data Kriteria<small>Corporate Service</small></h2>
+                        <h2>Tabel Data Periode<small>Corporate Service</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -158,49 +115,38 @@ if (isset($_SESSION['login'])) {
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
-                        <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Kriteria</button>
-                        <div class="table-responsive">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
+                    <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
+                    <div class="table-responsive">
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Nama Periode</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $query_tampil = "SELECT * FROM tb_periode";
+                                    $tampil = mysqli_query($conn, $query_tampil);
+                                    while ($row = mysqli_fetch_array($tampil)) { ?>
                                     <tr>
-                                        <th>ID Kriteria</th>
-                                        <th>Nama Kriteria</th>
-                                        <th>Bobot Kriteria</th>
-                                        <th>Bobot Normaliasi Kriteria</th>
-                                        <th>Aksi</th>
+                                        <td><?php echo $row['nama_periode'] ?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="fa fa-book"></i></button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $query = "SELECT * FROM tb_kriteria ";
-                                        $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_kriteria");
-                                        $result = mysqli_query($conn, $query);
-                                        $data_total_bobot = mysqli_fetch_array($result_total_bobot);
-                                        while ($data = mysqli_fetch_array($result)) {
+                                <?php } ?>
 
-                                            ?>
-                                        <tr>
-                                            <td><?php echo $data['id_kriteria']; ?></td>
-                                            <td><?php echo $data['nama_kriteria']; ?></td>
-                                            <td><?php echo $data['bobot_kriteria']; ?></td>
-                                            <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary btn-xs edit_datakriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i></button>
-                                                <button type="button" class="btn btn-success btn-xs tambahsub_data" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i></button>
-                                                <button type="button" class="btn btn-warning btn-xs detail_datasubkriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-book"></i></button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <!--/Page Content -->
         </div>
+        <div class="clearfix"></div>
+        <!--/Page Content -->
+    </div>
     </div>
     <!-- Footer -->
     <?php include('footer.php'); ?>
@@ -208,57 +154,44 @@ if (isset($_SESSION['login'])) {
     <!-- /menu content -->
 
 
-    <!-- Modal Tambah kriteria -->
-    <?php
-
-        $sql = mysqli_query($conn, "SELECT id_kriteria FROM tb_kriteria ORDER BY id_kriteria DESC");
-        $id = mysqli_fetch_array($sql);
-        $id_kriteria = $id['id_kriteria'];
-        $no = substr($id_kriteria, 1);
-        $tambah = (int) $no + 1;
-
-        if (strlen($tambah) == 1) {
-            $kode = "C" . $tambah;
-        }
-        ?>
+    <!-- Modal Tambah Periode -->
 
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Kriteria</h2>
-
+                    <h2 class="modal-title" id="modalinput">Tambah Data Periode</h2>
                 </div>
 
                 <form id="form_tambah" method="post" role="form" action="">
                     <div class="modal-body">
-                        <div class="form-group" id="tabel_tambah">
-                            <label class="control-label" for="id_kriteria">
-                                ID Kriteria
+                        <div class="form-group">
+                            <label class="control-label" for="nama_periode">
+                                Nama Periode
                             </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required readonly />
+                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" required />
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama_kriteria">
-                                Nama Kriteria
+                                Kriteria
                             </label>
-                            <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" required autofocus="" />
-                        </div>
+                            <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" required>
+                                <?php
 
-                        <div class="form-group">
-                            <label class="control-label" for="bobot_kriteria">
-                                Bobot Kriteria
-                            </label>
-                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" required placeholder="Bobot Kriteria (1-100)">
+                                    $queryselect = mysqli_query($conn, "SELECT * FROM tb_kriteria");
+                                    while ($row = mysqli_fetch_array($queryselect)) { ?>
+                                    <option value="<?php echo $row['id_kriteria'] ?>"><?php echo $row['nama_kriteria'] ?></option>
+                                <?php
+                                    } ?>
+                            </select>
                         </div>
-
                     </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_kriteria" class="btn btn-primary" id="tambah">Simpan</button>
-
+                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -267,7 +200,7 @@ if (isset($_SESSION['login'])) {
     <!-- /Modal Tambah kriteria -->
 
     <!-- Modal edit kriteria -->
-    <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
+    <!-- <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,11 +221,11 @@ if (isset($_SESSION['login'])) {
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- /Modal edit kriteria -->
 
     <!-- Modal Data Subkriteria -->
-    <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <!-- <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet" id="info-sub">
             <div class="modal-content">
                 <div class="modal-header">
@@ -310,11 +243,11 @@ if (isset($_SESSION['login'])) {
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal Data Subkriteria -->
 
     <!-- Modal edit subkriteria -->
-    <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+    <!-- <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
         <div class="modal-dialog  modal-lg" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
@@ -335,7 +268,7 @@ if (isset($_SESSION['login'])) {
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- /Modal edit subkriteria -->
 
     <!-- jQuery -->
@@ -360,11 +293,18 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/select2/select2.min.js"></script>
 
 
     <script>
         $(document).ready(function() {
 
+            $(document).ready(function() {
+                $('.select-kriteria').select2({
+                    placeholder: "-- Pilih Kriteria --",
+                    allowClear: true
+                });
+            });
             // script edit kriteria
             $(document).on('click', '.edit_datakriteria', function() {
 
@@ -421,6 +361,7 @@ if (isset($_SESSION['login'])) {
 
             });
             // script detail sub kriteria
+
         });
     </script>
 

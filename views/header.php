@@ -34,6 +34,7 @@
                                 <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datateknisi.php"><i class="fa fa-user"></i> Data Teknisi <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datakriteria.php"><i class="fa fa-pie-chart"></i> Data Kriteria <span class="fa fa-chevron-right"></span></a></li>
+                                <li><a href="dataperiode.php"><i class="fa fa-calendar-o"></i> Data Periode <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datanilai.php"><i class="fa fa-calculator"></i> Data Nilai <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="prosesperangkingan.php"><i class="fa fa-trophy"></i> Proses Perangkingan <span class="fa fa-chevron-right"></span></a></li>
                             </ul>
@@ -69,8 +70,8 @@
             <!-- top navigation -->
 
             <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade bs-example-modal-sm" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">

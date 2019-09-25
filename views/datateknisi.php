@@ -258,8 +258,8 @@ if (isset($_SESSION['login'])) {
     <!-- /Modal ubah Teknisi -->
 
     <!-- Modal hapus Teknisi -->
-    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
-        <div class="modal-dialog" role="documnet">
+    <div id="modal-hapus" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+        <div class="modal-dialog modal-sm" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
