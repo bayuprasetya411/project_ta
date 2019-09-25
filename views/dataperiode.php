@@ -98,7 +98,7 @@ if (isset($_SESSION['login'])) {
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Data Kriteria</h3>
+                    <h3>Data Periode</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -170,7 +170,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="nama_periode">
                                 Nama Periode
                             </label>
-                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" required />
+                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" placeholder="Nama Periode" required />
                         </div>
 
                         <div class="form-group">
@@ -304,6 +304,10 @@ if (isset($_SESSION['login'])) {
                     placeholder: "-- Pilih Kriteria --",
                     allowClear: true
                 });
+            });
+
+            $('.select-teknisi').select2({
+                dropdownParent: $('#modal-input')
             });
             // script edit kriteria
             $(document).on('click', '.edit_datakriteria', function() {

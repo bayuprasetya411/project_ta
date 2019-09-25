@@ -4,69 +4,73 @@ if (isset($_SESSION['login'])) {
 
     include('../config/koneksi.php');
 
-    // aksi tambah data nilai
+    // aksi tambah periode
     if (isset($_POST['tambah'])) {
-        $periode = $_POST['periode'];
-        $nik = $_POST['nik'];
-        $query_sub = mysqli_query($conn, "SELECT *FROM tb_kriteria");
-        while ($data = mysqli_fetch_array($query_sub)) {
-            if ($data['id_kriteria'] == true) {
-                $id_kriteria = $data['id_kriteria'];
-                $kri = $_POST['kri'][$id_kriteria];
-                $subkri = $_POST['subkri'][$id_kriteria];
-                $query_tambah = "INSERT INTO tb_nilai (id_nilai, nik, id_kriteria, periode, id_sub_kriteria ) VALUE ('','$nik','$kri','$periode','$subkri')";
-                $tambah = mysqli_query($conn, $query_tambah);
-                if ($tambah) {
-                    echo "<script>window.alert('Data Berhasil Disimpan');
-                    window.location=(href='datanilai.php')</script>";
-                } else {
-                    echo "<script>window.alert('Data Gagal Disimpan');
-                    window.location=(href='datanilai.php')</script>";
-                }
-            }
-        }
-    }
-    // aksi tambah data nilai
-
-
-    // aksi hapus nilai
-    if (isset($_POST['hapus'])) {
-        $id_nilai = $_POST['id_nilai'];
-        $query_deleted = "DELETE FROM tb_nilai WHERE id_nilai ='$id_nilai'";
-        $deleted = mysqli_query($conn, $query_deleted);
-
-        if ($deleted) {
+        $nama_periode = $_POST['nama_periode'];
+        $id_kriteria = $_POST['id_kriteria'];
+        // echo "<pre>";
+        // print($nama_periode);
+        // print_r($id_kriteria);
+        // echo "</pre>";
+        // exit();
+        $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
+        $tambah = mysqli_query($conn, $query_tambah);
+        if ($tambah) {
             echo "<script>
-        alert('Data Berhasil Terhapus');
-            window.location=(href='datanilai.php')
-        </script>";
+            alert('Data Berhasil di Simpan');
+            window.location = (href = 'dataperiode.php');
+            </script>";
         } else {
             echo "<script>
-        alert('Data Gagal Terhapus');
-            window.location=(href='datanilai..php')
-        </script>";
+            alert('Data Gagal di Simpan');
+            window.location = (href = 'dataperiode.php')
+            </script>";
         }
     }
-    // aksi hapus nilai
 
+    // aksi tambah kriteria
+
+    // aksi ubah kriteria
+
+    // aksi ubah kriteria
+
+    // aksi tambah sub Kriteria
+
+    // aksi tambah sub Kriteria
+
+    // aksi ubah sub kriteria
+    // if (isset($_POST['edit_subkriteria'])) {
+    //     for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
+
+    //         $id_kriteria =  $_POST["id_kriteria"][$i];
+    //         $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
+    //         $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
+    //         $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
+    //         $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
+    //         $ubah = mysqli_query($conn, $query_ubah);
+    //     }
+    //     if ($ubah) {
+    //         echo "<script>  window.alert('Data Berhasil di Ubah');
+    //         window.location = (href = 'datakriteria.php');
+    //             </script>";
+    //     } else {
+    //         echo "<script>
+    //                 window.alert('Data Gagal di Ubah');
+    //                 window.location = (href = 'datakriteria.php');
+    //         </script>";
+    //     }
+    // }
+    // aksi ubah sub kriteria
     ?>
 
     <!DOCTYPE html>
-    <html lang="en">
+    <html>
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>SPK | Data Nilai</title>
-
-        <!-- jQuery -->
-        <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
         <!-- Bootstrap -->
         <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -80,13 +84,16 @@ if (isset($_SESSION['login'])) {
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
         <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- Select2 -->
+        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
     </head>
 
     <!-- header -->
     <?php include('header.php'); ?>
 
-    <!-- page content -->
+    <!-- Page Content -->
+
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -94,7 +101,6 @@ if (isset($_SESSION['login'])) {
                     <h3>Data Nilai</h3>
                 </div>
             </div>
-
             <div class="clearfix"></div>
 
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -109,225 +115,208 @@ if (isset($_SESSION['login'])) {
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
-                        <form action="" method="get">
-                            <div class="input-group col-md-4 col-md-offset-8">
-                                <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                                <select type="submit" name="periode" class="form-control" id="periode">
-                                    <option>-- Pilih Periode --</option>
-                                    <option></option>
-                                </select>
-                            </div>
-                        </form>
-                        <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
-                        <div class="table-responsive">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
+                    <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
+                    <div class="table-responsive">
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Nama Periode</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $query_tampil = "SELECT * FROM tb_periode";
+                                    $tampil = mysqli_query($conn, $query_tampil);
+                                    while ($row = mysqli_fetch_array($tampil)) { ?>
                                     <tr>
-                                        <th>Nama</th>
-                                        <?php
-                                            $kriteria = mysqli_query($conn, "SELECT * FROM tb_kriteria");
-                                            while ($row1 = mysqli_fetch_array($kriteria)) { ?>
-                                            <th><?php echo $row1['nama_kriteria'] ?></th>
-                                        <?php } ?>
-                                        <th>Periode</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <?php
-                                            $query_nilai = mysqli_query($conn, "SELECT tb_nilai.id_nilai, tb_teknisi.nama, tb_nilai.id_kriteria, tb_nilai.periode, tb_nilai.id_sub_kriteria , tb_nilai.nik FROM `tb_nilai` 
-                                            INNER JOIN tb_teknisi
-                                            on tb_nilai.nik = tb_teknisi.nik
-                                            INNER JOIN tb_subkriteria
-                                            on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria");
-                                            while ($row2 = mysqli_fetch_array($query_nilai)) {
-                                                $nik = $row2['nik'];
-                                                $nama = $row2['nama']; ?>
-
-                                            <td><?php echo $nama ?></td>
-
-                                            <?php
-                                                    $query_kriteria1 = mysqli_query($conn, "SELECT * FROM tb_kriteria");
-                                                    while ($row4 = mysqli_fetch_array($query_kriteria1)) {
-                                                        $id_kriteria1 = $row4['id_kriteria'] ?>
-                                                <td>
-                                                    <?php $raw_query =  "SELECT tb_nilai.id_kriteria, tb_nilai.nik ,tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
-                                                                INNER JOIN tb_subkriteria
-                                                                on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                                                WHERE tb_nilai.id_kriteria = '$id_kriteria1'  and tb_nilai.nik = $nik ";
-                                                                $query_nilai_ultility = mysqli_query($conn, $raw_query);
-
-                                                                // echo "<pre>";
-                                                                // print_r(mysqli_query($conn, "SELECT tb_subkriteria.nilai_sub_kriteria, tb_nilai.id_sub_kriteria FROM `tb_nilai` 
-                                                                // INNER JOIN tb_subkriteria
-                                                                // on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                                                // WHERE id_kriteria = '" . $row4['id_kriteria'] . "'and nik = '" . $row2['nik'] . "'"));
-                                                                // echo "</pre>";
-
-                                                                // exit();
-
-                                                                // echo "<pre>";
-                                                                // echo  $raw_query;
-                                                                // // print_r(mysqli_fetch_array($query_nilai_ultility));
-                                                                // echo "</pre>";
-
-                                                                // exit();
-
-                                                                while ($row3 = mysqli_fetch_array($query_nilai_ultility)) {
-                                                                    echo $row3['nilai_sub_kriteria'];
-                                                                }
-                                                                ?>
-                                                </td>
-                                            <?php } ?>
-                                            <td><?php echo $row2['periode'] ?></td>
-                                            <td><button type="button" id="<?php echo $row2['id_nilai'] ?>" name="edit" class="btn btn-primary btn-xs edit_data"><i class="fa fa-wrench"></i></button>
-                                                <button type="button" id="<?php echo $row2['id_nilai'] ?>" name="hapus" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                        <td><?php echo $row['nama_periode'] ?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="fa fa-book"></i></button>
+                                        </td>
                                     </tr>
                                 <?php } ?>
 
-                                </tbody>
-                            </table>
-
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
         <div class="clearfix"></div>
-    </div>
-
-    <!-- /page content -->
-
-    <?php include('footer.php') ?>
-
+        <!--/Page Content -->
     </div>
     </div>
+    <!-- Footer -->
+    <?php include('footer.php'); ?>
+    </div>
+    <!-- /menu content -->
 
-    <!-- Modal Tambah Nilai -->
+
+    <!-- Modal Tambah Periode -->
+
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
                     <h2 class="modal-title" id="modalinput">Tambah Data Nilai</h2>
-
                 </div>
 
                 <form id="form_tambah" method="post" role="form" action="">
                     <div class="modal-body">
-                        <div class="form-group" id="tabel_tambah">
-                            <label class="control-label" for="nik">
+                        <div class="form-group">
+                            <label class="control-label" for="id_periode">
                                 Periode
                             </label>
-                            <input type="text" name="periode" class="form-control" id="periode" placeholder="Periode" required="" autofocus="autofocus" />
+                            <select class="form-control" id="id_periode" name="id_periode" required>
+                                <option>-- Pilih Periode --</option>
+                                <?php
+                                    $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                <?php
+                                    } ?>
+                            </select>
                         </div>
-
-                        <?php
-                            $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
-                            ?>
 
                         <div class="form-group">
                             <label class="control-label" for="nik">
                                 Nama Teknisi
                             </label>
-                            <select name="nik" class="form-control" aria-controls="dataTable" id="nik" required>
+                            <select name="nik" class="form-control select-teknisi" id="nik" style="width:100%;" required>
                                 <option>-- Pilih Teknisi --</option>
+                                <?php
+                                    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
+                                    ?>
                                 <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
                                     <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
 
-                        <?php
-                            $query_kriteria = "SELECT * FROM tb_kriteria";
-                            $result_kriteria = mysqli_query($conn, $query_kriteria);
-                            while ($row = mysqli_fetch_array($result_kriteria)) {
-                                ?>
-                            <div class="form-group">
-                                <label class="control-label" for="id_kriteria">
-                                    <input type="hidden" name="kri[<?php echo $row['id_kriteria'] ?>]" value="<?php echo $row['id_kriteria'] ?>">
-                                    <?php echo $row['nama_kriteria'] ?>
-                                </label>
-                                <select name="subkri[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
-                                    <option>-- Pilih Sub Kriteria --</option>
-                                    <?php
-                                            $query_subkriteria = "SELECT * FROM tb_subkriteria where id_kriteria ='" . $row['id_kriteria'] . "'";
-                                            $result_subkriteria = mysqli_query($conn, $query_subkriteria);
-                                            while ($data = mysqli_fetch_array($result_subkriteria)) {
-                                                ?>
-                                        <option value="<?php echo $data['id_sub_kriteria'] ?>"> <?php echo $data['nama_sub_kriteria'] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        <?php } ?>
+                        <div class="form-group">
+                            <table class="table">
+                                <thead style="background-color:#eee; border: 1px solid #eee;">
+                                    <tr>
+                                        <th>Kriteria</th>
+                                        <th>Sub Kriteria</th>
+                                    </tr>
+                                </thead>
 
+                                <tbody>
+                                    <tr>
+                                        <td><input type="hidden" name="id_kriteria" class="form-control" id="id_kriteria" Value="" required readonly />
+                                            Kriteria </td>
+                                        <td><select name="nik" class="form-control select-subkriteria" id="nik" style="width:100%;" required>
+                                                <option>-- Pilih Sub Kriteria --</option>
+                                                <?php
+                                                    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
+                                                    ?>
+                                                <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
+                                                    <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
+                                                <?php } ?>
+                                            </select></td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot style="background-color:#eee; border: 1px solid #eee;">
+                                    <tr>
+                                        <th>Kriteria</th>
+                                        <th>Sub Kriteria</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal Tambah Nilai -->
+    <!-- /Modal Tambah kriteria -->
 
-    <!-- Modal ubah Nilai -->
-    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalubah">
+    <!-- Modal edit kriteria -->
+    <!-- <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalubah">Ubah Data Nilai</h2>
+                    <h2 class="modal-title" id="modaleditkriteria">Ubah Data Kriteria</h2>
 
                 </div>
 
-                <form id="form_ubah" method="post" role="form" action="">
-                    <div class="modal-body" id="info-edit">
-
+                <form id="form_edit_kriteria" method="post" role="form" action="">
+                    <div class="modal-body" id="info-editkriteria">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="update" class="btn btn-primary" id="update">Ubah</button>
+                        <button type="submit" name="edit_kriteria" class="btn btn-primary" id="edit_kriteria">Ubah</button>
 
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-    <!-- /Modal ubah Nilai -->
+    </div> -->
+    <!-- /Modal edit kriteria -->
 
-    <!-- Modal hapus Teknisi -->
-    <div id="modal-hapus" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
-        <div class="modal-dialog modal-sm" role="documnet">
+    <!-- Modal Data Subkriteria -->
+    <!-- <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+        <div class="modal-dialog" role="documnet" id="info-sub">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+                    <h2 class="modal-title" id="modalinput">Tambah Data Sub Kriteria</h2>
+                </div>
+                <form id="form_tambah_sub" method="post" role="form" action="">
+                    <div class="modal-body" id="info-subkriteria">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div> -->
+    <!-- Modal Data Subkriteria -->
+
+    <!-- Modal edit subkriteria -->
+    <!-- <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+        <div class="modal-dialog  modal-lg" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modaledit">Ubah Data Sub Kriteria</h2>
+
                 </div>
 
-                <form id="form_hapus" method="post" role="form" action="">
-                    <div class="modal-body" id="info_hapus">
+                <form id="form_edit_subkriteria" method="post" role="form" action="">
+                    <div class="modal-body" id="info-editsub">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="hapus" class="btn btn-primary" id="hapus">Hapus</button>
+                        <button type="submit" name="edit_subkriteria" class="btn btn-primary" id="edit_subkriteria">Ubah</button>
+
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-    <!-- /Modal Hapus Teknisi -->
+    </div> -->
+    <!-- /Modal edit subkriteria -->
 
-
+    <!-- jQuery -->
+    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- NProgress -->
     <script src="../assets/vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
@@ -346,59 +335,91 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/select2/select2.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
 
-            // Script edit teknisi
-            $(document).on('click', '.edit_data', function() {
-                var edit_id_nilai = $(this).attr('id');
+            $('.select-periode').select2({
+                dropdownParent: $('#modal-input')
+            });
+
+            $('.select-teknisi').select2({
+                dropdownParent: $('#modal-input')
+            });
+
+            $('.select-subkriteria').select2({
+                dropdownParent: $('#modal-input')
+            });
+
+
+            // script edit kriteria
+            $(document).on('click', '.edit_datakriteria', function() {
+
+                var edit_id_kriteria = $(this).attr('id');
                 $.ajax({
-                    url: "update_nilai.php",
+                    url: "update_kriteria.php",
                     method: "POST",
                     data: {
-                        edit_id_nilai: edit_id_nilai
+                        edit_id_kriteria: edit_id_kriteria
                     },
                     success: function(data) {
-                        $("#info-edit").html(data);
-                        $("#modal-edit").modal("show");
+                        $("#info-editkriteria").html(data);
+                        $("#modal-edit-kriteria").modal("show");
                     }
                 });
 
             });
-            // Script edit teknisi
+            // script edit kriteria
 
-            // Script hapus teknisi
-            $(document).on('click', '.hapus_data', function() {
+            // script tambah sub kriteria
+            $(document).on('click', '.tambahsub_data', function() {
 
-                var hapus_id_nilai = $(this).attr('id');
+                var get_id_kriteria = $(this).attr('id');
                 $.ajax({
-                    url: "hapus_nilai.php",
+                    url: "tambah_subkriteria.php",
                     method: "POST",
                     data: {
-                        hapus_id_nilai: hapus_id_nilai
+                        get_id_kriteria: get_id_kriteria
                     },
                     success: function(data) {
-                        $("#info_hapus").html(data);
-                        $("#modal-hapus").modal("show");
+                        $("#info-subkriteria").html(data);
+                        $("#modal-subkriteria").modal("show");
                     }
                 });
 
             });
-            // Script hapus teknisi
+            // script tambah sub kriteria
+
+            // script detail sub kriteria
+            $(document).on('click', '.detail_datasubkriteria', function() {
+
+                var edit_id_subkriteria = $(this).attr('id');
+                $.ajax({
+                    url: "update_subkriteria.php",
+                    method: "POST",
+                    data: {
+                        edit_id_subkriteria: edit_id_subkriteria
+                    },
+                    success: function(data) {
+                        $("#info-editsub").html(data);
+                        $("#modal-edit-subkriteria").modal("show");
+                    }
+                });
+
+            });
+            // script detail sub kriteria
 
         });
     </script>
 
-
 <?php
 } else {
     echo "<script>
-        alert('Anda Belum Login!!!');window.location=(href='login.php');
+    alert('Anda Belum Login!!!');window.location=(href='login.php');
     </script>";
 }
-
-
 ?>
 </body>
 
