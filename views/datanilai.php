@@ -170,7 +170,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_periode">
                                 Periode
                             </label>
-                            <select class="form-control" id="id_periode" name="id_periode" required>
+                            <select class="form-control select-periode" id="id_periode" name="id_periode" required>
                                 <option>-- Pilih Periode --</option>
                                 <?php
                                     $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
@@ -341,9 +341,6 @@ if (isset($_SESSION['login'])) {
     <script>
         $(document).ready(function() {
 
-            $('.select-periode').select2({
-                dropdownParent: $('#modal-input')
-            });
 
             $('.select-teknisi').select2({
                 dropdownParent: $('#modal-input')
@@ -352,6 +349,21 @@ if (isset($_SESSION['login'])) {
             $('.select-subkriteria').select2({
                 dropdownParent: $('#modal-input')
             });
+
+            $(document).on('change', '.select-periode', function() {
+                var id_periode = $(this).val();
+                $.ajax({
+                    url: "fill_periode.php",
+                    method: "POST",
+                    data: {
+                        id_periode: id_periode
+                    },
+                    success: function(data) {
+
+                    }
+                })
+            });
+
 
 
             // script edit kriteria
