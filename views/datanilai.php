@@ -5,28 +5,28 @@ if (isset($_SESSION['login'])) {
     include('../config/koneksi.php');
 
     // aksi tambah periode
-    if (isset($_POST['tambah'])) {
-        $nama_periode = $_POST['nama_periode'];
-        $id_kriteria = $_POST['id_kriteria'];
-        // echo "<pre>";
-        // print($nama_periode);
-        // print_r($id_kriteria);
-        // echo "</pre>";
-        // exit();
-        $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
-        $tambah = mysqli_query($conn, $query_tambah);
-        if ($tambah) {
-            echo "<script>
-            alert('Data Berhasil di Simpan');
-            window.location = (href = 'dataperiode.php');
-            </script>";
-        } else {
-            echo "<script>
-            alert('Data Gagal di Simpan');
-            window.location = (href = 'dataperiode.php')
-            </script>";
-        }
-    }
+    // if (isset($_POST['tambah'])) {
+    //     $nama_periode = $_POST['nama_periode'];
+    //     $id_kriteria = $_POST['id_kriteria'];
+    // echo "<pre>";
+    // print($nama_periode);
+    // print_r($id_kriteria);
+    // echo "</pre>";
+    // exit();
+    //     $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
+    //     $tambah = mysqli_query($conn, $query_tambah);
+    //     if ($tambah) {
+    //         echo "<script>
+    //         alert('Data Berhasil di Simpan');
+    //         window.location = (href = 'dataperiode.php');
+    //         </script>";
+    //     } else {
+    //         echo "<script>
+    //         alert('Data Gagal di Simpan');
+    //         window.location = (href = 'dataperiode.php')
+    //         </script>";
+    //     }
+    // }
 
     // aksi tambah kriteria
 
@@ -120,7 +120,8 @@ if (isset($_SESSION['login'])) {
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Nama Periode</th>
+                                    <th>Nama Teknisi</th>
+                                    <th>Periode</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -130,6 +131,7 @@ if (isset($_SESSION['login'])) {
                                     $tampil = mysqli_query($conn, $query_tampil);
                                     while ($row = mysqli_fetch_array($tampil)) { ?>
                                     <tr>
+                                        <td><?php echo $row['nama_periode'] ?></td>
                                         <td><?php echo $row['nama_periode'] ?></td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
@@ -170,7 +172,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_periode">
                                 Periode
                             </label>
-                            <select class="form-control select-periode" id="id_periode" name="id_periode" required>
+                            <select class="form-control select-periode" id="id_periode" name="id_periode" style="width:100%;" required>
                                 <option>-- Pilih Periode --</option>
                                 <?php
                                     $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
@@ -196,32 +198,34 @@ if (isset($_SESSION['login'])) {
                             </select>
                         </div>
 
+                        <!-- <td><input type="hidden" name="id_kriteria" class="form-control" id="id_kriteria" Value="" required />
+                            Kriteria </td>
+                        <td><select name="nik" class="form-control select-subkriteria" id="nik" style="width:100%;" required>
+                                <option>-- Pilih Sub Kriteria --</option>
+                                <?php
+                                    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
+                                    ?>
+                                <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
+                                    <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
+                                <?php } ?>
+                            </select></td> -->
+
                         <div class="form-group">
                             <table class="table">
-                                <thead style="background-color:#eee; border: 1px solid #eee;">
+                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
                                         <th>Kriteria</th>
                                         <th>Sub Kriteria</th>
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="load-data">
                                     <tr>
-                                        <td><input type="hidden" name="id_kriteria" class="form-control" id="id_kriteria" Value="" required readonly />
-                                            Kriteria </td>
-                                        <td><select name="nik" class="form-control select-subkriteria" id="nik" style="width:100%;" required>
-                                                <option>-- Pilih Sub Kriteria --</option>
-                                                <?php
-                                                    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
-                                                    ?>
-                                                <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
-                                                    <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
-                                                <?php } ?>
-                                            </select></td>
+
                                     </tr>
                                 </tbody>
 
-                                <tfoot style="background-color:#eee; border: 1px solid #eee;">
+                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
                                         <th>Kriteria</th>
                                         <th>Sub Kriteria</th>
@@ -341,6 +345,9 @@ if (isset($_SESSION['login'])) {
     <script>
         $(document).ready(function() {
 
+            $('.select-periode').select2({
+                dropdownParent: $('#modal-input')
+            });
 
             $('.select-teknisi').select2({
                 dropdownParent: $('#modal-input')
@@ -358,13 +365,21 @@ if (isset($_SESSION['login'])) {
                     data: {
                         id_periode: id_periode
                     },
-                    success: function(data) {
+                    success: function(result) {
+                        var resultObj = JSON.parse(result);
+                        console.log(resultObj);
 
+                        $.each(resultObj, function(key, val) {
+                            var html = '';
+                            html += '<tr>';
+                            html += '<td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="' + val.id_kriteria + '" />' + val.nama_kriteria + '</td>';
+                            html += '<td><select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria" style="width:100%;" ><option value="0">-- Pilih Sub Kriteria --</option></select></td>';
+                            $('#load-data').append(html);
+                        });
                     }
                 })
+
             });
-
-
 
             // script edit kriteria
             $(document).on('click', '.edit_datakriteria', function() {
@@ -381,7 +396,7 @@ if (isset($_SESSION['login'])) {
                         $("#modal-edit-kriteria").modal("show");
                     }
                 });
-
+                id_kriteria.remove();
             });
             // script edit kriteria
 

@@ -61,6 +61,30 @@ if (isset($_SESSION['login'])) {
     //     }
     // }
     // aksi ubah sub kriteria
+
+    function tgl_indo($tanggal){
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+        
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $bulan[ (int)$pecahkan[1] ] . '-' . $pecahkan[0];
+    }
     ?>
 
     <!DOCTYPE html>
@@ -170,14 +194,14 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="nama_periode">
                                 Nama Periode
                             </label>
-                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" placeholder="Nama Periode" required />
+                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" value ="<?php echo tgl_indo(date('Y-m')); ?>" required/>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="nama_kriteria">
                                 Kriteria
                             </label>
-                            <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" required>
+                            <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" autofocus required>
                                 <?php
 
                                     $queryselect = mysqli_query($conn, "SELECT * FROM tb_kriteria");
