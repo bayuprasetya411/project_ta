@@ -131,7 +131,7 @@ if (isset($_SESSION['login'])) {
                                     $tampil = mysqli_query($conn, $query_tampil);
                                     while ($row = mysqli_fetch_array($tampil)) { ?>
                                     <tr>
-                                        <td><?php echo $row['nama_periode'] ?></td>
+                                        <td>I Gusti Agung Bayu Prasetya Dikayana</td>
                                         <td><?php echo $row['nama_periode'] ?></td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
@@ -197,18 +197,6 @@ if (isset($_SESSION['login'])) {
                                 <?php } ?>
                             </select>
                         </div>
-
-                        <!-- <td><input type="hidden" name="id_kriteria" class="form-control" id="id_kriteria" Value="" required />
-                            Kriteria </td>
-                        <td><select name="nik" class="form-control select-subkriteria" id="nik" style="width:100%;" required>
-                                <option>-- Pilih Sub Kriteria --</option>
-                                <?php
-                                    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
-                                    ?>
-                                <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
-                                    <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
-                                <?php } ?>
-                            </select></td> -->
 
                         <div class="form-group">
                             <table class="table">
@@ -357,6 +345,7 @@ if (isset($_SESSION['login'])) {
                 dropdownParent: $('#modal-input')
             });
 
+            // Script change periode
             $(document).on('change', '.select-periode', function() {
                 var id_periode = $(this).val();
                 $.ajax({
@@ -373,13 +362,40 @@ if (isset($_SESSION['login'])) {
                             var html = '';
                             html += '<tr>';
                             html += '<td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="' + val.id_kriteria + '" />' + val.nama_kriteria + '</td>';
-                            html += '<td><select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria" style="width:100%;" ><option value="0">-- Pilih Sub Kriteria --</option></select></td>';
+                            html += '<td><select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria" style="width:100%;" ><option value="' + val.id_kriteria + '">-- Pilih Sub Kriteria --</option></select></td>';
                             $('#load-data').append(html);
                         });
                     }
                 })
 
             });
+            // Script change periode
+
+            // Script Select Sub Kriteria
+            $(document).on('click', '.select-subkriteria', function() {
+                var id_kriteria = $(this).val();
+                $.ajax({
+                    url: "fill_subkriteria.php",
+                    method: "POST",
+                    data: {
+                        id_kriteria: id_kriteria
+                    },
+                    success: function(result_subkriteria) {
+                        var resultObj_sub = JSON.parse(result_subkriteria);
+                        console.log(resultObj_sub);
+
+                        $.each(resultObj_sub, function(key, val) {
+
+                            var html1 = '';
+                            html1 = '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
+                            $('#id_sub_kriteria').append(html1);
+                            console.log(id_sub_kriteria);
+
+                        });
+                    }
+                });
+            });
+            // Script Select Sub Kriteria
 
             // script edit kriteria
             $(document).on('click', '.edit_datakriteria', function() {
@@ -396,7 +412,6 @@ if (isset($_SESSION['login'])) {
                         $("#modal-edit-kriteria").modal("show");
                     }
                 });
-                id_kriteria.remove();
             });
             // script edit kriteria
 
