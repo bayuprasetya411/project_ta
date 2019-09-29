@@ -5,28 +5,32 @@ if (isset($_SESSION['login'])) {
     include('../config/koneksi.php');
 
     // aksi tambah periode
-    // if (isset($_POST['tambah'])) {
-    //     $nama_periode = $_POST['nama_periode'];
-    //     $id_kriteria = $_POST['id_kriteria'];
-    // echo "<pre>";
-    // print($nama_periode);
-    // print_r($id_kriteria);
-    // echo "</pre>";
-    // exit();
-    //     $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
-    //     $tambah = mysqli_query($conn, $query_tambah);
-    //     if ($tambah) {
-    //         echo "<script>
-    //         alert('Data Berhasil di Simpan');
-    //         window.location = (href = 'dataperiode.php');
-    //         </script>";
-    //     } else {
-    //         echo "<script>
-    //         alert('Data Gagal di Simpan');
-    //         window.location = (href = 'dataperiode.php')
-    //         </script>";
-    //     }
-    // }
+    if (isset($_POST['tambah'])) {
+        $id_periode = $_POST['id_periode'];
+        $nik = $_POST['nik'];
+        $data_sub_kriteria = $_POST['id_sub_kriteria'];
+        foreach ($data_sub_kriteria as $id_sub_kriteria) {
+            $query_tambah =  "INSERT INTO tb_nilai (nik, id_sub_kriteria,id_periode) value ('$nik','$id_sub_kriteria','$id_periode')";
+            $tambah = mysqli_query($conn, $query_tambah);
+        }
+        // echo "<pre>";
+        // print($nama_periode);
+        // print_r($id_kriteria);
+        // echo "</pre>";
+        // exit();
+
+        if ($tambah) {
+            echo "<script>
+            alert('Data Berhasil di Simpan');
+            window.location = (href = 'dataperiode.php');
+            </script>";
+        } else {
+            echo "<script>
+            alert('Data Gagal di Simpan');
+            window.location = (href = 'dataperiode.php')
+            </script>";
+        }
+    }
 
     // aksi tambah kriteria
 
@@ -341,9 +345,6 @@ if (isset($_SESSION['login'])) {
                 dropdownParent: $('#modal-input')
             });
 
-            $('.select-subkriteria').select2({
-                dropdownParent: $('#modal-input')
-            });
 
             // Script change periode
             $(document).on('change', '.select-periode', function() {
@@ -358,13 +359,15 @@ if (isset($_SESSION['login'])) {
                         var resultObj = JSON.parse(result);
                         console.log(resultObj);
 
+                        var html = '';
                         $.each(resultObj, function(key, val) {
-                            var html = '';
+
                             html += '<tr>';
                             html += '<td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="' + val.id_kriteria + '" />' + val.nama_kriteria + '</td>';
-                            html += '<td><select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria" style="width:100%;" ><option value="' + val.id_kriteria + '">-- Pilih Sub Kriteria --</option></select></td>';
-                            $('#load-data').append(html);
+                            html += '<td><select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria' + val.id_kriteria + '" style="width:100%;" ><option value="' + val.id_kriteria + '">-- Pilih Sub Kriteria --</option></select></td>';
+
                         });
+                        $('#load-data').html(html);
                     }
                 })
 
@@ -373,6 +376,9 @@ if (isset($_SESSION['login'])) {
 
             // Script Select Sub Kriteria
             $(document).on('click', '.select-subkriteria', function() {
+                console.log($(this).attr('name'));
+
+
                 var id_kriteria = $(this).val();
                 $.ajax({
                     url: "fill_subkriteria.php",
@@ -383,17 +389,18 @@ if (isset($_SESSION['login'])) {
                     success: function(result_subkriteria) {
                         var resultObj_sub = JSON.parse(result_subkriteria);
                         console.log(resultObj_sub);
-
+                        var html1 = '';
                         $.each(resultObj_sub, function(key, val) {
 
-                            var html1 = '';
-                            html1 = '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
-                            $('#id_sub_kriteria').append(html1);
-                            console.log(id_sub_kriteria);
 
+                            html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
+                            // console.log(id_sub_kriteria);
+
+                            $('#id_sub_kriteria' + val.id_kriteria).html(html1);
                         });
                     }
                 });
+
             });
             // Script Select Sub Kriteria
 

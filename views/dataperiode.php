@@ -7,14 +7,19 @@ if (isset($_SESSION['login'])) {
     // aksi tambah periode
     if (isset($_POST['tambah'])) {
         $nama_periode = $_POST['nama_periode'];
-        $id_kriteria = $_POST['id_kriteria'];
+        $data_kriteria = $_POST['id_kriteria'];
         // echo "<pre>";
         // print($nama_periode);
         // print_r($id_kriteria);
         // echo "</pre>";
         // exit();
-        $query_tambah =  "INSERT INTO tb_periode (id_periode, nama_periode) value ('','$nama_periode')";
+        $query_tambah =  "INSERT INTO tb_periode (nama_periode) value ('$nama_periode')";
         $tambah = mysqli_query($conn, $query_tambah);
+        $id_periode = mysqli_insert_id($conn);
+        foreach ($data_kriteria as $id_kriteria) {
+            $query_tambah2 =  "INSERT INTO tb_periode_has_kriteria (id_periode, id_kriteria) value ('$id_periode','$id_kriteria')";
+            $tambah2 = mysqli_query($conn, $query_tambah2);
+        }
         if ($tambah) {
             echo "<script>
             alert('Data Berhasil di Simpan');
@@ -62,8 +67,9 @@ if (isset($_SESSION['login'])) {
     // }
     // aksi ubah sub kriteria
 
-    function tgl_indo($tanggal){
-        $bulan = array (
+    function tgl_indo($tanggal)
+    {
+        $bulan = array(
             1 =>   'Januari',
             'Februari',
             'Maret',
@@ -78,12 +84,12 @@ if (isset($_SESSION['login'])) {
             'Desember'
         );
         $pecahkan = explode('-', $tanggal);
-        
+
         // variabel pecahkan 0 = tanggal
         // variabel pecahkan 1 = bulan
         // variabel pecahkan 2 = tahun
 
-        return $bulan[ (int)$pecahkan[1] ] . '-' . $pecahkan[0];
+        return $bulan[(int) $pecahkan[1]] . '-' . $pecahkan[0];
     }
     ?>
 
@@ -194,7 +200,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="nama_periode">
                                 Nama Periode
                             </label>
-                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" value ="<?php echo tgl_indo(date('Y-m')); ?>" required/>
+                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" value="<?php echo tgl_indo(date('Y-m')); ?>" required />
                         </div>
 
                         <div class="form-group">

@@ -4,7 +4,7 @@ include('../config/koneksi.php');
 
 if (!empty($_POST)) {
     $id_periode = $_POST['id_periode'];
-    $query = "SELECT tb_periode.id_periode,tb_kriteria.id_kriteria, tb_kriteria.nama_kriteria from tb_periode_has_kriteria
+    $query = "SELECT  tb_periode.id_periode,tb_kriteria.id_kriteria, tb_kriteria.nama_kriteria from tb_periode_has_kriteria
     INNER join tb_kriteria
     on tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
     INNER join tb_periode
