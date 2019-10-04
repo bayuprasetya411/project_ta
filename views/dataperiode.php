@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['login'])) {
 
     include('../config/koneksi.php');
+    include('../config/function.php');
 
     // aksi tambah periode
     if (isset($_POST['tambah'])) {
@@ -67,30 +68,7 @@ if (isset($_SESSION['login'])) {
     // }
     // aksi ubah sub kriteria
 
-    function tgl_indo($tanggal)
-    {
-        $bulan = array(
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-        $pecahkan = explode('-', $tanggal);
 
-        // variabel pecahkan 0 = tanggal
-        // variabel pecahkan 1 = bulan
-        // variabel pecahkan 2 = tahun
-
-        return $bulan[(int) $pecahkan[1]] . '-' . $pecahkan[0];
-    }
     ?>
 
     <!DOCTYPE html>
@@ -162,8 +140,7 @@ if (isset($_SESSION['login'])) {
                                     <tr>
                                         <td><?php echo $row['nama_periode'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
-                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="fa fa-book"></i></button>
+                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id="<?php echo $row['id_periode'] ?>"><i class="fa fa-wrench"></i></button>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -185,7 +162,6 @@ if (isset($_SESSION['login'])) {
 
 
     <!-- Modal Tambah Periode -->
-
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
@@ -222,6 +198,29 @@ if (isset($_SESSION['login'])) {
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal Tambah kriteria -->
+
+    <!-- Modal Edit Periode -->
+    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaliedit">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modaliedit">Ubah Data Periode</h2>
+                </div>
+
+                <form id="form_edit" method="post" role="form" action="">
+                    <div class="modal-body" id="info-edit">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="ubah" class="btn btn-primary" id="ubah">Ubah</button>
                     </div>
                 </form>
             </div>
@@ -339,19 +338,21 @@ if (isset($_SESSION['login'])) {
             $('.select-teknisi').select2({
                 dropdownParent: $('#modal-input')
             });
-            // script edit kriteria
-            $(document).on('click', '.edit_datakriteria', function() {
 
-                var edit_id_kriteria = $(this).attr('id');
+            // script edit periode
+            $(document).on('click', '.edit_periode', function() {
+
+                var edit_id_periode = $(this).attr('id');
+                console.log(edit_id_periode);
                 $.ajax({
-                    url: "update_kriteria.php",
+                    url: "update_periode.php",
                     method: "POST",
                     data: {
-                        edit_id_kriteria: edit_id_kriteria
+                        edit_id_periode: edit_id_periode
                     },
                     success: function(data) {
-                        $("#info-editkriteria").html(data);
-                        $("#modal-edit-kriteria").modal("show");
+                        $("#info-edit").html(data);
+                        $("#modal-edit").modal("show");
                     }
                 });
 

@@ -188,7 +188,7 @@ if (isset($_SESSION['login'])) {
                                             <td>
                                                 <button type="button" class="btn btn-primary btn-xs edit_datakriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i></button>
                                                 <button type="button" class="btn btn-success btn-xs tambahsub_data" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i></button>
-                                                <button type="button" class="btn btn-warning btn-xs detail_datasubkriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-book"></i></button>
+                                                <button type="button" class="btn btn-warning btn-xs detail_datasubkriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i></button>
                                             </td>
                                         </tr>
                                     <?php  } ?>

@@ -25,6 +25,9 @@ if (isset($_SESSION['login'])) {
 
     <!-- Custom Theme Style -->
     <link href="../assets/build/css/custom.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
+
 
     <style>
       .count {
@@ -103,9 +106,14 @@ if (isset($_SESSION['login'])) {
                 <form action="" method="get">
                   <div class="input-group col-md-4 col-md-offset-8">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <select type="submit" name="periode" class="form-control" id="periode">
-                      <option>-- Pilih Periode --</option>
+                    <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;" >
                       <option></option>
+                      <?php
+                        $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                        while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                        <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                      <?php
+                        } ?>
                     </select>
                   </div>
                 </form>
@@ -195,9 +203,17 @@ if (isset($_SESSION['login'])) {
     <!-- morris.js -->
     <script src="../assets/vendors/raphael/raphael.min.js"></script>
     <script src="../assets/vendors/morris.js/morris.min.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/select2/select2.min.js"></script>
+
+
+    <script>
+      $(".select-search-periode").select2({
+        placeholder: "-- Pilih Periode --",
+        allowClear: true
+      });
+    </script>
 
   <?php
   } else {

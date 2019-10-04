@@ -31,8 +31,7 @@ if (isset($_SESSION['login'])) {
             </script>";
         }
     }
-
-    // aksi tambah kriteria
+    // aksi tambah periode
 
     // aksi ubah kriteria
 
@@ -119,6 +118,22 @@ if (isset($_SESSION['login'])) {
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+                    <form action="" method="get">
+                        <div class="input-group col-md-4 col-md-offset-8">
+                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;" >
+                                <option></option>
+                                <?php
+                                    $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                <?php
+                                    } ?>
+                            </select>
+                        </div>
+                    </form>
+
                     <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
                     <div class="table-responsive">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -139,7 +154,7 @@ if (isset($_SESSION['login'])) {
                                         <td><?php echo $row['nama_periode'] ?></td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
-                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="fa fa-book"></i></button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="glyphicon glyphicon-resize-full"></i></button>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -177,7 +192,7 @@ if (isset($_SESSION['login'])) {
                                 Periode
                             </label>
                             <select class="form-control select-periode" id="id_periode" name="id_periode" style="width:100%;" required>
-                                <option>-- Pilih Periode --</option>
+                                <option></option>
                                 <?php
                                     $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
                                     while ($row = mysqli_fetch_array($queryperiode)) { ?>
@@ -192,7 +207,7 @@ if (isset($_SESSION['login'])) {
                                 Nama Teknisi
                             </label>
                             <select name="nik" class="form-control select-teknisi" id="nik" style="width:100%;" required>
-                                <option>-- Pilih Teknisi --</option>
+                                <option></option>
                                 <?php
                                     $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
                                     ?>
@@ -337,13 +352,23 @@ if (isset($_SESSION['login'])) {
     <script>
         $(document).ready(function() {
 
+            $(".select-search-periode").select2({
+                placeholder: "-- Pilih Periode --",
+                allowClear: true
+            });
+
             $('.select-periode').select2({
-                dropdownParent: $('#modal-input')
+                dropdownParent: $('#modal-input'),
+                placeholder: "-- Pilih Periode --",
+                allowClear: true
             });
 
             $('.select-teknisi').select2({
-                dropdownParent: $('#modal-input')
+                dropdownParent: $('#modal-input'),
+                placeholder: "-- Pilih Teknisi --",
+                allowClear: true
             });
+
 
 
             // Script change periode

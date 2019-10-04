@@ -33,12 +33,15 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
+        <!-- Select2 -->
+        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
     </head>
 
     <!-- header -->
     <?php include('header.php');
         include('../config/koneksi.php');
+        include('../config/function.php');
         ?>
 
     <!-- page content -->
@@ -65,12 +68,18 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+
                         <form action="" method="get">
                             <div class="input-group col-md-4 col-md-offset-8">
                                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                                <select type="submit" name="tanggal" class="form-control" id="tanggal">
-                                    <option>Pilih Periode</option>
+                                <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
                                     <option></option>
+                                    <?php
+                                        $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                                        while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                        <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                    <?php
+                                        } ?>
                                 </select>
                             </div>
                         </form>
@@ -88,7 +97,6 @@ if (isset($_SESSION['login'])) {
                                     <th>Gaul</th>
                                     <th>Periode</th>
                                     <th>Total Nilai</th>
-                                    <th>Keterangan</th>
                                     <th>Rank</th>
                                 </tr>
                             </thead>
@@ -102,7 +110,6 @@ if (isset($_SESSION['login'])) {
                                     <td>0</td>
                                     <td>Maret-2019</td>
                                     <td>62.5</td>
-                                    <td>Cukup Memuaskan</td>
                                     <td>1</td>
                                 </tr>
                             </tbody>
@@ -144,8 +151,14 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/select2/select2.min.js"></script>
 
     <script>
+        $(".select-search-periode").select2({
+            placeholder: "-- Pilih Periode --",
+            allowClear: true
+        });
+
         $(function() {
             $('#example2').DataTable({
                 "paging": true,

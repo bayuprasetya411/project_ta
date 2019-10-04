@@ -35,7 +35,7 @@ if (isset($_SESSION['login'])) {
         if ($update) {
             echo "<script>
             window.alert('Data Berhasil Diubah');
-            window.location = (href = 'datateknisi.php')
+            window.location ='datateknisi.php';
         </script>";
         } else {
             echo "<script>
@@ -54,7 +54,7 @@ if (isset($_SESSION['login'])) {
 
         if ($deleted) {
             echo "<script>
-        alert('Data Berhasil Terhapus');
+        alert('Data Berhasil Dihapus');
             window.location=(href='datateknisi.php')
         </script>";
         } else {
@@ -97,6 +97,8 @@ if (isset($_SESSION['login'])) {
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
         <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- Select2 -->
+        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
 
     </head>
@@ -209,8 +211,8 @@ if (isset($_SESSION['login'])) {
 
                         <div class="form-group">
                             <label class="control-label" for="id_area">Area</label>
-                            <select name="id_area" class="form-control" id="id_area">
-                                <option value="0">-- Pilih Area --</option>
+                            <select name="id_area" class="form-control select-area" id="id_area" style="width:100%;" required>
+                                <option></option>
                                 <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
                                     <option value="<?php echo $tampil['id_area']; ?>"><?php echo $tampil['area']; ?></option>
                                 <?php } ?>
@@ -258,8 +260,9 @@ if (isset($_SESSION['login'])) {
     <!-- /Modal ubah Teknisi -->
 
     <!-- Modal hapus Teknisi -->
-    <div id="modal-hapus" class="modal fade bs-example-modal-sm" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
-        <div class="modal-dialog modal-sm" role="documnet">
+    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+        <div class="modal-dialog
+        " role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
@@ -299,9 +302,16 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/select2/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
+
+            $('.select-area').select2({
+                dropdownParent: $('#modal-input'),
+                placeholder: "-- Pilih Area --",
+                allowClear: true
+            });
 
             // Script ubah teknisi
             $(document).on('click', '.ubah_data', function() {
