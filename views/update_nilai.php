@@ -1,72 +1,46 @@
 <?php
 include('../config/koneksi.php');
 
-if (isset($_POST['edit_id_nilai'])) {
-    $edit_id_nilai = $_POST['edit_id_nilai'];
-    $query = mysqli_query($conn, "SELECT * FROM tb_nilai WHERE id_nilai = '$edit_id_nilai'");
+if (isset($_GET)) {
+    $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi where nik ='" . $_GET['nik'] . "' ");
+    $data_teknisi = mysqli_fetch_assoc($query_teknisi);
+    $query_periode = mysqli_query($conn, "SELECT * FROM tb_periode where id_periode ='" . $_GET['id_periode'] . "' ");
+    $data_periode = mysqli_fetch_assoc($query_periode);
+    $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
+    INNER join tb_subkriteria
+    ON tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+    INNER join tb_kriteria
+    on tb_subkriteria.id_kriteria= tb_kriteria.id_kriteria
+    WHERE nik  = '" . $_GET['nik'] . "' and id_periode = '" . $_GET['id_periode'] . "'");
+    // while ($data_nilai = mysqli_fetch_assoc($query_nilai)) {
+    //     // echo '<pre>';
+    //     // print_r($data_nilai);
+    //     // echo '</pre>';
+    // }
 
-    while ($row = mysqli_fetch_array($query)) {
-        $id_nilai = $row['id_nilai'];
-        $periode = $row['periode'];
-        $nik = $row['nik'];
-        $id_kriteria = $row['id_kriteria'];
-        $id_sub_kriteria = $row['id_sub_kriteria'];
+
+    $result_nilai = array();
+    $result_edit = array();
+    while ($data_nilai = mysqli_fetch_assoc($query_nilai)) {
+        $row = array(
+            'id_nilai' => $data_nilai['id_nilai'],
+            'id_kriteria' => $data_nilai['id_kriteria'],
+            'nama_kriteria' => $data_nilai['nama_kriteria'],
+            'id_sub_kriteria' => $data_nilai['id_sub_kriteria'],
+            'nama_sub_kriteria' => $data_nilai['nama_sub_kriteria']
+        );
+        $result_nilai[] = $row;
     }
+    $result_edit['nilai'] = $result_nilai;
+    $result_edit['nama'] = $data_teknisi['nama'];
+    $result_edit['nama_periode'] = $data_periode['nama_periode'];
+    echo json_encode($result_edit);
+    // exit();
+
+    // $result_edit = array();
+    // while ($row = mysqli_fetch_assoc($query)) {
+    //     $result_edit[] = $row;
+    // }
+
+    // echo json_encode($result_edit);
 }
-
-?>
-
-<div class="form-group">
-    <label class="control-label" for="nik">
-        Periode
-    </label>
-    <input type="text" name="periode" class="form-control" id="periode" placeholder="Periode" required="" value="<?php echo $periode ?> " readonly />
-</div>
-
-<?php
-$query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
-?>
-
-<div class="form-group">
-    <label class="control-label" for="nik">
-        Nama Teknisi
-    </label>
-    <?php while ($tampil = mysqli_fetch_array($query_teknisi)) {
-        if ($tampil['nik'] == $nik) {
-            ?>
-            <input type="hidden" name="nik" class="form-control" id="nik" placeholder="" required="" value="<?php echo $nik ?> " />
-            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Teknisi" required="" value="<?php echo $tampil['nama']; ?>" readonly />
-        <?php } ?>
-    <?php
-    } ?>
-</div>
-
-<?php
-$query_kriteria = "SELECT * FROM tb_kriteria";
-$result_kriteria = mysqli_query($conn, $query_kriteria);
-while ($row = mysqli_fetch_array($result_kriteria)) {
-    ?>
-    <div class="form-group">
-        <label class="control-label" for="id_kriteria">
-            <input type="hidden" name="kri[<?php echo $row['id_kriteria'] ?>]" value="<?php echo $id_kriteria ?>">
-            <?php echo $row['nama_kriteria'] ?>
-        </label>
-        <select name="subkri[<?php echo $row['id_kriteria'] ?>]" class="form-control" aria-controls="dataTable" id="id_kriteria" required>
-            <option>-- Pilih Sub Kriteria --</option>
-            <?php
-                $query_subkriteria = "SELECT * FROM tb_subkriteria where id_kriteria ='" . $row['id_kriteria'] . "'";
-                $result_subkriteria = mysqli_query($conn, $query_subkriteria);
-                while ($data = mysqli_fetch_array($result_subkriteria)) {
-                    if ($data['id_sub_kriteria'] == $id_sub_kriteria) {
-                        ?>
-                    <option value="<?php echo $data['id_sub_kriteria'] ?>" selected> <?php echo $data['nama_sub_kriteria'] ?></option>
-                <?php
-                        } else {
-                            ?>
-                    <option value="<?php echo $data['id_sub_kriteria'] ?>"> <?php echo $data['nama_sub_kriteria'] ?></option>
-                <?php }
-                        ?>
-            <?php } ?>
-        </select>
-    </div>
-<?php } ?>

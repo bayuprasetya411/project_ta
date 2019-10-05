@@ -22,12 +22,12 @@ if (isset($_SESSION['login'])) {
         if ($tambah) {
             echo "<script>
             alert('Data Berhasil di Simpan');
-            window.location = (href = 'dataperiode.php');
+            window.location = (href = 'datanilai.php');
             </script>";
         } else {
             echo "<script>
             alert('Data Gagal di Simpan');
-            window.location = (href = 'dataperiode.php')
+            window.location = (href = 'datanilai.php')
             </script>";
         }
     }
@@ -93,7 +93,9 @@ if (isset($_SESSION['login'])) {
     </head>
 
     <!-- header -->
-    <?php include('header.php'); ?>
+    <?php include('header.php');
+        include('../config/function.php');
+        $periode = tgl_indo(date('Y-m')); ?>
 
     <!-- Page Content -->
 
@@ -122,7 +124,7 @@ if (isset($_SESSION['login'])) {
                     <form action="" method="get">
                         <div class="input-group col-md-4 col-md-offset-8">
                             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;" >
+                            <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
                                 <option></option>
                                 <?php
                                     $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
@@ -139,6 +141,7 @@ if (isset($_SESSION['login'])) {
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
+
                                     <th>Nama Teknisi</th>
                                     <th>Periode</th>
                                     <th>Aksi</th>
@@ -146,18 +149,33 @@ if (isset($_SESSION['login'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                    $query_tampil = "SELECT * FROM tb_periode";
-                                    $tampil = mysqli_query($conn, $query_tampil);
-                                    while ($row = mysqli_fetch_array($tampil)) { ?>
+
+                                    $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
+                                    INNER JOIN tb_periode
+                                    ON tb_nilai.id_periode = tb_periode.id_periode
+                                    INNER JOIN tb_teknisi
+                                    ON tb_nilai.nik = tb_teknisi.nik
+                                    INNER JOIN tb_subkriteria
+                                    on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                    where tb_periode.nama_periode ='maret-2019'
+                                    group by tb_nilai.nik ");
+                                    // echo "<pre>";
+
+                                    // print_r($row = mysqli_fetch_array($query_nilai));
+                                    // echo "</pre>";
+                                    // exit();
+
+                                    while ($row = mysqli_fetch_array($query_nilai)) { ?>
                                     <tr>
-                                        <td>I Gusti Agung Bayu Prasetya Dikayana</td>
-                                        <td><?php echo $row['nama_periode'] ?></td>
+                                        <td><input type="hidden" id="nik" name="nik" value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?></td>
+                                        <td><input type="hidden" id="id_periode" name="id_periode" value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id=""><i class="fa fa-wrench"></i></button>
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i></button>
                                             <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="glyphicon glyphicon-resize-full"></i></button>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                <?php }
+                                    ?>
 
                             </tbody>
                         </table>
@@ -175,7 +193,7 @@ if (isset($_SESSION['login'])) {
     <!-- /menu content -->
 
 
-    <!-- Modal Tambah Periode -->
+    <!-- Modal Tambah Data Nilai -->
 
     <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
         <div class="modal-dialog" role="documnet">
@@ -221,8 +239,8 @@ if (isset($_SESSION['login'])) {
                             <table class="table">
                                 <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
-                                        <th>Kriteria</th>
-                                        <th>Sub Kriteria</th>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
                                     </tr>
                                 </thead>
 
@@ -234,8 +252,8 @@ if (isset($_SESSION['login'])) {
 
                                 <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
-                                        <th>Kriteria</th>
-                                        <th>Sub Kriteria</th>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -250,31 +268,31 @@ if (isset($_SESSION['login'])) {
             </div>
         </div>
     </div>
-    <!-- /Modal Tambah kriteria -->
+    <!-- /Modal Tambah Data Nilai -->
 
-    <!-- Modal edit kriteria -->
-    <!-- <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
+    <!-- Modal Ubah Data Nilai-->
+    <div id="modal-ubah" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalubah">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaleditkriteria">Ubah Data Kriteria</h2>
+                    <h2 class="modal-title" id="modalubah">Ubah Data Nilai</h2>
 
                 </div>
 
                 <form id="form_edit_kriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editkriteria">
+                    <div class="modal-body" id="info-ubah">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_kriteria" class="btn btn-primary" id="edit_kriteria">Ubah</button>
+                        <button type="submit" name="ubah_nilai" class="btn btn-primary" id="ubah_nilai">Ubah</button>
 
                     </div>
                 </form>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- /Modal edit kriteria -->
 
     <!-- Modal Data Subkriteria -->
@@ -387,9 +405,9 @@ if (isset($_SESSION['login'])) {
                         var html = '';
                         $.each(resultObj, function(key, val) {
 
-                            html += '<tr>';
-                            html += '<td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="' + val.id_kriteria + '" />' + val.nama_kriteria + '</td>';
-                            html += '<td><select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria' + val.id_kriteria + '" style="width:100%;" ><option value="' + val.id_kriteria + '">-- Pilih Sub Kriteria --</option></select></td>';
+                            html += `<tr>
+                            <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `</td>
+                            <td><select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" ><option value="` + val.id_kriteria + `">-- Pilih Sub Kriteria --</option></select></td>`;
 
                         });
                         $('#load-data').html(html);
@@ -399,12 +417,80 @@ if (isset($_SESSION['login'])) {
             });
             // Script change periode
 
+            // script edit data nilai
+            $(document).on('click', '#edit_nilai_btn', function() {
+
+                var id_periode = $(this).parent().prev().children('input').val();
+                var nik = $(this).parent().prev().prev().children('input').val();
+                console.log(nik);
+                $.ajax({
+                    url: "update_nilai.php",
+                    method: "GET",
+                    data: {
+                        'id_periode': id_periode,
+                        'nik': nik
+                    },
+                    success: function(data) {
+                        var dataEdit = JSON.parse(data);
+                        console.log();
+                        $('#modal-ubah').modal("show");
+                        var junk = "";
+                        var item_nilai= "";                        
+                        for (var key in dataEdit.nilai) {
+                            
+                            junk += `
+                            <tr>
+                                <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="`+ dataEdit.nilai[key].id_kriteria+`" />`+ dataEdit.nilai[key].nama_kriteria+`</td>
+                                <td>
+                                    <input type="hidden" name="id_kriteria" value="`+ dataEdit.nilai[key].id_kriteria+`" > 
+                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria`+ dataEdit.nilai[key].id_kriteria+`" style="width:100%;" ><option value="`+ dataEdit.nilai[key].id_sub_kriteria+`">`+ dataEdit.nilai[key].nama_sub_kriteria+`</option></select>
+                                </td>
+                            </tr>
+                            `;
+                        }
+                            item_nilai += `<div class="form-group">
+                            <label class = "control-label" 'for = "id_periode">Periode</label>
+                            <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / ></div>
+
+                            <div class="form-group">
+                            <label class = "control-label" 'for = "nik">Nama Teknisi</label>
+                            <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / ></div>
+
+                            <div class="form-group">
+                            <table class="table">
+                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="load-data">
+                                    `+junk+`
+                                </tbody>
+
+                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        `;
+                        
+                        $('#info-ubah').html(item_nilai);
+                    }
+                });
+            });
+            // script edit data nilai
+
             // Script Select Sub Kriteria
             $(document).on('click', '.select-subkriteria', function() {
-                console.log($(this).attr('name'));
-
-
-                var id_kriteria = $(this).val();
+                
+                console.log($(this).prev('input').val());
+                console.log( $(this).children().html().toString());
+                var id_kriteria = $(this).prev('input').val();
                 $.ajax({
                     url: "fill_subkriteria.php",
                     method: "POST",
@@ -414,7 +500,8 @@ if (isset($_SESSION['login'])) {
                     success: function(result_subkriteria) {
                         var resultObj_sub = JSON.parse(result_subkriteria);
                         console.log(resultObj_sub);
-                        var html1 = '';
+                        // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
+                        var html1 ='';
                         $.each(resultObj_sub, function(key, val) {
 
 
@@ -428,62 +515,6 @@ if (isset($_SESSION['login'])) {
 
             });
             // Script Select Sub Kriteria
-
-            // script edit kriteria
-            $(document).on('click', '.edit_datakriteria', function() {
-
-                var edit_id_kriteria = $(this).attr('id');
-                $.ajax({
-                    url: "update_kriteria.php",
-                    method: "POST",
-                    data: {
-                        edit_id_kriteria: edit_id_kriteria
-                    },
-                    success: function(data) {
-                        $("#info-editkriteria").html(data);
-                        $("#modal-edit-kriteria").modal("show");
-                    }
-                });
-            });
-            // script edit kriteria
-
-            // script tambah sub kriteria
-            $(document).on('click', '.tambahsub_data', function() {
-
-                var get_id_kriteria = $(this).attr('id');
-                $.ajax({
-                    url: "tambah_subkriteria.php",
-                    method: "POST",
-                    data: {
-                        get_id_kriteria: get_id_kriteria
-                    },
-                    success: function(data) {
-                        $("#info-subkriteria").html(data);
-                        $("#modal-subkriteria").modal("show");
-                    }
-                });
-
-            });
-            // script tambah sub kriteria
-
-            // script detail sub kriteria
-            $(document).on('click', '.detail_datasubkriteria', function() {
-
-                var edit_id_subkriteria = $(this).attr('id');
-                $.ajax({
-                    url: "update_subkriteria.php",
-                    method: "POST",
-                    data: {
-                        edit_id_subkriteria: edit_id_subkriteria
-                    },
-                    success: function(data) {
-                        $("#info-editsub").html(data);
-                        $("#modal-edit-subkriteria").modal("show");
-                    }
-                });
-
-            });
-            // script detail sub kriteria
 
         });
     </script>
