@@ -56,8 +56,8 @@ if (isset($_SESSION['login'])) {
               <div class="icon"><i class="fa fa-user"></i></div>
               <?php
                 $query_teknisi = mysqli_query($conn, "SELECT count(nik) as jumlah_teknisi FROM tb_teknisi");
-                while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
-                <div class="count"><?php echo $tampil['jumlah_teknisi']; ?></div>
+                while ($datateknisi = mysqli_fetch_array($query_teknisi)) { ?>
+                <div class="count"><?php echo $datateknisi['jumlah_teknisi']; ?></div>
               <?php } ?>
               <h3>Jumlah Teknisi</h3>
               <p><a href=" datateknisi.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
@@ -69,9 +69,9 @@ if (isset($_SESSION['login'])) {
               <div class="icon"><i class="fa fa-pie-chart"></i></div>
               <?php
                 $query_kriteria = mysqli_query($conn, "SELECT count(id_kriteria) as jumlah_kriteria FROM tb_kriteria");
-                while ($row = mysqli_fetch_array($query_kriteria)) {
+                while ($datakriteria = mysqli_fetch_array($query_kriteria)) {
                   ?>
-                <div class="count"><?php echo $row['jumlah_kriteria']; ?></div>
+                <div class="count"><?php echo $datakriteria['jumlah_kriteria']; ?></div>
               <?php } ?>
               <h3>Jumlah Kriteria</h3>
               <p><a href="datakriteria.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
@@ -106,12 +106,12 @@ if (isset($_SESSION['login'])) {
                 <form action="" method="get">
                   <div class="input-group col-md-4 col-md-offset-8">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;" >
+                    <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
                       <option></option>
                       <?php
                         $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
-                        while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                        <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                        while ($dataperiode = mysqli_fetch_array($queryperiode)) { ?>
+                        <option value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?></option>
                       <?php
                         } ?>
                     </select>

@@ -35,20 +35,21 @@
                         $pass = $_POST['password'];
 
                         if ($user != 'admin' or $pass != 'telkom135') { ?>
-                    <div class="alert alert-danger alert-dismissible fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                        <strong>Login Gagal!!!</strong> Username atau Password Salah
-                    </div>
-                    <?php } else {
-                            if ($user == 'admin' or $pass == 'telkom135') {
-                                $_SESSION['login'] = true;
-                                $_SESSION['username'] = $user;
-                            }
-                            if ((isset($_SESSION['login'])) and ($_SESSION['login'] = true)) { ?>
-                    <script type="text/javascript">
-                        alert('Anda Berhasil login');
-                        window.location.href = "index.php";
-                    </script>";
+                            <div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Login Gagal!!!</strong> Username atau Password Salah
+                            </div>
+                            <?php
+                                } else {
+                                    if ($user == 'admin' or $pass == 'telkom135') {
+                                        $_SESSION['login'] = true;
+                                        $_SESSION['username'] = $user;
+                                    }
+                                    if ((isset($_SESSION['login'])) and ($_SESSION['login'] = true)) { ?>
+                                <script type="text/javascript">
+                                    alert('Anda Berhasil login');
+                                    window.location.href = "index.php";
+                                </script>";
                     <?php
                             }
                         }

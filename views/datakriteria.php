@@ -13,9 +13,9 @@ if (isset($_SESSION['login'])) {
 
         if ($_POST['bobot_kriteria'] <= 100) {
 
-            $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
-            $insert = mysqli_query($conn, $querytambah);
-            if ($insert) {
+            $query_tambah_kriteria = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
+            $insert_kriteria = mysqli_query($conn, $query_tambah_kriteria);
+            if ($insert_kriteria) {
                 echo "<script> window.alert('Data Berhasil di Simpan');
                             window.location=(href='datakriteria.php') </script>";
             } else {
@@ -36,9 +36,9 @@ if (isset($_SESSION['login'])) {
             $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
             $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
             $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
-            $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
-            $update = mysqli_query($conn, $sql);
-            if ($update) {
+            $query_update_kriteria  = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
+            $update_kriteria = mysqli_query($conn, $query_update_kriteria);
+            if ($update_kriteria) {
                 echo "<script>window.alert('Data Berhasil di Ubah');
                         window.location=(href='datakriteria.php')</script>";
             } else {
@@ -59,11 +59,9 @@ if (isset($_SESSION['login'])) {
         $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
 
         if ($nilai_sub_kriteria <= 100) {
-
-
-            $query_tambah = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
-            $tambah = mysqli_query($conn, $query_tambah);
-            if ($tambah) {
+            $query_tambah_subkriteria = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
+            $insert_subkriteria = mysqli_query($conn, $query_tambah_subkriteria);
+            if ($insert_subkriteria) {
                 echo "<script>
                 alert('Data Berhasil di Simpan');
                 window.location = (href = 'datakriteria.php');
@@ -91,10 +89,10 @@ if (isset($_SESSION['login'])) {
             $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
             $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
             $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
-            $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
-            $ubah = mysqli_query($conn, $query_ubah);
+            $query_update_subkriteria = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
+            $update_subkriteria = mysqli_query($conn, $query_update_subkriteria);
         }
-        if ($ubah) {
+        if ($update_subkriteria) {
             echo "<script>  window.alert('Data Berhasil di Ubah');
             window.location = (href = 'datakriteria.php');
                 </script>";
@@ -173,22 +171,22 @@ if (isset($_SESSION['login'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $query = "SELECT * FROM tb_kriteria ";
+                                        $query_kriteria = "SELECT * FROM tb_kriteria ";
                                         $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_kriteria");
-                                        $result = mysqli_query($conn, $query);
+                                        $result_kriteria = mysqli_query($conn, $query_kriteria);
                                         $data_total_bobot = mysqli_fetch_array($result_total_bobot);
-                                        while ($data = mysqli_fetch_array($result)) {
+                                        while ($datakriteria = mysqli_fetch_array($result_kriteria)) {
 
                                             ?>
                                         <tr>
-                                            <td><?php echo $data['id_kriteria']; ?></td>
-                                            <td><?php echo $data['nama_kriteria']; ?></td>
-                                            <td><?php echo $data['bobot_kriteria']; ?></td>
-                                            <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
+                                            <td><?php echo $datakriteria['id_kriteria']; ?></td>
+                                            <td><?php echo $datakriteria['nama_kriteria']; ?></td>
+                                            <td><?php echo $datakriteria['bobot_kriteria']; ?></td>
+                                            <td><?php echo $datakriteria['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
-                                                <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
-                                                <button type="button" class="btn btn-warning btn-xs detail_subkriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Detail Sub Kriteria </button>
+                                                <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
+                                                <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
+                                                <button type="button" class="btn btn-warning btn-xs detail_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Detail Sub Kriteria </button>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -211,14 +209,14 @@ if (isset($_SESSION['login'])) {
     <!-- Modal Tambah kriteria -->
     <?php
 
-        $sql = mysqli_query($conn, "SELECT id_kriteria FROM tb_kriteria ORDER BY id_kriteria DESC");
-        $id = mysqli_fetch_array($sql);
-        $id_kriteria = $id['id_kriteria'];
+        $query_id_kriteria = mysqli_query($conn, "SELECT id_kriteria FROM tb_kriteria ORDER BY id_kriteria DESC");
+        $dataid = mysqli_fetch_array($query_id_kriteria);
+        $id_kriteria = $dataid['id_kriteria'];
         $no = substr($id_kriteria, 1);
-        $tambah = (int) $no + 1;
+        $tambah_id_kriteria = (int) $no + 1;
 
-        if (strlen($tambah) == 1) {
-            $kode = "C" . $tambah;
+        if (strlen($tambah_id_kriteria) == 1) {
+            $kode_kriteria = "C" . $tambah_id_kriteria;
         }
         ?>
 
@@ -237,7 +235,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_kriteria">
                                 ID Kriteria
                             </label>
-                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode ?>" required readonly />
+                            <input type="text" name="id_kriteria" class="form-control" id="id_kriteria" Value="<?php echo $kode_kriteria ?>" required readonly />
                         </div>
 
                         <div class="form-group">

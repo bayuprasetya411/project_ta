@@ -135,11 +135,12 @@ if (isset($_SESSION['login'])) {
 
                             <tbody>
                                 <?php
-                                    $query_tampil = "SELECT * FROM tb_periode";
-                                    $tampil = mysqli_query($conn, $query_tampil);
-                                    while ($row = mysqli_fetch_array($tampil)) { ?>
+                                    $query_periode = "SELECT * FROM tb_periode";
+                                    $result_periode = mysqli_query($conn, $query_periode);
+                                    while ($dataperiode = mysqli_fetch_array($result_periode)) { ?>
                                     <tr>
-                                        <td><?php echo $row['nama_periode'] ?></td>
+                                        <td>
+                                            <input type="hidden" name="id_periode" value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?></td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
                                             <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
@@ -187,8 +188,8 @@ if (isset($_SESSION['login'])) {
                             <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" autofocus required>
                                 <?php
                                     $queryselect = mysqli_query($conn, "SELECT * FROM tb_kriteria");
-                                    while ($row = mysqli_fetch_array($queryselect)) { ?>
-                                    <option value="<?php echo $row['id_kriteria'] ?>"><?php echo $row['nama_kriteria'] ?></option>
+                                    while ($dataselect = mysqli_fetch_array($queryselect)) { ?>
+                                    <option value="<?php echo $dataselect['id_kriteria'] ?>"><?php echo $dataselect['nama_kriteria'] ?></option>
                                 <?php
                                     } ?>
                             </select>

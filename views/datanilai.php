@@ -11,7 +11,7 @@ if (isset($_SESSION['login'])) {
         $data_sub_kriteria = $_POST['id_sub_kriteria'];
         foreach ($data_sub_kriteria as $id_sub_kriteria) {
             $query_tambah =  "INSERT INTO tb_nilai (nik, id_sub_kriteria,id_periode) value ('$nik','$id_sub_kriteria','$id_periode')";
-            $tambah = mysqli_query($conn, $query_tambah);
+            $tambah_nilai = mysqli_query($conn, $query_tambah);
         }
         // echo "<pre>";
         // print($nama_periode);
@@ -19,7 +19,7 @@ if (isset($_SESSION['login'])) {
         // echo "</pre>";
         // exit();
 
-        if ($tambah) {
+        if ($tambah_nilai) {
             echo "<script>
             alert('Data Berhasil di Simpan');
             window.location = (href = 'datanilai.php');
@@ -164,13 +164,13 @@ if (isset($_SESSION['login'])) {
                                     // echo "</pre>";
                                     // exit();
 
-                                    while ($row = mysqli_fetch_array($query_nilai)) { ?>
+                                    while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
                                     <tr>
                                         <td>
-                                            <input type="hidden" id="nik" name="nik" value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?>
+                                            <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
                                         </td>
                                         <td>
-                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?>
+                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
@@ -216,8 +216,8 @@ if (isset($_SESSION['login'])) {
                                 <option></option>
                                 <?php
                                     $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
-                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                    while ($dataperiode = mysqli_fetch_array($queryperiode)) { ?>
+                                    <option value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?></option>
                                 <?php
                                     } ?>
                             </select>
@@ -232,8 +232,8 @@ if (isset($_SESSION['login'])) {
                                 <?php
                                     $query_teknisi = mysqli_query($conn, "SELECT * FROM tb_teknisi ORDER BY nik DESC");
                                     ?>
-                                <?php while ($tampil = mysqli_fetch_array($query_teknisi)) { ?>
-                                    <option value="<?php echo $tampil['nik']; ?>"><?php echo $tampil['nama']; ?></option>
+                                <?php while ($datateknisi = mysqli_fetch_array($query_teknisi)) { ?>
+                                    <option value="<?php echo $datateknisi['nik']; ?>"><?php echo $datateknisi['nama']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>

@@ -11,8 +11,8 @@ if (isset($_SESSION['login'])) {
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
         $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
         $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
-        $querytambah = "INSERT INTO tb_teknisi (nik, nama, no_telpon, id_area) VALUES ('$nik','$nama','$no_telpon','$id_area')";
-        $insert = mysqli_query($conn, $querytambah);
+        $query_tambah_teknisi = "INSERT INTO tb_teknisi (nik, nama, no_telpon, id_area) VALUES ('$nik','$nama','$no_telpon','$id_area')";
+        $insert = mysqli_query($conn, $query_tambah_teknisi);
 
         if ($insert) {
             echo "<script>window.alert('Data Berhasil di Simpan');
@@ -30,8 +30,8 @@ if (isset($_SESSION['login'])) {
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
         $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
         $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
-        $sql = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
-        $update = mysqli_query($conn, $sql);
+        $query_update_teknisi = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
+        $update = mysqli_query($conn, $query_update_teknisi);
         if ($update) {
             echo "<script>
             window.alert('Data Berhasil di Ubah');
@@ -49,8 +49,8 @@ if (isset($_SESSION['login'])) {
     // aksi hapus teknisi
     if (isset($_POST['hapus_teknisi'])) {
         $nik = $_POST['nik'];
-        $query_deleted = "DELETE FROM tb_teknisi WHERE nik ='$nik'";
-        $deleted = mysqli_query($conn, $query_deleted);
+        $query_deleted_teknisi = "DELETE FROM tb_teknisi WHERE nik ='$nik'";
+        $deleted = mysqli_query($conn, $query_deleted_teknisi);
 
         if ($deleted) {
             echo "<script>
@@ -146,14 +146,14 @@ if (isset($_SESSION['login'])) {
 
                                 <tbody>
                                     <?php
-                                        $query = "SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
+                                        $query_teknisi = "SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
                                         inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area";
-                                        $result = mysqli_query($conn, $query);
-                                        while ($data = mysqli_fetch_array($result)) {
-                                            $nik = $data['nik'];
-                                            $nama = $data['nama'];
-                                            $no_telpon = $data['no_telpon'];
-                                            $area = $data['area'];
+                                        $result_teknisi = mysqli_query($conn, $query_teknisi);
+                                        while ($datateknisi = mysqli_fetch_array($result_teknisi)) {
+                                            $nik = $datateknisi['nik'];
+                                            $nama = $datateknisi['nama'];
+                                            $no_telpon = $datateknisi['no_telpon'];
+                                            $area = $datateknisi['area'];
                                             ?>
                                         <tr>
                                             <td><?php echo $nik ?></td>
@@ -213,8 +213,8 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="id_area">Area</label>
                             <select name="id_area" class="form-control select-area" id="id_area" style="width:100%;" required>
                                 <option></option>
-                                <?php while ($tampil = mysqli_fetch_array($query_area)) { ?>
-                                    <option value="<?php echo $tampil['id_area']; ?>"><?php echo $tampil['area']; ?></option>
+                                <?php while ($dataarea = mysqli_fetch_array($query_area)) { ?>
+                                    <option value="<?php echo $dataarea['id_area']; ?>"><?php echo $dataarea['area']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
