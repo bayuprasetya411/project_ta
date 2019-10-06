@@ -123,6 +123,7 @@ if (isset($_SESSION['login'])) {
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
                     <button class="btn btn-success" id="tambah_periode_btn" name="tambah_periode_btn" href="#" data-toggle="modal" data-target="#modal-tambah-periode"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
                     <div class="table-responsive">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -150,6 +151,7 @@ if (isset($_SESSION['login'])) {
                             </tbody>
                         </table>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -201,6 +203,7 @@ if (isset($_SESSION['login'])) {
                         <button type="submit" name="tambah_periode" class="btn btn-primary" id="tambah_periode_btn">Simpan</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -217,13 +220,15 @@ if (isset($_SESSION['login'])) {
 
                 <form id="form_edit" method="post" role="form" action="">
                     <div class="modal-body" id="info-edit-periode">
+                        <!-- info-edit-periode -->
                     </div>
-
+                    
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="update_periode" class="btn btn-primary" id="update_periode_btn">Ubah</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

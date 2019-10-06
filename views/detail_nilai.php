@@ -18,21 +18,21 @@ if (isset($_GET)) {
     //     // echo '</pre>';
     // }
     $result_nilai = array();
-    $result_edit = array();
+    $result_detail = array();
     while ($data_nilai = mysqli_fetch_assoc($query_nilai)) {
         $row = array(
             'id_nilai' => $data_nilai['id_nilai'],
             'id_kriteria' => $data_nilai['id_kriteria'],
             'nama_kriteria' => $data_nilai['nama_kriteria'],
             'id_sub_kriteria' => $data_nilai['id_sub_kriteria'],
-            'nama_sub_kriteria' => $data_nilai['nama_sub_kriteria']
+            'nilai_sub_kriteria' => $data_nilai['nilai_sub_kriteria']
         );
         $result_nilai[] = $row;
     }
-    $result_edit['nilai'] = $result_nilai;
-    $result_edit['nama'] = $data_teknisi['nama'];
-    $result_edit['nama_periode'] = $data_periode['nama_periode'];
-    echo json_encode($result_edit);
+    $result_detail['nilai'] = $result_nilai;
+    $result_detail['nama'] = $data_teknisi['nama'];
+    $result_detail['nama_periode'] = $data_periode['nama_periode'];
+    echo json_encode($result_detail);
     // exit();
 
     // $result_edit = array();

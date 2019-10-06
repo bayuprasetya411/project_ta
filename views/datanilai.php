@@ -137,7 +137,6 @@ if (isset($_SESSION['login'])) {
                     </form>
 
                     <button class="btn btn-success" id="modal_tambah_nilai_btn" name="modal_tambah_nilai_btn" href="#" data-toggle="modal" data-target="#modal-tambah-nilai"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
-                    <div class="table-responsive">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -146,9 +145,9 @@ if (isset($_SESSION['login'])) {
                                     <th style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
+                            
                             <tbody>
                                 <?php
-
                                     $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
                                     INNER JOIN tb_periode
                                     ON tb_nilai.id_periode = tb_periode.id_periode
@@ -177,13 +176,10 @@ if (isset($_SESSION['login'])) {
                                             <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
-                                <?php }
-                                    ?>
-
+                                <?php }?>
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -197,7 +193,6 @@ if (isset($_SESSION['login'])) {
 
 
     <!-- Modal Tambah Data Nilai -->
-
     <div id="modal-tambah-nilai" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahnilai">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
@@ -268,6 +263,7 @@ if (isset($_SESSION['login'])) {
                         <button type="submit" name="tambah_nilai" class="btn btn-primary" id="tambah_nilai_btn">Simpan</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -280,23 +276,43 @@ if (isset($_SESSION['login'])) {
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
                     <h2 class="modal-title" id="modaleditnilai">Ubah Data Nilai</h2>
-
                 </div>
 
                 <form id="form_edit_nilai" method="post" role="form" action="">
                     <div class="modal-body" id="info-edit-nilai">
-
+                        <!-- info-edit-nilai -->
                     </div>
+
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
                         <button type="submit" name="update_nilai" class="btn btn-primary" id="update_nilai">Ubah</button>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+    </div>
+    <!-- /Modal Edit Nilai -->
+
+    <!-- Modal Detail Nilai-->
+    <div id="modal-detail-nilai" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaldetailnilai">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title" id="modaldetilnilai">Detail Data Nilai</h2>
+                </div>
+                <form id="form_detail_nilai" method="post" role="form" action="">
+                    <div class="modal-body" id="info-detail-nilai">
+                        <!-- info-detail-nilai -->
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal Edit Nilai -->
+    <!-- /Modal Detail Nilai -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -361,8 +377,14 @@ if (isset($_SESSION['login'])) {
                         $.each(resultObj, function(key, val) {
 
                             html += `<tr>
-                            <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `</td>
-                            <td><select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" ><option value="` + val.id_kriteria + `">-- Pilih Sub Kriteria --</option></select></td>`;
+                            <td>
+                                <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `
+                            </td>
+                            <td>
+                                <select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" >
+                                    <option value="` + val.id_kriteria + `">-- Pilih Sub Kriteria --</option>
+                                </select>
+                            </td>`;
 
                         });
                         $('#load-data').html(html);
@@ -395,7 +417,9 @@ if (isset($_SESSION['login'])) {
 
                             junk += `
                             <tr>
-                                <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `</td>
+                                <td>
+                                    <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
+                                </td>
                                 <td>
                                     <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
                                     <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" ><option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option></select>
@@ -403,42 +427,112 @@ if (isset($_SESSION['login'])) {
                             </tr>
                             `;
                         }
-                        item_nilai += `<div class="form-group">
-                            <label class = "control-label" 'for = "id_periode">Periode</label>
-                            <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / ></div>
+                        item_nilai += ` <div class="form-group">
+                                            <label class = "control-label" 'for = "id_periode">Periode</label>
+                                            <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
+                                        </div>
 
-                            <div class="form-group">
-                            <label class = "control-label" 'for = "nik">Nama Teknisi</label>
-                            <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / ></div>
+                                        <div class="form-group">
+                                            <label class = "control-label" 'for = "nik">Nama Teknisi</label>
+                                            <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / >
+                                        </div>
 
-                            <div class="form-group">
-                            <table class="table">
-                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                    <tr>
-                                        <th style="width:50%">Kriteria</th>
-                                        <th style="width:50%">Sub Kriteria</th>
-                                    </tr>
-                                </thead>
+                                        <div class="form-group">
+                                        <table class="table">
+                                            <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                                <tr>
+                                                    <th style="width:50%">Kriteria</th>
+                                                    <th style="width:50%">Sub Kriteria</th>
+                                                </tr>
+                                            </thead>
 
-                                <tbody id="load-data">
-                                    ` + junk + `
-                                </tbody>
+                                            <tbody id="load-data">
+                                                ` + junk + `
+                                            </tbody>
 
-                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                    <tr>
-                                        <th style="width:50%">Kriteria</th>
-                                        <th style="width:50%">Sub Kriteria</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        `;
-
+                                            <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                                <tr>
+                                                    <th style="width:50%">Kriteria</th>
+                                                    <th style="width:50%">Sub Kriteria</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    `;
                         $('#info-edit-nilai').html(item_nilai);
                     }
                 });
             });
             // script edit data nilai
+
+            // Script detail data nilai
+            $(document).on('click', '#detail_nilai_btn', function() {
+
+                var id_periode = $(this).parent().prev().children('input').val();
+                var nik = $(this).parent().prev().prev().children('input').val();
+                console.log(nik);
+
+                $.ajax({
+                    url: "detail_nilai.php",
+                    method: "GET",
+                    data: {
+                        'id_periode': id_periode,
+                        'nik': nik
+                    },
+                    success: function(data) {
+                        var dataDetail = JSON.parse(data);
+                        console.log();
+                        $("#modal-detail-nilai").modal("show");
+                        var junk = "";
+                        var item_nilai = "";
+                        for (var key in dataDetail.nilai) {
+
+                            junk += `
+                            <tr>
+                                <td>`+ dataDetail.nilai[key].nama_kriteria + `</td>
+                                <td class ="text-center">` + dataDetail.nilai[key].nilai_sub_kriteria + `</td>
+                            </tr>
+                            `;
+                        }
+                        item_nilai += ` <div class="form-group">
+                                            <label class = "control-label" >Periode</label>
+                                            <td> : </td>
+                                            <td>` + dataDetail.nama_periode + `</td>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class = "control-label">Nama Teknisi</label>
+                                            <td> : </td>
+                                            <td>` + dataDetail.nama + ` </td>
+                                        </div>
+
+                                        <div class="form-group">
+                                        <table class="table">
+                                            <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                                <tr>
+                                                    <th style="width:50%">Kriteria</th>
+                                                    <th class ="text-center" style="width:50%">Nilai</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="load-data">
+                                                ` + junk + `
+                                            </tbody>
+
+                                            <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                                <tr>
+                                                    <th style="width:50%">Kriteria</th>
+                                                    <th class ="text-center" style="width:50%">Nilai</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    `;
+                        $('#info-detail-nilai').html(item_nilai);
+                    }
+                });
+            });
+            // Script detail data nilai
 
             // Script Select Sub Kriteria
             $(document).on('click', '.select-subkriteria', function() {
