@@ -140,9 +140,9 @@ if (isset($_SESSION['login'])) {
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:60%">Nama Teknisi</th>
-                                    <th style="width:30%">Periode</th>
-                                    <th style="width:10%">Aksi</th>
+                                    <th class ="text-center" style="width:60%">Nama Teknisi</th>
+                                    <th class ="text-center" style="width:30%">Periode</th>
+                                    <th class ="text-center" style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
                             

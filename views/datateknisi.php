@@ -136,11 +136,11 @@ if (isset($_SESSION['login'])) {
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%">Nik</th>
-                                        <th style="width:50%">Nama</th>
-                                        <th style="width:20%">No Telpon</th>
-                                        <th style="width:10%">Area</th>
-                                        <th style="width:10%">Aksi</th>
+                                        <th class ="text-center" style="width:10%">Nik</th>
+                                        <th class ="text-center" style="width:40%">Nama</th>
+                                        <th class ="text-center" style="width:30%">No Telpon</th>
+                                        <th class ="text-center" style="width:10%">Area</th>
+                                        <th class ="text-center" style="width:10%">Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -156,11 +156,11 @@ if (isset($_SESSION['login'])) {
                                             $area = $datateknisi['area'];
                                             ?>
                                         <tr>
-                                            <td><?php echo $nik ?></td>
-                                            <td><?php echo $nama ?></td>
-                                            <td><?php echo $no_telpon ?></td>
-                                            <td><?php echo $area ?></td>
-                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <td ><?php echo $nik ?></td>
+                                            <td ><?php echo $nama ?></td>
+                                            <td ><?php echo $no_telpon ?></td>
+                                            <td ><?php echo $area ?></td>
+                                            <td ><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
                                                 <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
                                             </td>
                                         </tr>

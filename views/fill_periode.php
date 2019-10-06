@@ -13,7 +13,7 @@ if (!empty($_POST)) {
     $result_periode = mysqli_query($conn, $query_periode);
     $result = array();
     while ($dataperiode = mysqli_fetch_assoc($result_periode)) {
-        $result[] = $row;
+        $result[] = $dataperiode;
     }
 
     echo json_encode($result);

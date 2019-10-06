@@ -162,11 +162,11 @@ if (isset($_SESSION['login'])) {
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%">ID Kriteria</th>
-                                        <th style="width:30%">Nama Kriteria</th>
-                                        <th style="width:10%">Bobot Kriteria</th>
-                                        <th style="width:20%">Bobot Normaliasi Kriteria</th>
-                                        <th style="width:30%">Aksi</th>
+                                        <th class ="text-center" style="width:10%">ID Kriteria</th>
+                                        <th class ="text-center" style="width:30%">Nama Kriteria</th>
+                                        <th class ="text-center" style="width:10%">Bobot Kriteria</th>
+                                        <th class ="text-center" style="width:20%">Bobot Normaliasi Kriteria</th>
+                                        <th class ="text-center" style="width:30%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -179,11 +179,11 @@ if (isset($_SESSION['login'])) {
 
                                             ?>
                                         <tr>
-                                            <td><?php echo $datakriteria['id_kriteria']; ?></td>
+                                            <td class ="text-center"><?php echo $datakriteria['id_kriteria']; ?></td>
                                             <td><?php echo $datakriteria['nama_kriteria']; ?></td>
-                                            <td><?php echo $datakriteria['bobot_kriteria']; ?></td>
-                                            <td><?php echo $datakriteria['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
-                                            <td>
+                                            <td class ="text-center"><?php echo $datakriteria['bobot_kriteria']; ?></td>
+                                            <td class ="text-center"><?php echo $datakriteria['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
+                                            <td class ="text-center">
                                                 <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
                                                 <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
                                                 <button type="button" class="btn btn-warning btn-xs detail_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Detail Sub Kriteria </button>

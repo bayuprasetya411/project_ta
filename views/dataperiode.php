@@ -129,8 +129,8 @@ if (isset($_SESSION['login'])) {
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:90%">Nama Periode</th>
-                                    <th style="width:10%">Aksi</th>
+                                    <th class ="text-center" style="width:80%">Nama Periode</th>
+                                    <th class ="text-center" style="width:20%">Aksi</th>
                                 </tr>
                             </thead>
 
@@ -142,7 +142,7 @@ if (isset($_SESSION['login'])) {
                                     <tr>
                                         <td>
                                             <input type="hidden" name="id_periode" value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?></td>
-                                        <td>
+                                        <td class ="text-center">
                                             <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
                                             <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
@@ -151,7 +151,7 @@ if (isset($_SESSION['login'])) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
