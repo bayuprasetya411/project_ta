@@ -6,7 +6,7 @@ if (isset($_SESSION['login'])) {
     include('../config/function.php');
 
     // aksi tambah periode
-    if (isset($_POST['tambah'])) {
+    if (isset($_POST['tambah_periode'])) {
         $nama_periode = $_POST['nama_periode'];
         $data_kriteria = $_POST['id_kriteria'];
         // echo "<pre>";
@@ -91,7 +91,7 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
         <!-- Select2 -->
         <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
@@ -123,15 +123,16 @@ if (isset($_SESSION['login'])) {
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
+                    <button class="btn btn-success" id="tambah_periode_btn" name="tambah_periode_btn" href="#" data-toggle="modal" data-target="#modal-tambah-periode"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
                     <div class="table-responsive">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Nama Periode</th>
-                                    <th>Aksi</th>
+                                    <th style="width:90%">Nama Periode</th>
+                                    <th style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 <?php
                                     $query_tampil = "SELECT * FROM tb_periode";
@@ -140,11 +141,11 @@ if (isset($_SESSION['login'])) {
                                     <tr>
                                         <td><?php echo $row['nama_periode'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-xs edit_periode" id="<?php echo $row['id_periode'] ?>"><i class="fa fa-wrench"></i></button>
+                                            <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
                                 <?php } ?>
-
                             </tbody>
                         </table>
                     </div>
@@ -162,15 +163,15 @@ if (isset($_SESSION['login'])) {
 
 
     <!-- Modal Tambah Periode -->
-    <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <div id="modal-tambah-periode" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahperiode">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Periode</h2>
+                    <h2 class="modal-title" id="modaltambahperiode">Tambah Data Periode</h2>
                 </div>
 
-                <form id="form_tambah" method="post" role="form" action="">
+                <form id="form_tambah_periode" method="post" role="form" action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="nama_periode">
@@ -185,7 +186,6 @@ if (isset($_SESSION['login'])) {
                             </label>
                             <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" autofocus required>
                                 <?php
-
                                     $queryselect = mysqli_query($conn, "SELECT * FROM tb_kriteria");
                                     while ($row = mysqli_fetch_array($queryselect)) { ?>
                                     <option value="<?php echo $row['id_kriteria'] ?>"><?php echo $row['nama_kriteria'] ?></option>
@@ -197,108 +197,36 @@ if (isset($_SESSION['login'])) {
 
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
+                        <button type="submit" name="tambah_periode" class="btn btn-primary" id="tambah_periode_btn">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal Tambah kriteria -->
+    <!-- /Modal Tambah Periode -->
 
     <!-- Modal Edit Periode -->
-    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaliedit">
+    <div id="modal-edit-periode" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalieditperiode">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaliedit">Ubah Data Periode</h2>
+                    <h2 class="modal-title" id="modalieditperiode">Ubah Data Periode</h2>
                 </div>
 
                 <form id="form_edit" method="post" role="form" action="">
-                    <div class="modal-body" id="info-edit">
+                    <div class="modal-body" id="info-edit-periode">
                     </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="ubah" class="btn btn-primary" id="ubah">Ubah</button>
+                        <button type="submit" name="update_periode" class="btn btn-primary" id="update_periode_btn">Ubah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal Tambah kriteria -->
-
-    <!-- Modal edit kriteria -->
-    <!-- <div id="modal-edit-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditkriteria">
-        <div class="modal-dialog" role="documnet">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaleditkriteria">Ubah Data Kriteria</h2>
-
-                </div>
-
-                <form id="form_edit_kriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editkriteria">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_kriteria" class="btn btn-primary" id="edit_kriteria">Ubah</button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- /Modal edit kriteria -->
-
-    <!-- Modal Data Subkriteria -->
-    <!-- <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
-        <div class="modal-dialog" role="documnet" id="info-sub">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Sub Kriteria</h2>
-                </div>
-                <form id="form_tambah_sub" method="post" role="form" action="">
-                    <div class="modal-body" id="info-subkriteria">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Simpan</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- Modal Data Subkriteria -->
-
-    <!-- Modal edit subkriteria -->
-    <!-- <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
-        <div class="modal-dialog  modal-lg" role="documnet">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaledit">Ubah Data Sub Kriteria</h2>
-
-                </div>
-
-                <form id="form_edit_subkriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editsub">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_subkriteria" class="btn btn-primary" id="edit_subkriteria">Ubah</button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- /Modal edit subkriteria -->
+    <!-- /Modal edit periode -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -336,66 +264,30 @@ if (isset($_SESSION['login'])) {
             });
 
             $('.select-teknisi').select2({
-                dropdownParent: $('#modal-input')
+                dropdownParent: $('#modal-tambah-periode')
             });
 
             // script edit periode
-            $(document).on('click', '.edit_periode', function() {
+            $(document).on('click', '.edit_periode_btn', function() {
 
-                var edit_id_periode = $(this).attr('id');
-                console.log(edit_id_periode);
-                $.ajax({
-                    url: "update_periode.php",
-                    method: "POST",
-                    data: {
-                        edit_id_periode: edit_id_periode
-                    },
-                    success: function(data) {
-                        $("#info-edit").html(data);
-                        $("#modal-edit").modal("show");
-                    }
-                });
 
-            });
-            // script edit kriteria
-
-            // script tambah sub kriteria
-            $(document).on('click', '.tambahsub_data', function() {
-
-                var get_id_kriteria = $(this).attr('id');
-                $.ajax({
-                    url: "tambah_subkriteria.php",
-                    method: "POST",
-                    data: {
-                        get_id_kriteria: get_id_kriteria
-                    },
-                    success: function(data) {
-                        $("#info-subkriteria").html(data);
-                        $("#modal-subkriteria").modal("show");
-                    }
-                });
+                // var edit_id_periode = $(this).attr('id');
+                // console.log(edit_id_periode);
+                // $.ajax({
+                //     url: "update_periode.php",
+                //     method: "POST",
+                //     data: {
+                //         edit_id_periode: edit_id_periode
+                //     },
+                //     success: function(data) {
+                //         // $("#info-edit").html(data);
+                //         // $("#modal-edit").modal("show");
+                //     }
+                // });
 
             });
-            // script tambah sub kriteria
+            // script edit periode
 
-            // script detail sub kriteria
-            $(document).on('click', '.detail_datasubkriteria', function() {
-
-                var edit_id_subkriteria = $(this).attr('id');
-                $.ajax({
-                    url: "update_subkriteria.php",
-                    method: "POST",
-                    data: {
-                        edit_id_subkriteria: edit_id_subkriteria
-                    },
-                    success: function(data) {
-                        $("#info-editsub").html(data);
-                        $("#modal-edit-subkriteria").modal("show");
-                    }
-                });
-
-            });
-            // script detail sub kriteria
 
         });
     </script>

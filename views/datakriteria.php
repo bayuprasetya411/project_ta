@@ -16,10 +16,10 @@ if (isset($_SESSION['login'])) {
             $querytambah = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
             $insert = mysqli_query($conn, $querytambah);
             if ($insert) {
-                echo "<script> window.alert('Data Berhasil Disimpan');
+                echo "<script> window.alert('Data Berhasil di Simpan');
                             window.location=(href='datakriteria.php') </script>";
             } else {
-                echo "<script> window.alert('Data Gagal Disimpan');
+                echo "<script> window.alert('Data Gagal di Simpan');
                 window.location=(href='datakriteria.php') </script>";
             }
         } else {
@@ -30,7 +30,7 @@ if (isset($_SESSION['login'])) {
     // aksi tambah kriteria
 
     // aksi ubah kriteria
-    if (isset($_POST['edit_kriteria'])) {
+    if (isset($_POST['update_kriteria'])) {
 
         if ($_POST['bobot_kriteria'] <= 100) {
             $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
@@ -39,10 +39,10 @@ if (isset($_SESSION['login'])) {
             $sql = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
             $update = mysqli_query($conn, $sql);
             if ($update) {
-                echo "<script>window.alert('Data Berhasil Diubah');
+                echo "<script>window.alert('Data Berhasil di Ubah');
                         window.location=(href='datakriteria.php')</script>";
             } else {
-                echo "<script>window.alert('Data Gagal Diubah');
+                echo "<script>window.alert('Data Gagal di Ubah');
                 window.location=(href='datakriteria.php')</script>";
             }
         } else {
@@ -53,7 +53,7 @@ if (isset($_SESSION['login'])) {
     // aksi ubah kriteria
 
     // aksi tambah sub Kriteria
-    if (isset($_POST['tambah_sub'])) {
+    if (isset($_POST['tambah_subkriteria'])) {
         $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
         $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
         $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
@@ -70,7 +70,7 @@ if (isset($_SESSION['login'])) {
                 </script>";
             } else {
                 echo "<script>
-                alert('Data Gagal Diubah');
+                alert('Data Gagal di Simpan');
                 window.location = (href = 'datakriteria.php')
                 </script>";
             }
@@ -84,7 +84,7 @@ if (isset($_SESSION['login'])) {
     // aksi tambah sub Kriteria
 
     // aksi ubah sub kriteria
-    if (isset($_POST['edit_subkriteria'])) {
+    if (isset($_POST['update_subkriteria'])) {
         for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
 
             $id_kriteria =  $_POST["id_kriteria"][$i];
@@ -128,7 +128,7 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
 
     </head>
 
@@ -159,16 +159,16 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Kriteria</button>
+                        <button class="btn btn-success" id="modal_tambah_kriteria_btn" name="modal_tambah_kriteria_btn" href="#" data-toggle="modal" data-target="#modal-tambah-kriteria"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Kriteria</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>ID Kriteria</th>
-                                        <th>Nama Kriteria</th>
-                                        <th>Bobot Kriteria</th>
-                                        <th>Bobot Normaliasi Kriteria</th>
-                                        <th>Aksi</th>
+                                        <th style="width:10%">ID Kriteria</th>
+                                        <th style="width:30%">Nama Kriteria</th>
+                                        <th style="width:10%">Bobot Kriteria</th>
+                                        <th style="width:20%">Bobot Normaliasi Kriteria</th>
+                                        <th style="width:30%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -186,9 +186,9 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $data['bobot_kriteria']; ?></td>
                                             <td><?php echo $data['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-xs edit_datakriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i></button>
-                                                <button type="button" class="btn btn-success btn-xs tambahsub_data" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i></button>
-                                                <button type="button" class="btn btn-warning btn-xs detail_datasubkriteria" id="<?php echo $data['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i></button>
+                                                <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
+                                                <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
+                                                <button type="button" class="btn btn-warning btn-xs detail_subkriteria_btn" id="<?php echo $data['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Detail Sub Kriteria </button>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -222,18 +222,18 @@ if (isset($_SESSION['login'])) {
         }
         ?>
 
-    <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <div id="modal-tambah-kriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahkriteria">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Kriteria</h2>
+                    <h2 class="modal-title" id="modaltambahkriteria">Tambah Data Kriteria</h2>
 
                 </div>
 
-                <form id="form_tambah" method="post" role="form" action="">
+                <form id="form_tambah_kriteria" method="post" role="form" action="">
                     <div class="modal-body">
-                        <div class="form-group" id="tabel_tambah">
+                        <div class="form-group">
                             <label class="control-label" for="id_kriteria">
                                 ID Kriteria
                             </label>
@@ -257,7 +257,7 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_kriteria" class="btn btn-primary" id="tambah">Simpan</button>
+                        <button type="submit" name="tambah_kriteria" class="btn btn-primary" id="tambah_kriteria_btn">Simpan</button>
 
                     </div>
                 </form>
@@ -277,12 +277,12 @@ if (isset($_SESSION['login'])) {
                 </div>
 
                 <form id="form_edit_kriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editkriteria">
+                    <div class="modal-body" id="info-edit-kriteria">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_kriteria" class="btn btn-primary" id="edit_kriteria">Ubah</button>
+                        <button type="submit" name="update_kriteria" class="btn btn-primary" id="update_kriteria_btn">Ubah</button>
 
                     </div>
                 </form>
@@ -291,52 +291,52 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal edit kriteria -->
 
-    <!-- Modal Data Subkriteria -->
-    <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
-        <div class="modal-dialog" role="documnet" id="info-sub">
+    <!-- Modal tambah Subkriteria -->
+    <div id="modal-tambah-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahsubkriteria">
+        <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Sub Kriteria</h2>
+                    <h2 class="modal-title" id="modaltambahsubkriteria">Tambah Data Sub Kriteria</h2>
                 </div>
                 <form id="form_tambah_sub" method="post" role="form" action="">
-                    <div class="modal-body" id="info-subkriteria">
+                    <div class="modal-body" id="info-tambah-subkriteria">
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Simpan</button>
+                        <button type="submit" name="tambah_subkriteria" class="btn btn-primary" id="tambah_subkriteria">Simpan</button>
                     </div>
 
                 </form>
             </div>
         </div>
     </div>
-    <!-- Modal Data Subkriteria -->
+    <!-- Modal tambah Subkriteria -->
 
-    <!-- Modal edit subkriteria -->
-    <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+    <!-- Modal detail subkriteria -->
+    <div id="modal-detail-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaldetailsubkriteria">
         <div class="modal-dialog  modal-lg" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaledit">Ubah Data Sub Kriteria</h2>
+                    <h2 class="modal-title" id="modaldetailsubkriteria">Ubah Data Sub Kriteria</h2>
 
                 </div>
 
-                <form id="form_edit_subkriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editsub">
+                <form id="form_detail_subkriteria" method="post" role="form" action="">
+                    <div class="modal-body" id="info-detail-subkriteria">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_subkriteria" class="btn btn-primary" id="edit_subkriteria">Ubah</button>
+                        <button type="submit" name="update_subkriteria" class="btn btn-primary" id="update_subkriteria_btn">Ubah</button>
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal edit subkriteria -->
+    <!-- /Modal detail subkriteria -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -366,7 +366,7 @@ if (isset($_SESSION['login'])) {
         $(document).ready(function() {
 
             // script edit kriteria
-            $(document).on('click', '.edit_datakriteria', function() {
+            $(document).on('click', '.edit_kriteria_btn', function() {
 
                 var edit_id_kriteria = $(this).attr('id');
                 $.ajax({
@@ -376,7 +376,7 @@ if (isset($_SESSION['login'])) {
                         edit_id_kriteria: edit_id_kriteria
                     },
                     success: function(data) {
-                        $("#info-editkriteria").html(data);
+                        $("#info-edit-kriteria").html(data);
                         $("#modal-edit-kriteria").modal("show");
                     }
                 });
@@ -385,7 +385,7 @@ if (isset($_SESSION['login'])) {
             // script edit kriteria
 
             // script tambah sub kriteria
-            $(document).on('click', '.tambahsub_data', function() {
+            $(document).on('click', '.tambah_subkriteria_btn', function() {
 
                 var get_id_kriteria = $(this).attr('id');
                 $.ajax({
@@ -395,8 +395,8 @@ if (isset($_SESSION['login'])) {
                         get_id_kriteria: get_id_kriteria
                     },
                     success: function(data) {
-                        $("#info-subkriteria").html(data);
-                        $("#modal-subkriteria").modal("show");
+                        $("#info-tambah-subkriteria").html(data);
+                        $("#modal-tambah-subkriteria").modal("show");
                     }
                 });
 
@@ -404,7 +404,7 @@ if (isset($_SESSION['login'])) {
             // script tambah sub kriteria
 
             // script detail sub kriteria
-            $(document).on('click', '.detail_datasubkriteria', function() {
+            $(document).on('click', '.detail_subkriteria_btn', function() {
 
                 var edit_id_subkriteria = $(this).attr('id');
                 $.ajax({
@@ -414,8 +414,8 @@ if (isset($_SESSION['login'])) {
                         edit_id_subkriteria: edit_id_subkriteria
                     },
                     success: function(data) {
-                        $("#info-editsub").html(data);
-                        $("#modal-edit-subkriteria").modal("show");
+                        $("#info-detail-subkriteria").html(data);
+                        $("#modal-detail-subkriteria").modal("show");
                     }
                 });
 

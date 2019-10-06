@@ -5,7 +5,7 @@ if (isset($_SESSION['login'])) {
     include('../config/koneksi.php');
 
     // aksi tambah teknisi
-    if (isset($_POST['tambah'])) {
+    if (isset($_POST['tambah_teknisi'])) {
 
         $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
@@ -15,17 +15,17 @@ if (isset($_SESSION['login'])) {
         $insert = mysqli_query($conn, $querytambah);
 
         if ($insert) {
-            echo "<script>window.alert('Data Berhasil Disimpan');
+            echo "<script>window.alert('Data Berhasil di Simpan');
                 window.location=(href='datateknisi.php')</script>";
         } else {
-            echo "<script>window.alert('Data Gagal Disimpan');
+            echo "<script>window.alert('Data Gagal di Simpan');
                 window.location=(href='datateknisi.php')</script>";
         }
     }
     // aksi tambah teknisi
 
     // aksi ubah teknisi
-    if (isset($_POST['ubah'])) {
+    if (isset($_POST['update_teknisi'])) {
         $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
         $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
@@ -34,12 +34,12 @@ if (isset($_SESSION['login'])) {
         $update = mysqli_query($conn, $sql);
         if ($update) {
             echo "<script>
-            window.alert('Data Berhasil Diubah');
+            window.alert('Data Berhasil di Ubah');
             window.location ='datateknisi.php';
         </script>";
         } else {
             echo "<script>
-            window.alert('Data Gagal Diubah');
+            window.alert('Data Gagal di Ubah');
             window.location = (href = 'update_teknisi.php?nik=" . $nik . "');
         </script>";
         }
@@ -47,19 +47,19 @@ if (isset($_SESSION['login'])) {
     // aksi ubah teknisi
 
     // aksi hapus teknisi
-    if (isset($_POST['hapus'])) {
+    if (isset($_POST['hapus_teknisi'])) {
         $nik = $_POST['nik'];
         $query_deleted = "DELETE FROM tb_teknisi WHERE nik ='$nik'";
         $deleted = mysqli_query($conn, $query_deleted);
 
         if ($deleted) {
             echo "<script>
-        alert('Data Berhasil Dihapus');
+        alert('Data Berhasil di Hapus');
             window.location=(href='datateknisi.php')
         </script>";
         } else {
             echo "<script>
-        alert('Data Gagal Terhapus');
+        alert('Data Gagal di Hapus');
             window.location=(href='datateknisi.php')
         </script>";
         }
@@ -96,7 +96,7 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
         <!-- Select2 -->
         <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
@@ -131,16 +131,16 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="x_content">
                         <div id="alert_tambah"></div>
-                        <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
+                        <button class="btn btn-success" id="modal_tambah_teknisi_btn" name="tambah_teknisi_btn" href="#" data-toggle="modal" data-target="#modal-tambah-teknisi"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Nik</th>
-                                        <th>Nama</th>
-                                        <th>No Telpon</th>
-                                        <th>Area</th>
-                                        <th>Aksi</th>
+                                        <th style="width:10%">Nik</th>
+                                        <th style="width:50%">Nama</th>
+                                        <th style="width:20%">No Telpon</th>
+                                        <th style="width:10%">Area</th>
+                                        <th style="width:10%">Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -160,8 +160,8 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $nama ?></td>
                                             <td><?php echo $no_telpon ?></td>
                                             <td><?php echo $area ?></td>
-                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs ubah_data"><i class="fa fa-wrench"></i></button>
-                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data"><i class="fa fa-trash"></i></button>
+                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
                                             </td>
                                         </tr>
                                     <?php
@@ -185,16 +185,16 @@ if (isset($_SESSION['login'])) {
     </div>
 
     <!-- Modal Tambah Teknisi -->
-    <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <div id="modal-tambah-teknisi" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahteknisi">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Teknisi</h2>
+                    <h2 class="modal-title" id="modaltambahteknisi">Tambah Data Teknisi</h2>
                 </div>
 
-                <form id="form_tambah" method="post" role="form" action="">
-                    <div class="modal-body" id="tabel_tambah">
+                <form id="form_tambah_teknisi" method="post" role="form" action="">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="nik">Nik Karyawan</label>
                             <input type="text" name="nik" class="form-control" id="nik" placeholder="Nik Karyawan" required autofocus="autofocus" />
@@ -227,7 +227,7 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
+                        <button type="submit" name="tambah_teknisi" class="btn btn-primary" id="tambah_teknisi_btn">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -236,21 +236,21 @@ if (isset($_SESSION['login'])) {
     <!-- /Modal Tambah Teknisi -->
 
     <!-- Modal ubah Teknisi -->
-    <div id="modal-edit" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
+    <div id="modal-edit-teknisi" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditteknisi">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaliedit">Ubah Data Teknisi</h2>
+                    <h2 class="modal-title" id="modalieditteknisi">Ubah Data Teknisi</h2>
                 </div>
 
                 <form id="form_edit" method="post" role="form" action="">
-                    <div class="modal-body" id="info-teknisi">
+                    <div class="modal-body" id="info-edit-teknisi">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="ubah" class="btn btn-primary " id="ubah">Ubah</button>
+                        <button type="submit" name="update_teknisi" class="btn btn-primary " id="update_teknisi_btn">Ubah</button>
 
                     </div>
                 </form>
@@ -260,22 +260,22 @@ if (isset($_SESSION['login'])) {
     <!-- /Modal ubah Teknisi -->
 
     <!-- Modal hapus Teknisi -->
-    <div id="modal-hapus" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapus">
+    <div id="modal-hapus-teknisi" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalhapusteknisi">
         <div class="modal-dialog
         " role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalhapus">Hapus Data Teknisi</h2>
+                    <h2 class="modal-title" id="modalhapusteknisi">Hapus Data Teknisi</h2>
                 </div>
 
                 <form id="form_hapus" method="post" role="form" action="">
-                    <div class="modal-body" id="info_hapus">
+                    <div class="modal-body" id="info-hapus-teknisi">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="hapus" class="btn btn-primary" id="hapus">Hapus</button>
+                        <button type="submit" name="hapus_teknisi" class="btn btn-primary" id="hapus_teknisi_btn">Hapus</button>
                     </div>
                 </form>
             </div>
@@ -308,13 +308,13 @@ if (isset($_SESSION['login'])) {
         $(document).ready(function() {
 
             $('.select-area').select2({
-                dropdownParent: $('#modal-input'),
+                dropdownParent: $('#modal-tambah-teknisi'),
                 placeholder: "-- Pilih Area --",
                 allowClear: true
             });
 
             // Script ubah teknisi
-            $(document).on('click', '.ubah_data', function() {
+            $(document).on('click', '.edit_data_btn', function() {
 
                 var edit_nik = $(this).attr('id');
                 $.ajax({
@@ -324,8 +324,8 @@ if (isset($_SESSION['login'])) {
                         edit_nik: edit_nik
                     },
                     success: function(data) {
-                        $("#info-teknisi").html(data);
-                        $("#modal-edit").modal("show");
+                        $("#info-edit-teknisi").html(data);
+                        $("#modal-edit-teknisi").modal("show");
                     }
                 });
 
@@ -333,7 +333,7 @@ if (isset($_SESSION['login'])) {
             // Script ubah teknisi
 
             // Script hapus teknisi
-            $(document).on('click', '.hapus_data', function() {
+            $(document).on('click', '.hapus_data_btn', function() {
 
                 var hapus_nik = $(this).attr('id');
                 $.ajax({
@@ -343,8 +343,8 @@ if (isset($_SESSION['login'])) {
                         hapus_nik: hapus_nik
                     },
                     success: function(data) {
-                        $("#info_hapus").html(data);
-                        $("#modal-hapus").modal("show");
+                        $("#info-hapus-teknisi").html(data);
+                        $("#modal-hapus-teknisi").modal("show");
                     }
                 });
 

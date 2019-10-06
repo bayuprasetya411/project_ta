@@ -5,7 +5,7 @@ if (isset($_SESSION['login'])) {
     include('../config/koneksi.php');
 
     // aksi tambah periode
-    if (isset($_POST['tambah'])) {
+    if (isset($_POST['tambah_nilai'])) {
         $id_periode = $_POST['id_periode'];
         $nik = $_POST['nik'];
         $data_sub_kriteria = $_POST['id_sub_kriteria'];
@@ -86,7 +86,7 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <link href="../assets/build/css/style.css" rel="stylesheet">
+        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
         <!-- Select2 -->
         <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
 
@@ -136,15 +136,14 @@ if (isset($_SESSION['login'])) {
                         </div>
                     </form>
 
-                    <button class="btn btn-success" id="btn-input" name="btn-input" href="#" data-toggle="modal" data-target="#modal-input"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
+                    <button class="btn btn-success" id="modal_tambah_nilai_btn" name="modal_tambah_nilai_btn" href="#" data-toggle="modal" data-target="#modal-tambah-nilai"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
                     <div class="table-responsive">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-
-                                    <th>Nama Teknisi</th>
-                                    <th>Periode</th>
-                                    <th>Aksi</th>
+                                    <th style="width:60%">Nama Teknisi</th>
+                                    <th style="width:30%">Periode</th>
+                                    <th style="width:10%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,11 +166,15 @@ if (isset($_SESSION['login'])) {
 
                                     while ($row = mysqli_fetch_array($query_nilai)) { ?>
                                     <tr>
-                                        <td><input type="hidden" id="nik" name="nik" value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?></td>
-                                        <td><input type="hidden" id="id_periode" name="id_periode" value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i></button>
-                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id=""><i class="glyphicon glyphicon-resize-full"></i></button>
+                                            <input type="hidden" id="nik" name="nik" value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
                                 <?php }
@@ -195,15 +198,15 @@ if (isset($_SESSION['login'])) {
 
     <!-- Modal Tambah Data Nilai -->
 
-    <div id="modal-input" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
+    <div id="modal-tambah-nilai" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahnilai">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Nilai</h2>
+                    <h2 class="modal-title" id="modaltambahnilai">Tambah Data Nilai</h2>
                 </div>
 
-                <form id="form_tambah" method="post" role="form" action="">
+                <form id="form_tambah_nilai" method="post" role="form" action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="id_periode">
@@ -262,85 +265,38 @@ if (isset($_SESSION['login'])) {
 
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah" class="btn btn-primary" id="tambah">Simpan</button>
+                        <button type="submit" name="tambah_nilai" class="btn btn-primary" id="tambah_nilai_btn">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal Tambah Data Nilai -->
+    <!-- /Modal Tambah Nilai -->
 
-    <!-- Modal Ubah Data Nilai-->
-    <div id="modal-ubah" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalubah">
+    <!-- Modal Edit Nilai-->
+    <div id="modal-edit-nilai" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaleditnilai">
         <div class="modal-dialog" role="documnet">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalubah">Ubah Data Nilai</h2>
+                    <h2 class="modal-title" id="modaleditnilai">Ubah Data Nilai</h2>
 
                 </div>
 
-                <form id="form_edit_kriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-ubah">
+                <form id="form_edit_nilai" method="post" role="form" action="">
+                    <div class="modal-body" id="info-edit-nilai">
 
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="ubah_nilai" class="btn btn-primary" id="ubah_nilai">Ubah</button>
+                        <button type="submit" name="update_nilai" class="btn btn-primary" id="update_nilai">Ubah</button>
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /Modal edit kriteria -->
-
-    <!-- Modal Data Subkriteria -->
-    <!-- <div id="modal-subkriteria" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalinput">
-        <div class="modal-dialog" role="documnet" id="info-sub">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalinput">Tambah Data Sub Kriteria</h2>
-                </div>
-                <form id="form_tambah_sub" method="post" role="form" action="">
-                    <div class="modal-body" id="info-subkriteria">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="tambah_sub" class="btn btn-primary" id="tambah_sub">Simpan</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- Modal Data Subkriteria -->
-
-    <!-- Modal edit subkriteria -->
-    <!-- <div id="modal-edit-subkriteria" class="modal fade bs-example-modal-lg" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaledit">
-        <div class="modal-dialog  modal-lg" role="documnet">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaledit">Ubah Data Sub Kriteria</h2>
-
-                </div>
-
-                <form id="form_edit_subkriteria" method="post" role="form" action="">
-                    <div class="modal-body" id="info-editsub">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
-                        <button type="submit" name="edit_subkriteria" class="btn btn-primary" id="edit_subkriteria">Ubah</button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- /Modal edit subkriteria -->
+    <!-- /Modal Edit Nilai -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -376,17 +332,16 @@ if (isset($_SESSION['login'])) {
             });
 
             $('.select-periode').select2({
-                dropdownParent: $('#modal-input'),
+                dropdownParent: $('#modal-tambah-nilai'),
                 placeholder: "-- Pilih Periode --",
                 allowClear: true
             });
 
             $('.select-teknisi').select2({
-                dropdownParent: $('#modal-input'),
+                dropdownParent: $('#modal-tambah-nilai'),
                 placeholder: "-- Pilih Teknisi --",
                 allowClear: true
             });
-
 
 
             // Script change periode
@@ -433,22 +388,22 @@ if (isset($_SESSION['login'])) {
                     success: function(data) {
                         var dataEdit = JSON.parse(data);
                         console.log();
-                        $('#modal-ubah').modal("show");
+                        $('#modal-edit-nilai').modal("show");
                         var junk = "";
-                        var item_nilai= "";                        
+                        var item_nilai = "";
                         for (var key in dataEdit.nilai) {
-                            
+
                             junk += `
                             <tr>
-                                <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="`+ dataEdit.nilai[key].id_kriteria+`" />`+ dataEdit.nilai[key].nama_kriteria+`</td>
+                                <td><input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `</td>
                                 <td>
-                                    <input type="hidden" name="id_kriteria" value="`+ dataEdit.nilai[key].id_kriteria+`" > 
-                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria`+ dataEdit.nilai[key].id_kriteria+`" style="width:100%;" ><option value="`+ dataEdit.nilai[key].id_sub_kriteria+`">`+ dataEdit.nilai[key].nama_sub_kriteria+`</option></select>
+                                    <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
+                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" ><option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option></select>
                                 </td>
                             </tr>
                             `;
                         }
-                            item_nilai += `<div class="form-group">
+                        item_nilai += `<div class="form-group">
                             <label class = "control-label" 'for = "id_periode">Periode</label>
                             <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / ></div>
 
@@ -466,7 +421,7 @@ if (isset($_SESSION['login'])) {
                                 </thead>
 
                                 <tbody id="load-data">
-                                    `+junk+`
+                                    ` + junk + `
                                 </tbody>
 
                                 <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
@@ -478,8 +433,8 @@ if (isset($_SESSION['login'])) {
                             </table>
                         </div>
                         `;
-                        
-                        $('#info-ubah').html(item_nilai);
+
+                        $('#info-edit-nilai').html(item_nilai);
                     }
                 });
             });
@@ -487,9 +442,9 @@ if (isset($_SESSION['login'])) {
 
             // Script Select Sub Kriteria
             $(document).on('click', '.select-subkriteria', function() {
-                
+
                 console.log($(this).prev('input').val());
-                console.log( $(this).children().html().toString());
+                console.log($(this).children().html().toString());
                 var id_kriteria = $(this).prev('input').val();
                 $.ajax({
                     url: "fill_subkriteria.php",
@@ -501,7 +456,7 @@ if (isset($_SESSION['login'])) {
                         var resultObj_sub = JSON.parse(result_subkriteria);
                         console.log(resultObj_sub);
                         // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
-                        var html1 ='';
+                        var html1 = '';
                         $.each(resultObj_sub, function(key, val) {
 
 
