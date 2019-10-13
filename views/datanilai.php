@@ -409,8 +409,10 @@ if (isset($_SESSION['login'])) {
             // script edit data nilai
             $(document).on('click', '#edit_nilai_btn', function() {
 
-                var id_periode = $('#id_periode').val();
-                var nik = $('#nik').val();
+                var id_periode = $(this).parent().prev().children('input').val();
+                var nik = $(this).parent().prev().prev().children('input').val();
+                // var id_periode = $('#id_periode').val();
+                // var nik = $('#nik').val();
                 console.log(nik);
                 console.log(id_periode);
                 $.ajax({
@@ -497,8 +499,8 @@ if (isset($_SESSION['login'])) {
             // Script detail data nilai
             $(document).on('click', '#detail_nilai_btn', function() {
 
-                var id_periode = $('#id_periode').val();
-                var nik = $('#nik').val();
+                var id_periode = $(this).parent().prev().children('input').val();
+                var nik = $(this).parent().prev().prev().children('input').val();
                 console.log(nik);
 
                 $.ajax({
