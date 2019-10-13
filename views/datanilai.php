@@ -353,7 +353,6 @@ if (isset($_SESSION['login'])) {
             });
 
 
-
             $('.select-teknisi').select2({
                 dropdownParent: $('#modal-tambah-nilai'),
                 placeholder: "-- Pilih Teknisi --",
@@ -395,14 +394,14 @@ if (isset($_SESSION['login'])) {
                             $.getJSON("fill_subkriteria.php?id_kriteria=" + val.id_kriteria, function(data) {
                                 console.log(data);
                                 for (var key in data) {
-                                    console.log(data[key].nama_sub_kriteria);
-                                    console.log('#id_sub_kriteria' + data[key].id_kriteria);
-                                    $('#id_sub_kriteria' + data[key].id_kriteria).append(`<option value="` + data[key].nama_sub_kriteria + `">` + data[key].nama_sub_kriteria + `</option>`);
+                                    // console.log(data[key].nama_sub_kriteria);
+                                    // console.log('#id_sub_kriteria' + data[key].id_kriteria);
+                                    $('#id_sub_kriteria' + data[key].id_kriteria).append(`<option value="` + data[key].id_sub_kriteria + `">` + data[key].nama_sub_kriteria + `</option>`);
                                 }
                             });
                         });
                     }
-                })
+                });
 
             });
             // Script change periode
@@ -410,10 +409,10 @@ if (isset($_SESSION['login'])) {
             // script edit data nilai
             $(document).on('click', '#edit_nilai_btn', function() {
 
-                var id_periode = $(this).parent().prev().children('input').val();
-                var nik = $(this).parent().prev().prev().children('input').val();
-                console.log('tes');
+                var id_periode = $('#id_periode').val();
+                var nik = $('#nik').val();
                 console.log(nik);
+                console.log(id_periode);
                 $.ajax({
                     url: "update_nilai.php",
                     method: "GET",
@@ -423,61 +422,72 @@ if (isset($_SESSION['login'])) {
                     },
                     success: function(data) {
 
-                        // var dataEdit = JSON.parse(data);
-                        // console.log(dataEdit);
-                        // $('#modal-edit-nilai').modal("show");
-                        // var junk = "";
-                        // var item_nilai = "";
-                        // for (var key in dataEdit.nilai) {
+                        var dataEdit = JSON.parse(data);
+                        console.log(dataEdit);
+                        $('#modal-edit-nilai').modal("show");
+                        var junk = "";
+                        var item_nilai = "";
+                        for (var key in dataEdit.nilai) {
 
-                        //     junk += `
-                        //     <tr>
-                        //         <td>
-                        //             <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
-                        //         </td>
-                        //         <td>
-                        //             <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
-                        //             <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
-                        //                 <option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option>
-                        //             </select>
-                        //         </td>
-                        //     </tr>
-                        //     `;
-                        // }
-                        // item_nilai += ` 
-                        //     <div class="form-group">
-                        //         <label class = "control-label" 'for = "id_periode">Periode</label>
-                        //         <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
-                        //     </div>
+                            junk += `
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
+                                </td>
+                                <td>
+                                    <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
+                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
+                                        <option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            `;
+                        }
+                        $.each(dataEdit.nilai, function(key, val) {
 
-                        //     <div class="form-group">
-                        //         <label class = "control-label" 'for = "nik">Nama Teknisi</label>
-                        //         <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / >
-                        //     </div>
+                            $.getJSON("fill_subkriteria.php?id_kriteria=" + val.id_kriteria, function(data) {
+                                console.log(data);
+                                for (var key in data) {
+                                    // console.log(data[key].nama_sub_kriteria);
+                                    // console.log('#id_sub_kriteria' + data[key].id_kriteria);
+                                    $('#id_sub_kriteria' + data[key].id_kriteria).append(`<option value="` + data[key].id_sub_kriteria + `">` + data[key].nama_sub_kriteria + `</option>`);
+                                }
+                            });
+                        });
+                        item_nilai += ` 
+                            <div class="form-group">
+                                <label class = "control-label" 'for = "id_periode">Periode</label>
+                                <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
+                            </div>
 
-                        //     <div class="form-group">
-                        //     <table class="table">
-                        //         <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                        //             <tr>
-                        //                 <th style="width:50%">Kriteria</th>
-                        //                 <th style="width:50%">Sub Kriteria</th>
-                        //             </tr>
-                        //         </thead>
+                            <div class="form-group">
+                                <label class = "control-label" 'for = "nik">Nama Teknisi</label>
+                                <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / >
+                            </div>
 
-                        //         <tbody id="load-data">
-                        //             ` + junk + `
-                        //         </tbody>
+                            <div class="form-group">
+                            <table class="table">
+                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
+                                    </tr>
+                                </thead>
 
-                        //         <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                        //             <tr>
-                        //                 <th style="width:50%">Kriteria</th>
-                        //                 <th style="width:50%">Sub Kriteria</th>
-                        //             </tr>
-                        //         </tfoot>
-                        //     </table>
-                        // </div>
-                        // `;
-                        // $('#info-edit-nilai').html(item_nilai);
+                                <tbody id="load-data">
+                                    ` + junk + `
+                                </tbody>
+
+                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Sub Kriteria</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        `;
+                        $('#info-edit-nilai').html(item_nilai);
                     }
                 });
             });
@@ -487,8 +497,8 @@ if (isset($_SESSION['login'])) {
             // Script detail data nilai
             $(document).on('click', '#detail_nilai_btn', function() {
 
-                var id_periode = $(this).parent().prev().children('input').val();
-                var nik = $(this).parent().prev().prev().children('input').val();
+                var id_periode = $('#id_periode').val();
+                var nik = $('#nik').val();
                 console.log(nik);
 
                 $.ajax({
