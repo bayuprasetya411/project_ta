@@ -137,49 +137,48 @@ if (isset($_SESSION['login'])) {
                     </form>
 
                     <button class="btn btn-success" id="modal_tambah_nilai_btn" name="modal_tambah_nilai_btn" href="#" data-toggle="modal" data-target="#modal-tambah-nilai"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th class ="text-center" style="width:60%">Nama Teknisi</th>
-                                    <th class ="text-center" style="width:30%">Periode</th>
-                                    <th class ="text-center" style="width:10%">Aksi</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                <?php
-                                    $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width:60%">Nama Teknisi</th>
+                                <th style="width:30%">Periode</th>
+                                <th class="text-center" style="width:10%">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                                $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
                                     INNER JOIN tb_periode
                                     ON tb_nilai.id_periode = tb_periode.id_periode
                                     INNER JOIN tb_teknisi
                                     ON tb_nilai.nik = tb_teknisi.nik
                                     INNER JOIN tb_subkriteria
                                     on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                    where tb_periode.nama_periode ='maret-2019'
                                     group by tb_nilai.nik ");
-                                    // echo "<pre>";
+                                // echo "<pre>";
 
-                                    // print_r($row = mysqli_fetch_array($query_nilai));
-                                    // echo "</pre>";
-                                    // exit();
+                                // print_r($row = mysqli_fetch_array($query_nilai));
+                                // echo "</pre>";
+                                // exit();
 
-                                    while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
-                                        </td>
-                                        <td>
-                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
-                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
-                                        </td>
-                                    </tr>
-                                <?php }?>
-                            </tbody>
-                        </table>
-                    </div>
+                                while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                        <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -198,7 +197,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaltambahnilai">Tambah Data Nilai</h2>
+                    <h2 class="modal-title text-center" id="modaltambahnilai">Tambah Data Nilai</h2>
                 </div>
 
                 <form id="form_tambah_nilai" method="post" role="form" action="">
@@ -275,7 +274,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaleditnilai">Ubah Data Nilai</h2>
+                    <h2 class="modal-title text-center" id="modaleditnilai">Ubah Data Nilai</h2>
                 </div>
 
                 <form id="form_edit_nilai" method="post" role="form" action="">
@@ -300,7 +299,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaldetilnilai">Detail Data Nilai</h2>
+                    <h2 class="modal-title text-center" id="modaldetilnilai">Detail Data Nilai</h2>
                 </div>
                 <form id="form_detail_nilai" method="post" role="form" action="">
                     <div class="modal-body" id="info-detail-nilai">
@@ -353,6 +352,8 @@ if (isset($_SESSION['login'])) {
                 allowClear: true
             });
 
+
+
             $('.select-teknisi').select2({
                 dropdownParent: $('#modal-tambah-nilai'),
                 placeholder: "-- Pilih Teknisi --",
@@ -371,8 +372,7 @@ if (isset($_SESSION['login'])) {
                     },
                     success: function(result) {
                         var resultObj = JSON.parse(result);
-                        console.log(resultObj);
-
+                        // console.log(resultObj);
                         var html = '';
                         $.each(resultObj, function(key, val) {
 
@@ -381,13 +381,26 @@ if (isset($_SESSION['login'])) {
                                 <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `
                             </td>
                             <td>
+                                <input type="hidden" name="id_kriteria" value="` + val.id_kriteria + `" > 
                                 <select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" >
-                                    <option value="` + val.id_kriteria + `">-- Pilih Sub Kriteria --</option>
+                                    <option value="0">-- Pilih Sub Kriteria --</option>
                                 </select>
                             </td>`;
 
                         });
+
                         $('#load-data').html(html);
+                        $.each(resultObj, function(key, val) {
+
+                            $.getJSON("fill_subkriteria.php?id_kriteria=" + val.id_kriteria, function(data) {
+                                console.log(data);
+                                for (var key in data) {
+                                    console.log(data[key].nama_sub_kriteria);
+                                    console.log('#id_sub_kriteria' + data[key].id_kriteria);
+                                    $('#id_sub_kriteria' + data[key].id_kriteria).append(`<option value="` + data[key].nama_sub_kriteria + `">` + data[key].nama_sub_kriteria + `</option>`);
+                                }
+                            });
+                        });
                     }
                 })
 
@@ -399,6 +412,7 @@ if (isset($_SESSION['login'])) {
 
                 var id_periode = $(this).parent().prev().children('input').val();
                 var nik = $(this).parent().prev().prev().children('input').val();
+                console.log('tes');
                 console.log(nik);
                 $.ajax({
                     url: "update_nilai.php",
@@ -408,61 +422,66 @@ if (isset($_SESSION['login'])) {
                         'nik': nik
                     },
                     success: function(data) {
-                        var dataEdit = JSON.parse(data);
-                        console.log();
-                        $('#modal-edit-nilai').modal("show");
-                        var junk = "";
-                        var item_nilai = "";
-                        for (var key in dataEdit.nilai) {
 
-                            junk += `
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
-                                </td>
-                                <td>
-                                    <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
-                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" ><option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option></select>
-                                </td>
-                            </tr>
-                            `;
-                        }
-                        item_nilai += ` <div class="form-group">
-                                            <label class = "control-label" 'for = "id_periode">Periode</label>
-                                            <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
-                                        </div>
+                        // var dataEdit = JSON.parse(data);
+                        // console.log(dataEdit);
+                        // $('#modal-edit-nilai').modal("show");
+                        // var junk = "";
+                        // var item_nilai = "";
+                        // for (var key in dataEdit.nilai) {
 
-                                        <div class="form-group">
-                                            <label class = "control-label" 'for = "nik">Nama Teknisi</label>
-                                            <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / >
-                                        </div>
+                        //     junk += `
+                        //     <tr>
+                        //         <td>
+                        //             <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
+                        //         </td>
+                        //         <td>
+                        //             <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
+                        //             <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
+                        //                 <option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option>
+                        //             </select>
+                        //         </td>
+                        //     </tr>
+                        //     `;
+                        // }
+                        // item_nilai += ` 
+                        //     <div class="form-group">
+                        //         <label class = "control-label" 'for = "id_periode">Periode</label>
+                        //         <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
+                        //     </div>
 
-                                        <div class="form-group">
-                                        <table class="table">
-                                            <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                                <tr>
-                                                    <th style="width:50%">Kriteria</th>
-                                                    <th style="width:50%">Sub Kriteria</th>
-                                                </tr>
-                                            </thead>
+                        //     <div class="form-group">
+                        //         <label class = "control-label" 'for = "nik">Nama Teknisi</label>
+                        //         <input type = "text" name = "nik" class = "form-control" id = "nik" value = "` + dataEdit.nama + `"  readonly / >
+                        //     </div>
 
-                                            <tbody id="load-data">
-                                                ` + junk + `
-                                            </tbody>
+                        //     <div class="form-group">
+                        //     <table class="table">
+                        //         <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                        //             <tr>
+                        //                 <th style="width:50%">Kriteria</th>
+                        //                 <th style="width:50%">Sub Kriteria</th>
+                        //             </tr>
+                        //         </thead>
 
-                                            <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                                <tr>
-                                                    <th style="width:50%">Kriteria</th>
-                                                    <th style="width:50%">Sub Kriteria</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                    `;
-                        $('#info-edit-nilai').html(item_nilai);
+                        //         <tbody id="load-data">
+                        //             ` + junk + `
+                        //         </tbody>
+
+                        //         <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                        //             <tr>
+                        //                 <th style="width:50%">Kriteria</th>
+                        //                 <th style="width:50%">Sub Kriteria</th>
+                        //             </tr>
+                        //         </tfoot>
+                        //     </table>
+                        // </div>
+                        // `;
+                        // $('#info-edit-nilai').html(item_nilai);
                     }
                 });
             });
+
             // script edit data nilai
 
             // Script detail data nilai
@@ -489,45 +508,46 @@ if (isset($_SESSION['login'])) {
 
                             junk += `
                             <tr>
-                                <td>`+ dataDetail.nilai[key].nama_kriteria + `</td>
+                                <td>` + dataDetail.nilai[key].nama_kriteria + `</td>
                                 <td class ="text-center">` + dataDetail.nilai[key].nilai_sub_kriteria + `</td>
                             </tr>
                             `;
                         }
-                        item_nilai += ` <div class="form-group">
-                                            <label class = "control-label" >Periode</label>
-                                            <td> : </td>
-                                            <td>` + dataDetail.nama_periode + `</td>
-                                        </div>
+                        item_nilai += ` 
+                            <div class="form-group">
+                                <label class = "control-label" >Periode</label>
+                                <td> : </td>
+                                <td>` + dataDetail.nama_periode + `</td>
+                            </div>
 
-                                        <div class="form-group">
-                                            <label class = "control-label">Nama Teknisi</label>
-                                            <td> : </td>
-                                            <td>` + dataDetail.nama + ` </td>
-                                        </div>
+                            <div class="form-group">
+                                <label class = "control-label">Nama Teknisi</label>
+                                <td> : </td>
+                                <td>` + dataDetail.nama + ` </td>
+                            </div>
 
-                                        <div class="form-group">
-                                        <table class="table">
-                                            <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                                <tr>
-                                                    <th style="width:50%">Kriteria</th>
-                                                    <th class ="text-center" style="width:50%">Nilai</th>
-                                                </tr>
-                                            </thead>
+                            <div class="form-group">
+                            <table class="table">
+                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th class ="text-center" style="width:50%">Nilai</th>
+                                    </tr>
+                                </thead>
 
-                                            <tbody id="load-data">
-                                                ` + junk + `
-                                            </tbody>
+                                <tbody id="load-data">
+                                    ` + junk + `
+                                </tbody>
 
-                                            <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
-                                                <tr>
-                                                    <th style="width:50%">Kriteria</th>
-                                                    <th class ="text-center" style="width:50%">Nilai</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                    `;
+                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th class ="text-center" style="width:50%">Nilai</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        `;
                         $('#info-detail-nilai').html(item_nilai);
                     }
                 });
@@ -535,35 +555,64 @@ if (isset($_SESSION['login'])) {
             // Script detail data nilai
 
             // Script Select Sub Kriteria
-            $(document).on('click', '.select-subkriteria', function() {
+            // $(document).on('click', '.select-subkriteria', function() {
 
-                console.log($(this).prev('input').val());
-                console.log($(this).children().html().toString());
-                var id_kriteria = $(this).prev('input').val();
-                $.ajax({
-                    url: "fill_subkriteria.php",
-                    method: "POST",
-                    data: {
-                        id_kriteria: id_kriteria
-                    },
-                    success: function(result_subkriteria) {
-                        var resultObj_sub = JSON.parse(result_subkriteria);
-                        console.log(resultObj_sub);
-                        // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
-                        var html1 = '';
-                        $.each(resultObj_sub, function(key, val) {
+            //     console.log($(this).prev('input').val());
+            //     console.log($(this).children().html().toString());
+            //     var id_kriteria = $(this).prev('input').val();
+            //     $.ajax({
+            //         url: "fill_subkriteria.php",
+            //         method: "POST",
+            //         data: {
+            //             'id_kriteria': id_kriteria
+            //         },
+            //         success: function(result_subkriteria) {
+            //             var resultObj_sub = JSON.parse(result_subkriteria);
+            //             console.log(resultObj_sub);
+            //             // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
+            //             var html1 = '';
+            //             $.each(resultObj_sub, function(key, val) {
 
+            //                 html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
+            //                 // console.log(id_sub_kriteria);
 
-                            html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
-                            // console.log(id_sub_kriteria);
+            //                 $('#id_sub_kriteria' + val.id_kriteria).html(html1);
+            //             });
+            //         }
+            //     });
 
-                            $('#id_sub_kriteria' + val.id_kriteria).html(html1);
-                        });
-                    }
-                });
-
-            });
+            // });
             // Script Select Sub Kriteria
+
+            // // Script Select Sub Kriteria
+            // $(document).on('click', '.select-subkriteria-edit', function() {
+
+            //     console.log($(this).prev('input').val());
+            //     console.log($(this).children().html().toString());
+            //     var id_kriteria = $(this).prev('input').val();
+            //     $.ajax({
+            //         url: "fill_subkriteria.php",
+            //         method: "POST",
+            //         data: {
+            //             id_kriteria: id_kriteria
+            //         },
+            //         success: function(result_subkriteria) {
+            //             var resultObj_sub = JSON.parse(result_subkriteria);
+            //             console.log(resultObj_sub);
+            //             // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
+            //             var html1 = '';
+            //             $.each(resultObj_sub, function(key, val) {
+
+            //                 html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
+            //                 // console.log(id_sub_kriteria);
+
+            //                 $('#id_sub_kriteria' + val.id_kriteria).html(html1);
+            //             });
+            //         }
+            //     });
+
+            // });
+            // // Script Select Sub Kriteria
 
         });
     </script>

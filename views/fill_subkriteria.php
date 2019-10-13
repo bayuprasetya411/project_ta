@@ -2,8 +2,10 @@
 
 include('../config/koneksi.php');
 
-if (!empty($_POST)) {
-    $id_kriteria = $_POST['id_kriteria'];
+
+
+if (!empty($_GET)) {
+    $id_kriteria = $_GET['id_kriteria'];
     $query_subkriteria = "SELECT * FROM tb_subkriteria WHERE id_kriteria ='$id_kriteria'";
     $sql = mysqli_query($conn, $query_subkriteria);
     $result_subkriteria = array();

@@ -12,4 +12,4 @@ if (isset($_POST['hapus_nik'])) {
 }
 ?>
 <input type="hidden" name="nik" id="nik" value="<?php echo $nik ?>" required autofocus="autofocus" />
-<h5>Yakin Anda Akan Menghapus Data?</h5>
+<h5 class="text-center">Yakin Anda Akan Menghapus Data?</h5>

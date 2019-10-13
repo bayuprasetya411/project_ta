@@ -30,7 +30,6 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3>MENU UTAMA</h3>
-                            <div class="separator"></div>
                             <ul class="nav side-menu">
                                 <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard <span class="fa fa-chevron-right"></span></a></li>
                                 <li><a href="datateknisi.php"><i class="fa fa-user"></i> Data Teknisi <span class="fa fa-chevron-right"></span></a></li>

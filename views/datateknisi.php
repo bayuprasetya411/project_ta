@@ -136,11 +136,11 @@ if (isset($_SESSION['login'])) {
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class ="text-center" style="width:10%">Nik</th>
-                                        <th class ="text-center" style="width:40%">Nama</th>
-                                        <th class ="text-center" style="width:30%">No Telpon</th>
-                                        <th class ="text-center" style="width:10%">Area</th>
-                                        <th class ="text-center" style="width:10%">Aksi</th>
+                                        <th style="width:10%">Nik</th>
+                                        <th style="width:40%">Nama</th>
+                                        <th class="text-center" style="width:30%">No Telpon</th>
+                                        <th class="text-center" style="width:10%">Area</th>
+                                        <th class="text-center" style="width:10%">Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -156,11 +156,11 @@ if (isset($_SESSION['login'])) {
                                             $area = $datateknisi['area'];
                                             ?>
                                         <tr>
-                                            <td ><?php echo $nik ?></td>
-                                            <td ><?php echo $nama ?></td>
-                                            <td ><?php echo $no_telpon ?></td>
-                                            <td ><?php echo $area ?></td>
-                                            <td ><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <td><?php echo $nik ?></td>
+                                            <td><?php echo $nama ?></td>
+                                            <td class="text-center"><?php echo $no_telpon ?></td>
+                                            <td class="text-center"><?php echo $area ?></td>
+                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
                                                 <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
                                             </td>
                                         </tr>
@@ -190,7 +190,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaltambahteknisi">Tambah Data Teknisi</h2>
+                    <h2 class="modal-title text-center" id="modaltambahteknisi">Tambah Data Teknisi</h2>
                 </div>
 
                 <form id="form_tambah_teknisi" method="post" role="form" action="">
@@ -241,7 +241,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalieditteknisi">Ubah Data Teknisi</h2>
+                    <h2 class="modal-title text-center" id="modalieditteknisi">Ubah Data Teknisi</h2>
                 </div>
 
                 <form id="form_edit" method="post" role="form" action="">
@@ -266,7 +266,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalhapusteknisi">Hapus Data Teknisi</h2>
+                    <h2 class="modal-title text-center" id="modalhapusteknisi">Hapus Data Teknisi</h2>
                 </div>
 
                 <form id="form_hapus" method="post" role="form" action="">

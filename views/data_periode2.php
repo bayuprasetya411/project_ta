@@ -33,41 +33,50 @@ if (isset($_SESSION['login'])) {
             </script>";
         }
     }
+    // aksi tambah periode
 
-    // aksi tambah kriteria
+    // aksi ubah periode
+    if (isset($_POST['update_periode'])) {
+        $id_periode = $_POST['id_periode'];
+        $nama_periode = $_POST['nama_periode'];
+        $query_update = "UPDATE tb_periode SET nama_periode ='" . $nama_periode . "' WHERE id_periode = '" . $id_periode . "'";
+        $update = mysqli_query($conn, $query_update);
+        if ($update) {
+            echo "<script>
+            alert('Data Berhasil di Ubah');
+            window.location = (href = 'data_periode2.php');
+            </script>";
+        } else {
+            echo "<script>
+            alert('Data Gagal di Ubah');
+            window.location = (href = 'data_periode2.php')
+            </script>";
+        }
+    }
+    // aksi ubah periode
 
-    // aksi ubah kriteria
+    // aksi hapus periode
 
-    // aksi ubah kriteria
+    if (isset($_POST['hapus_periode'])) {
+        $id_periode = $_POST['id_periode'];
+        $query_deleted_periode = "DELETE FROM tb_periode WHERE id_periode ='$id_periode'";
+        $deleted = mysqli_query($conn, $query_deleted_periode);
 
-    // aksi tambah sub Kriteria
+        if ($deleted) {
+            echo "<script>
+        alert('Data Berhasil di Hapus');
+            window.location=(href='data_periode2.php')
+        </script>";
+        } else {
+            echo "<script>
+        alert('Data Gagal di Hapus');
+            window.location=(href='data_periode2.php')
+        </script>";
+        }
+    }
 
-    // aksi tambah sub Kriteria
 
-    // aksi ubah sub kriteria
-    // if (isset($_POST['edit_subkriteria'])) {
-    //     for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
-
-    //         $id_kriteria =  $_POST["id_kriteria"][$i];
-    //         $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
-    //         $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
-    //         $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
-    //         $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
-    //         $ubah = mysqli_query($conn, $query_ubah);
-    //     }
-    //     if ($ubah) {
-    //         echo "<script>  window.alert('Data Berhasil di Ubah');
-    //         window.location = (href = 'datakriteria.php');
-    //             </script>";
-    //     } else {
-    //         echo "<script>
-    //                 window.alert('Data Gagal di Ubah');
-    //                 window.location = (href = 'datakriteria.php');
-    //         </script>";
-    //     }
-    // }
-    // aksi ubah sub kriteria
-
+    // aksi hapus periode
 
     ?>
 
@@ -129,7 +138,7 @@ if (isset($_SESSION['login'])) {
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center" style="width:80%">Nama Periode</th>
+                                    <th style="width:80%">Nama Periode</th>
                                     <th class="text-center" style="width:20%">Aksi</th>
                                 </tr>
                             </thead>
@@ -145,6 +154,7 @@ if (isset($_SESSION['login'])) {
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-danger btn-xs " id="hapus_periode_btn"><i class="fa fa-trash"></i> Hapus</button>
                                             <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
@@ -172,7 +182,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modaltambahperiode">Tambah Data Periode</h2>
+                    <h2 class="modal-title text-center" id="modaltambahperiode">Tambah Data Periode</h2>
                 </div>
 
                 <form id="form_tambah_periode" method="post" role="form" action="">
@@ -216,7 +226,7 @@ if (isset($_SESSION['login'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
-                    <h2 class="modal-title" id="modalieditperiode">Ubah Data Periode</h2>
+                    <h2 class="modal-title text-center" id="modalieditperiode">Ubah Data Periode</h2>
                 </div>
 
                 <form id="form_edit" method="post" role="form" action="">
@@ -233,7 +243,55 @@ if (isset($_SESSION['login'])) {
             </div>
         </div>
     </div>
-    <!-- /Modal edit periode -->
+    <!-- /Modal Edit periode -->
+
+    <!-- Modal Detail Periode -->
+    <div id="modal-detail-periode" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalidetailperiode">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title text-center" id="modalidetailperiode">Detail Data Periode</h2>
+                </div>
+
+                <form id="form_detail" method="post" role="form" action="">
+                    <div class="modal-body" id="info-detail-periode">
+                        <!-- info-detail-periode -->
+                    </div>
+
+                    <div class="modal-footer">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Modal Detail periode -->
+
+    <!-- Modal Hapus Periode -->
+    <div id="modal-hapus-periode" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modalihapusperiode">
+        <div class="modal-dialog" role="documnet">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <h2 class="modal-title text-center" id="modalihapusperiode">Hapus Data Periode</h2>
+                </div>
+
+                <form method="post" role="form" action="">
+                    <div class="modal-body" id="info-hapus-periode">
+                        <!-- info-hapus-periode -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" name="hapus_periode" class="btn btn-primary" id="hapus_periode_btn">Hapus</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Modal Hapus periode -->
 
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
@@ -280,75 +338,103 @@ if (isset($_SESSION['login'])) {
                 var edit_id_periode = $(this).parent().prev().children('input').val();
                 console.log(edit_id_periode);
                 $.ajax({
-                    url: "update_periode.php",
+                    url: "update_periode2.php",
                     method: "GET",
                     data: {
                         'edit_id_periode': edit_id_periode
                     },
                     success: function(data) {
-
-                        var dataEdit = JSON.parse(data);
-                        console.log(dataEdit);
                         $("#modal-edit-periode").modal("show");
-                        var kriteria = '';
-                        var item_periode = '';
-                        var item_kriteria = '';
-                        console.log(dataEdit.kriteria);
-
-                        for (var key in dataEdit.periode) {
-
-                            kriteria += `
-
-                            <option value="` + dataEdit.periode[key].id_kriteria + `" selected="selected">` + dataEdit.periode[key].nama_kriteria + `</option>
-                            
-
-                            `;
-                        }
-
-                        item_periode += `
-                        
-                        <div class="form-group">
-                            <label class="control-label" for="nama_periode">Nama Periode</label>
-                            <input type="hidden" name="id_periode" class="form-control" id="id_periode" value="` + dataEdit.id_periode + `" />
-                            <input type="text" name="nama_periode" class="form-control" id="nama_periode" value="` + dataEdit.nama_periode + `" readonly required />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label" for="nama_kriteria">Kriteria</label>
-                            <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" autofocus required>
-                                ` + kriteria + `
-                            </select>
-                        </div>
-    
-                        `;
-                        $("#info-edit-periode").html(item_periode);
-                        $(document).ready(function() {
-                            $('.select-kriteria').select2({
-                                placeholder: "-- Pilih Kriteria --",
-                                allowClear: true
-                            });
-                        });
-
+                        $("#info-edit-periode").html(data);
                     }
                 });
-
-                // var edit_id_periode = $(this).attr('id');
-                // console.log(edit_id_periode);
-                // $.ajax({
-                //     url: "update_periode.php",
-                //     method: "POST",
-                //     data: {
-                //         edit_id_periode: edit_id_periode
-                //     },
-                //     success: function(data) {
-                //         // $("#info-edit").html(data);
-                //         // $("#modal-edit").modal("show");
-                //     }
-                // });
-
             });
             // script edit periode
 
+            // script detail periode
+            $(document).on('click', '#detail_periode_btn', function() {
+
+                var detail_id_periode = $(this).parent().prev().children('input').val();
+                console.log(detail_id_periode);
+                $.ajax({
+                    url: "detail_periode.php",
+                    method: "GET",
+                    data: {
+                        'detail_id_periode': detail_id_periode
+                    },
+                    success: function(data) {
+                        var dataDetail = JSON.parse(data);
+                        console.log(dataDetail);
+                        $("#modal-detail-periode").modal('show');
+                        var detail_kriteria = '';
+                        var detail_periode = '';
+                        for (var key in dataDetail.periode) {
+                            detail_kriteria += `
+                            <tr>
+                                <td>` + dataDetail.periode[key].nama_kriteria + `</td>
+                                <td class ="text-center">` + dataDetail.periode[key].bobot_normalisasi + `</td>
+                            </tr>
+                            `;
+                        }
+
+                        detail_periode += `
+                        
+                            <div class="form-group">
+                                <label class = "control-label" >Periode</label>
+                                <td> : </td>
+                                <td>` + dataDetail.nama_periode + `</td>
+                            </div>
+
+                            <div class="form-group">
+                            <table class="table">
+                                <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th class ="text-center" style="width:50%">Bobot Normalisasi Kriteria</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="load-data">
+                                    ` + detail_kriteria + `
+                                </tbody>
+
+                                <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
+                                    <tr>
+                                        <th style="width:50%">Kriteria</th>
+                                        <th class ="text-center" style="width:50%">Bobot Normalisasi Kriteria</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        `;
+                        $("#info-detail-periode").html(detail_periode);
+                    }
+                });
+            });
+            // script detail periode
+
+            // script hapus periode
+            $(document).on('click', '#hapus_periode_btn', function() {
+
+                var hapus_id_periode = $(this).parent().prev().children('input').val();
+                console.log(hapus_id_periode);
+                $.ajax({
+
+                    url: "hapus_periode.php",
+                    method: "GET",
+                    data: {
+                        'hapus_id_periode': hapus_id_periode
+                    },
+                    success: function(data) {
+
+                        $("#modal-hapus-periode").modal('show');
+                        $("#info-hapus-periode").html(data);
+
+                    }
+                });
+            });
+            // script hapus periode
 
         });
     </script>

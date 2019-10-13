@@ -90,7 +90,7 @@ if (isset($_SESSION['login'])) {
                         <table id="example2" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
+                                    <th>Nama Teknisi</th>
                                     <th>Presensi</th>
                                     <th>Disiplin</th>
                                     <th>Produktifitas</th>
