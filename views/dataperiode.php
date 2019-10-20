@@ -124,12 +124,6 @@ if (isset($_SESSION['login'])) {
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Tabel Data Periode<small>Corporate Service</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
                         <div class="clearfix"></div>
                     </div>
 
@@ -379,17 +373,19 @@ if (isset($_SESSION['login'])) {
 
                         detail_periode += `
                         
-                            <div class="form-group">
-                                <label class = "control-label" >Periode</label>
-                                <td> : </td>
-                                <td>` + dataDetail.nama_periode + `</td>
-                            </div>
-
+                            <div class ="row">
+                                <div class="form-group">
+                                    <div class="col-xs-3 col-sm-3 col-md-3"><label class = "control-label" >PERIODE</label></div>
+                                    <div>` + dataDetail.nama_periode + `</div>
+                                </div>
+                            </div>    
+                            <p></p>
+                            
                             <div class="form-group">
                             <table class="table">
                                 <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
-                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Nama Kriteria</th>
                                         <th class ="text-center" style="width:50%">Bobot Normalisasi Kriteria</th>
                                     </tr>
                                 </thead>
@@ -400,7 +396,7 @@ if (isset($_SESSION['login'])) {
 
                                 <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
-                                        <th style="width:50%">Kriteria</th>
+                                        <th style="width:50%">Nama Kriteria</th>
                                         <th class ="text-center" style="width:50%">Bobot Normalisasi Kriteria</th>
                                     </tr>
                                 </tfoot>

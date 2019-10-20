@@ -4,7 +4,7 @@ if (isset($_SESSION['login'])) {
 
     include('../config/koneksi.php');
 
-    // aksi tambah periode
+    // aksi tambah nilai
     if (isset($_POST['tambah_nilai'])) {
         $id_periode = $_POST['id_periode'];
         $nik = $_POST['nik'];
@@ -31,39 +31,33 @@ if (isset($_SESSION['login'])) {
             </script>";
         }
     }
-    // aksi tambah periode
+    // aksi tambah nilai
 
-    // aksi ubah kriteria
+    // aksi ubah nilai
+    if (isset($_POST['update_nilai'])) {
 
-    // aksi ubah kriteria
+        for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
+            $id_periode =  $_POST['id_periode'][$i];
+            $nik = $_POST['nik'][$i];
+            $id_nilai = $_POST['id_nilai'][$i];
+            $id_sub_kriteria =  $_POST['id_sub_kriteria'][$i];
+            $query_update_nilai = "UPDATE tb_nilai SET id_sub_kriteria ='" . $id_sub_kriteria . "' WHERE id_nilai ='" . $id_nilai . "'";
+            $update_nilai = mysqli_query($conn, $query_update_nilai);
+        }
 
-    // aksi tambah sub Kriteria
+        if ($update_nilai) {
+            echo "<script>  window.alert('Data Berhasil di Ubah');
+                window.location = (href = 'datanilai.php');
+                    </script>";
+        } else {
+            echo "<script>
+                        window.alert('Data Gagal di Ubah');
+                        window.location = (href = 'datanilai.php');
+                </script>";
+        }
+    }
+    // aksi ubah nilai
 
-    // aksi tambah sub Kriteria
-
-    // aksi ubah sub kriteria
-    // if (isset($_POST['edit_subkriteria'])) {
-    //     for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
-
-    //         $id_kriteria =  $_POST["id_kriteria"][$i];
-    //         $id_sub_kriteria =  $_POST["id_sub_kriteria"][$i];
-    //         $nama_sub_kriteria =  $_POST["nama_sub_kriteria"][$i];
-    //         $nilai_sub_kriteria =  $_POST["nilai_sub_kriteria"][$i];
-    //         $query_ubah = "UPDATE tb_subkriteria SET nama_sub_kriteria ='" . $nama_sub_kriteria . "', nilai_sub_kriteria ='" . $nilai_sub_kriteria . "' WHERE id_sub_kriteria ='" . $id_sub_kriteria . "'";
-    //         $ubah = mysqli_query($conn, $query_ubah);
-    //     }
-    //     if ($ubah) {
-    //         echo "<script>  window.alert('Data Berhasil di Ubah');
-    //         window.location = (href = 'datakriteria.php');
-    //             </script>";
-    //     } else {
-    //         echo "<script>
-    //                 window.alert('Data Gagal di Ubah');
-    //                 window.location = (href = 'datakriteria.php');
-    //         </script>";
-    //     }
-    // }
-    // aksi ubah sub kriteria
     ?>
 
     <!DOCTYPE html>
@@ -112,22 +106,19 @@ if (isset($_SESSION['login'])) {
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Tabel Data Nilai<small>Corporate Service</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
                         <div class="clearfix"></div>
                     </div>
 
                     <form action="" method="get">
                         <div class="input-group col-md-4 col-md-offset-8">
                             <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
+                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
                                 <option></option>
                                 <?php
-                                    $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                                    $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                    inner join tb_periode
+                                    on tb_nilai.id_periode = tb_periode.id_periode 
+                                    group by tb_nilai.id_periode");
                                     while ($row = mysqli_fetch_array($queryperiode)) { ?>
                                     <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                                 <?php
@@ -423,7 +414,7 @@ if (isset($_SESSION['login'])) {
                         'nik': nik
                     },
                     success: function(data) {
-
+                        i = 0;
                         var dataEdit = JSON.parse(data);
                         console.log(dataEdit);
                         $('#modal-edit-nilai').modal("show");
@@ -433,17 +424,20 @@ if (isset($_SESSION['login'])) {
 
                             junk += `
                             <tr>
+
                                 <td>
-                                    <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
+                                    <input type="hidden" name="id_nilai[` + i + `]" class="form-control" id="id_nilai" value ="` + dataEdit.nilai[key].id_nilai + `" />
+                                    <input type="hidden" name="id_kriteria[` + i + `]" class="form-control item-kriteria" id="id_kriteria" value ="` + dataEdit.nilai[key].id_kriteria + `" />` + dataEdit.nilai[key].nama_kriteria + `
                                 </td>
                                 <td>
                                     <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
-                                    <select  name="id_sub_kriteria[]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
+                                    <select  name="id_sub_kriteria[` + i + `]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
                                         <option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option>
                                     </select>
                                 </td>
                             </tr>
                             `;
+                            i++;
                         }
                         $.each(dataEdit.nilai, function(key, val) {
 
@@ -457,6 +451,7 @@ if (isset($_SESSION['login'])) {
                             });
                         });
                         item_nilai += ` 
+                        
                             <div class="form-group">
                                 <label class = "control-label" 'for = "id_periode">Periode</label>
                                 <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
@@ -526,17 +521,21 @@ if (isset($_SESSION['login'])) {
                             `;
                         }
                         item_nilai += ` 
-                            <div class="form-group">
-                                <label class = "control-label" >Periode</label>
-                                <td> : </td>
-                                <td>` + dataDetail.nama_periode + `</td>
+
+                            <div class = "row">
+                                <div class="form-group">
+                                    <div class="col-xs-3 col-sm-3 col-md-3"><label class = "control-label" >PERIODE</label></div>
+                                    <div>` + dataDetail.nama_periode + `</div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class = "control-label">Nama Teknisi</label>
-                                <td> : </td>
-                                <td>` + dataDetail.nama + ` </td>
+                            <div class = "row">
+                                <div class="form-group">
+                                    <div class="col-xs-3 col-sm-3 col-md-3"><label class = "control-label">NAMA TEKNISI</label></div>
+                                    <div>` + dataDetail.nama + ` </div>
+                                </div>
                             </div>
+                            <p></p>
 
                             <div class="form-group">
                             <table class="table">
@@ -565,66 +564,6 @@ if (isset($_SESSION['login'])) {
                 });
             });
             // Script detail data nilai
-
-            // Script Select Sub Kriteria
-            // $(document).on('click', '.select-subkriteria', function() {
-
-            //     console.log($(this).prev('input').val());
-            //     console.log($(this).children().html().toString());
-            //     var id_kriteria = $(this).prev('input').val();
-            //     $.ajax({
-            //         url: "fill_subkriteria.php",
-            //         method: "POST",
-            //         data: {
-            //             'id_kriteria': id_kriteria
-            //         },
-            //         success: function(result_subkriteria) {
-            //             var resultObj_sub = JSON.parse(result_subkriteria);
-            //             console.log(resultObj_sub);
-            //             // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
-            //             var html1 = '';
-            //             $.each(resultObj_sub, function(key, val) {
-
-            //                 html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
-            //                 // console.log(id_sub_kriteria);
-
-            //                 $('#id_sub_kriteria' + val.id_kriteria).html(html1);
-            //             });
-            //         }
-            //     });
-
-            // });
-            // Script Select Sub Kriteria
-
-            // // Script Select Sub Kriteria
-            // $(document).on('click', '.select-subkriteria-edit', function() {
-
-            //     console.log($(this).prev('input').val());
-            //     console.log($(this).children().html().toString());
-            //     var id_kriteria = $(this).prev('input').val();
-            //     $.ajax({
-            //         url: "fill_subkriteria.php",
-            //         method: "POST",
-            //         data: {
-            //             id_kriteria: id_kriteria
-            //         },
-            //         success: function(result_subkriteria) {
-            //             var resultObj_sub = JSON.parse(result_subkriteria);
-            //             console.log(resultObj_sub);
-            //             // var html1 = '<option selected value="' + $(this).val() + '">TES</option>';
-            //             var html1 = '';
-            //             $.each(resultObj_sub, function(key, val) {
-
-            //                 html1 += '<option value="' + val.id_sub_kriteria + '">' + val.nama_sub_kriteria + '</option>';
-            //                 // console.log(id_sub_kriteria);
-
-            //                 $('#id_sub_kriteria' + val.id_kriteria).html(html1);
-            //             });
-            //         }
-            //     });
-
-            // });
-            // // Script Select Sub Kriteria
 
         });
     </script>

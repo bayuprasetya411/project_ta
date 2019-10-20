@@ -148,12 +148,6 @@ if (isset($_SESSION['login'])) {
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Tabel Data Kriteria<small>Corporate Service</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -186,7 +180,7 @@ if (isset($_SESSION['login'])) {
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
                                                 <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
-                                                <button type="button" class="btn btn-warning btn-xs detail_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Detail Sub Kriteria </button>
+                                                <button type="button" class="btn btn-warning btn-xs edit_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Edit Sub Kriteria </button>
                                             </td>
                                         </tr>
                                     <?php  } ?>
@@ -402,7 +396,7 @@ if (isset($_SESSION['login'])) {
             // script tambah sub kriteria
 
             // script detail sub kriteria
-            $(document).on('click', '.detail_subkriteria_btn', function() {
+            $(document).on('click', '.edit_subkriteria_btn', function() {
 
                 var edit_id_subkriteria = $(this).attr('id');
                 $.ajax({

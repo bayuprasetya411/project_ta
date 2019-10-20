@@ -51,7 +51,7 @@ if (isset($_SESSION['login'])) {
           </div>
           <div class="clearfix"></div>
 
-          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="tile-stats" id="dashboardteknisi">
               <div class="icon"><i class="fa fa-user"></i></div>
               <?php
@@ -64,7 +64,7 @@ if (isset($_SESSION['login'])) {
             </div>
           </div>
 
-          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardkriteria">
+          <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12" id="dashboardkriteria">
             <div class="tile-stats">
               <div class="icon"><i class="fa fa-pie-chart"></i></div>
               <?php
@@ -78,14 +78,6 @@ if (isset($_SESSION['login'])) {
             </div>
           </div>
 
-          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-12" id="dashboardperangkingan">
-            <div class="tile-stats">
-              <div class="icon"><i class="fa fa-trophy"></i></div>
-              <div class="count">0</div>
-              <h3>Hasil Perangkingan</h3>
-              <p><a href="datasubkriteria.php">Lihat Detail <span class="fa fa-chevron-right"></span> </a></p>
-            </div>
-          </div>
           <div class="clearfix"></div>
 
           <!-- Bar graph -->
@@ -93,12 +85,6 @@ if (isset($_SESSION['login'])) {
             <div class="x_panel">
               <div class="x_title">
                 <h2>Grafik Penilaian</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
@@ -106,17 +92,21 @@ if (isset($_SESSION['login'])) {
                 <form action="" method="get">
                   <div class="input-group col-md-4 col-md-offset-8">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
+                    <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
                       <option></option>
                       <?php
-                        $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
-                        while ($dataperiode = mysqli_fetch_array($queryperiode)) { ?>
-                        <option value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?></option>
+                        $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                    inner join tb_periode
+                                    on tb_nilai.id_periode = tb_periode.id_periode 
+                                    group by tb_nilai.id_periode");
+                        while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                        <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                       <?php
                         } ?>
                     </select>
                   </div>
                 </form>
+
 
                 <div style="padding:1%">
                   <h2>
@@ -138,12 +128,6 @@ if (isset($_SESSION['login'])) {
           <div class="x_panel">
             <div class="x_title">
               <h2>Grafik Individu Teknisi Per Tahun</h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">

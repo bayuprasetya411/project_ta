@@ -59,12 +59,6 @@ if (isset($_SESSION['login'])) {
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Tabel Ranking Teknisi<small>Corporate Service</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -72,10 +66,13 @@ if (isset($_SESSION['login'])) {
                         <form action="" method="get">
                             <div class="input-group col-md-4 col-md-offset-8">
                                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                                <select type="submit" name="periode" class="form-control select-search-periode" id="periode" style="width:100%;">
+                                <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
                                     <option></option>
                                     <?php
-                                        $queryperiode = mysqli_query($conn, "SELECT * FROM tb_periode");
+                                        $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                    inner join tb_periode
+                                    on tb_nilai.id_periode = tb_periode.id_periode 
+                                    group by tb_nilai.id_periode");
                                         while ($row = mysqli_fetch_array($queryperiode)) { ?>
                                         <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                                     <?php
@@ -84,37 +81,31 @@ if (isset($_SESSION['login'])) {
                             </div>
                         </form>
 
+
                         <label>
                             <h2><b>Peringkat Teknisi Periode <a style="color:blue;">Maret-2019</a></b></h2>
                         </label>
                         <table id="example2" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                            <thead>
+                            <thead id="data-th">
                                 <tr>
                                     <th>Nama Teknisi</th>
-                                    <th>Presensi</th>
-                                    <th>Disiplin</th>
-                                    <th>Produktifitas</th>
-                                    <th>Gaul</th>
+
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                     <th>Periode</th>
                                     <th>Total Nilai</th>
                                     <th>Rank</th>
-                                </tr>
+
+
                             </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td>I Gede Suartama</td>
-                                    <td>15</td>
-                                    <td>28</td>
-                                    <td>19.5</td>
-                                    <td>0</td>
-                                    <td>Maret-2019</td>
-                                    <td>62.5</td>
-                                    <td>1</td>
-                                </tr>
-                            </tbody>
+
+
+
                         </table>
-                        <button type="button" class="btn btn-primary" name="cetak" id="cetak"><i class="fa fa-print"></i> Cetak Laporan</button>
+                        <button type="button" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button>
                     </div>
                 </div>
             </div>
@@ -168,6 +159,17 @@ if (isset($_SESSION['login'])) {
                 "info": true,
                 "autoWidth": true
             });
+        });
+
+        $.ajax({
+            type: "GET",
+            data: "",
+            url: "data_proses_nilai.php",
+            success: function(data) {
+
+            }
+
+
         });
     </script>
 
