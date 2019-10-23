@@ -5,7 +5,7 @@
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0; background-color:#d73925;">
                         <a href="" class="site_title ">
-                            SPK CORPORATE
+                            <b>SPK CORPORATE</b>
                         </a>
                     </div>
 

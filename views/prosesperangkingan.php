@@ -14,7 +14,7 @@ if (isset($_SESSION['login'])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>SPK | Proses Perangkingan</title>
+        <title>SPK | Proses Perankingan</title>
 
 
         <!-- Bootstrap -->
@@ -88,24 +88,32 @@ if (isset($_SESSION['login'])) {
                         <table id="example2" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead id="data-th">
                                 <tr>
-                                    <th>Nama Teknisi</th>
-
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th>Periode</th>
-                                    <th>Total Nilai</th>
-                                    <th>Rank</th>
-
-
+                                    <th class="text-center">Nama Teknisi</th>
+                                    <th class="text-center">Presensi</th>
+                                    <th class="text-center">Disiplin</th>
+                                    <th class="text-center">Produktifitas</th>
+                                    <th class="text-center">Gaul</th>
+                                    <th class="text-center">Total Nilai</th>
+                                    <th class="text-center">Periode</th>
+                                    <th class="text-center">Rank</th>
+                                </tr>
                             </thead>
 
-
-
+                            <tbody>
+                                <tr>
+                                    <td>I Gusti Agung Bayu Prasetya Dikayana</td>
+                                    <td class="text-center">12</td>
+                                    <td class="text-center">28</td>
+                                    <td class="text-center">15</td>
+                                    <td class="text-center">0</td>
+                                    <td class="text-center">55</td>
+                                    <td class="text-center">Maret-2019</td>
+                                    <td class="text-center">1</td>
+                                </tr>
+                            </tbody>
 
                         </table>
-                        <button type="button" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button>
+                        <a href="laporan_perankingan.php" target="_blank"><button type="button" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button></a>
                     </div>
                 </div>
             </div>
@@ -164,7 +172,7 @@ if (isset($_SESSION['login'])) {
         $.ajax({
             type: "GET",
             data: "",
-            url: "data_proses_nilai.php",
+            url: "get_data_nilai.php",
             success: function(data) {
 
             }

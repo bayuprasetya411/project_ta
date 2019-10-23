@@ -129,11 +129,11 @@ if (isset($_SESSION['login'])) {
 
                     <button class="btn btn-success" id="tambah_periode_btn" name="tambah_periode_btn" href="#" data-toggle="modal" data-target="#modal-tambah-periode"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
                     <div class="table-responsive">
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <table id="datatable-responsive" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:80%">Nama Periode</th>
-                                    <th class="text-center" style="width:20%">Aksi</th>
+                                    <th style="width:75%">Nama Periode</th>
+                                    <th class="text-center" style="width:25%">Aksi</th>
                                 </tr>
                             </thead>
 

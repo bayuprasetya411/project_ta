@@ -128,12 +128,12 @@ if (isset($_SESSION['login'])) {
                     </form>
 
                     <button class="btn btn-success" id="modal_tambah_nilai_btn" name="modal_tambah_nilai_btn" href="#" data-toggle="modal" data-target="#modal-tambah-nilai"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Nilai</button>
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable-responsive" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="width:60%">Nama Teknisi</th>
-                                <th style="width:30%">Periode</th>
-                                <th class="text-center" style="width:10%">Aksi</th>
+                                <th style="width:25%">Periode</th>
+                                <th class="text-center" style="width:15%">Aksi</th>
                             </tr>
                         </thead>
 
@@ -161,7 +161,7 @@ if (isset($_SESSION['login'])) {
                                     <td>
                                         <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
                                         <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                     </td>

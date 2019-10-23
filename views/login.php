@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="login" style="background:grey;">
+<body class="login">
     <div class="login_wrapper">
         <div class="card-body">
 
@@ -54,8 +54,8 @@
                             }
                         }
                     } ?>
-                    <div style="text-align:center">
-                        <h4><b>SISTEM PENDUKUNG KEPUTUSAN TEKNISI CORPORATE SERVICE</b></h4>
+                    <div style="text-align:center; color:grey;">
+                        <h4><b>SPK TEKNISI </b> CORPORATE SERVICE</h4>
                     </div>
 
                     <div class="separator"></div>
@@ -63,7 +63,7 @@
                     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);">
                         <h5>Log On Application</h5>
                     </div>
-                    <div style="background:white; border:black; color:black; padding:2%; border-radius:3%; margin-top:-8%;">
+                    <div style="background:white; border:grey; color:black; padding:2%; border-radius:3%; margin-top:-8%; box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);">
                         <div style="background:white; border:black; color:black; border-radius:2%; margin-top:15%">
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" id="username" name="username" placeholder="Username" required="" autofocus="autofocus" />
@@ -83,7 +83,7 @@
 
         <div class="separator">
 
-            <div style="text-align:center; color:white; mar">
+            <div style="text-align:center; color:grey;">
                 <p>©2019 All Rights Reserved. SPK | Telkom Corporate Service</p>
             </div>
         </div>
