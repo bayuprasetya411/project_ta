@@ -6,13 +6,43 @@ if (isset($_SESSION['login'])) {
 
     // aksi tambah nilai
     if (isset($_POST['tambah_nilai'])) {
+
         $id_periode = $_POST['id_periode'];
         $nik = $_POST['nik'];
-        $data_sub_kriteria = $_POST['id_sub_kriteria'];
-        foreach ($data_sub_kriteria as $id_sub_kriteria) {
-            $query_tambah =  "INSERT INTO tb_nilai (nik, id_sub_kriteria,id_periode) value ('$nik','$id_sub_kriteria','$id_periode')";
+        $query_kriteria = mysqli_query($conn, "SELECT * FROM tb_periode_has_kriteria where id_periode = '".$id_periode."'");
+        while ($data_kriteria = mysqli_fetch_array($query_kriteria)){
+            $id_kri = $data_kriteria['id_kriteria'];
+            $id_kriteria = $_POST['id_kriteria'][$id_kri];
+            $id_sub_kriteria = $_POST['id_sub_kriteria'][$id_kri];
+            $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
             $tambah_nilai = mysqli_query($conn, $query_tambah);
+
+        //      echo "<pre>";
+        // print_r($data_kriteria);
+        // echo "</pre>";
+        
         }
+        // exit();
+        // $data_kriteria = $_POST['id_kriteria'];
+        // $data_sub_kriteria = $_POST['id_sub_kriteria'];
+
+        // foreach ($data_sub_kriteria as $id_sub_kriteria) {
+        //     foreach ($data_kriteria as $id_kriteria ){
+            
+        //     }
+        //     $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
+        //     $tambah_nilai = mysqli_query($conn, $query_tambah);
+        // }
+        
+        // $data_sub_kriteria = $_POST['id_sub_kriteria'];
+        // foreach ($data_sub_kriteria as $id_sub_kriteria) {
+        //     echo "<pre>";
+        //         print_r($id_sub_kriteria);
+        //         echo "</pre>";
+            // $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria,id_periode) value ('$nik',$id_kriteria,'$id_sub_kriteria','$id_periode')";
+            // $tambah_nilai = mysqli_query($conn, $query_tambah);
+        // }
+        // exit();
         // echo "<pre>";
         // print($nama_periode);
         // print_r($id_kriteria);
@@ -368,11 +398,11 @@ if (isset($_SESSION['login'])) {
 
                             html += `<tr>
                             <td>
-                                <input type="hidden" name="id_kriteria[]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `
+                                <input type="hidden" name="id_kriteria[` + val.id_kriteria + `]" class="form-control item-kriteria" id="id_kriteria" value ="` + val.id_kriteria + `" />` + val.nama_kriteria + `
                             </td>
                             <td>
-                                <input type="hidden" name="id_kriteria" value="` + val.id_kriteria + `" > 
-                                <select  name="id_sub_kriteria[]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" >
+                                <input type="hidden" value="` + val.id_kriteria + `" > 
+                                <select  name="id_sub_kriteria[` + val.id_kriteria + `]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" >
                                     <option value="0">-- Pilih Sub Kriteria --</option>
                                 </select>
                             </td>`;
