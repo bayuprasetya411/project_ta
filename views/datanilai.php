@@ -140,20 +140,30 @@ if (isset($_SESSION['login'])) {
                     </div>
 
                     <form action="" method="get">
-                        <div class="input-group col-md-4 col-md-offset-8">
-                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
-                                <option></option>
-                                <?php
-                                    $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
-                                    inner join tb_periode
-                                    on tb_nilai.id_periode = tb_periode.id_periode 
-                                    group by tb_nilai.id_periode");
-                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
-                                <?php
-                                    } ?>
-                            </select>
+                        <div class="container">
+                            <div class="row">
+                            <div class='col-sm-4 col-sm-offset-8'>
+                                <div class="form-group">
+                                    <div class='input-group date' >
+                                    <span style="background:grey;" class="input-group-addon">
+                                        <span  class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                        <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                                        <option></option>
+                                        <?php
+                                            $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                            inner join tb_periode
+                                            on tb_nilai.id_periode = tb_periode.id_periode 
+                                            group by tb_nilai.id_periode");
+                                            while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                            <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                        <?php
+                                            } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
 
