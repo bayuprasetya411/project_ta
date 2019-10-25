@@ -93,8 +93,8 @@ if (isset($_SESSION['login'])) {
                     <div class="row">
                       <div class='col-sm-4 col-sm-offset-8'>
                         <div class="form-group">
-                          <div class='input-group date'>
-                            <span style="background:grey;" class="input-group-addon">
+                          <div class='input-group'>
+                            <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                             <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
@@ -146,8 +146,8 @@ if (isset($_SESSION['login'])) {
                   <div class="row">
                     <div class='col-sm-4 col-sm-offset-4'>
                       <div class="form-group">
-                        <div class='input-group date' id='filter_teknisi'>
-                          <span style="background:grey;" class="input-group-addon">
+                        <div class='input-group' id='filter_teknisi'>
+                          <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                           </span>
                           <select name="filter_teknisi" class="form-control select-search-teknisi" id="filter_teknisi" style="width:100%;">
@@ -168,8 +168,8 @@ if (isset($_SESSION['login'])) {
 
                     <div class='col-sm-4'>
                       <div class="form-group">
-                        <div class='input-group date' id='filter_tahun'>
-                          <span style="background:grey;" class="input-group-addon">
+                        <div class='input-group' id='filter_tahun'>
+                          <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                           </span>
                           <select type="submit" name="filter_tahun" class="form-control select-search-tahun" id="filter_tahun" style="width:100%;">

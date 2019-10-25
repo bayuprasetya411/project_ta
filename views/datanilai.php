@@ -9,18 +9,18 @@ if (isset($_SESSION['login'])) {
 
         $id_periode = $_POST['id_periode'];
         $nik = $_POST['nik'];
-        $query_kriteria = mysqli_query($conn, "SELECT * FROM tb_periode_has_kriteria where id_periode = '".$id_periode."'");
-        while ($data_kriteria = mysqli_fetch_array($query_kriteria)){
+        $query_kriteria = mysqli_query($conn, "SELECT * FROM tb_periode_has_kriteria where id_periode = '" . $id_periode . "'");
+        while ($data_kriteria = mysqli_fetch_array($query_kriteria)) {
             $id_kri = $data_kriteria['id_kriteria'];
             $id_kriteria = $_POST['id_kriteria'][$id_kri];
             $id_sub_kriteria = $_POST['id_sub_kriteria'][$id_kri];
             $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
             $tambah_nilai = mysqli_query($conn, $query_tambah);
 
-        //      echo "<pre>";
-        // print_r($data_kriteria);
-        // echo "</pre>";
-        
+            //      echo "<pre>";
+            // print_r($data_kriteria);
+            // echo "</pre>";
+
         }
         // exit();
         // $data_kriteria = $_POST['id_kriteria'];
@@ -28,19 +28,19 @@ if (isset($_SESSION['login'])) {
 
         // foreach ($data_sub_kriteria as $id_sub_kriteria) {
         //     foreach ($data_kriteria as $id_kriteria ){
-            
+
         //     }
         //     $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
         //     $tambah_nilai = mysqli_query($conn, $query_tambah);
         // }
-        
+
         // $data_sub_kriteria = $_POST['id_sub_kriteria'];
         // foreach ($data_sub_kriteria as $id_sub_kriteria) {
         //     echo "<pre>";
         //         print_r($id_sub_kriteria);
         //         echo "</pre>";
-            // $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria,id_periode) value ('$nik',$id_kriteria,'$id_sub_kriteria','$id_periode')";
-            // $tambah_nilai = mysqli_query($conn, $query_tambah);
+        // $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria,id_periode) value ('$nik',$id_kriteria,'$id_sub_kriteria','$id_periode')";
+        // $tambah_nilai = mysqli_query($conn, $query_tambah);
         // }
         // exit();
         // echo "<pre>";
@@ -142,26 +142,26 @@ if (isset($_SESSION['login'])) {
                     <form action="" method="get">
                         <div class="container">
                             <div class="row">
-                            <div class='col-sm-4 col-sm-offset-8'>
-                                <div class="form-group">
-                                    <div class='input-group date' >
-                                    <span style="background:grey;" class="input-group-addon">
-                                        <span  class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                        <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
-                                        <option></option>
-                                        <?php
-                                            $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                <div class='col-sm-4 col-sm-offset-8'>
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                                                <option></option>
+                                                <?php
+                                                    $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
                                             inner join tb_periode
                                             on tb_nilai.id_periode = tb_periode.id_periode 
                                             group by tb_nilai.id_periode");
-                                            while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                            <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
-                                        <?php
-                                            } ?>
-                                        </select>
+                                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                                <?php
+                                                    } ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
