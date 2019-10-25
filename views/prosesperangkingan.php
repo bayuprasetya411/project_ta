@@ -66,26 +66,26 @@ if (isset($_SESSION['login'])) {
                         <form action="" method="get">
                             <div class="container">
                                 <div class="row">
-                                <div class='col-sm-4 col-sm-offset-8'>
-                                    <div class="form-group">
-                                        <div class='input-group date' >
-                                        <span style="background:grey;" class="input-group-addon">
-                                            <span  class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
-                                            <option></option>
-                                            <?php
-                                                $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                                    <div class='col-sm-4 col-sm-offset-8'>
+                                        <div class="form-group">
+                                            <div class='input-group date'>
+                                                <span style="background:grey;" class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                                                    <option></option>
+                                                    <?php
+                                                        $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
                                                 inner join tb_periode
                                                 on tb_nilai.id_periode = tb_periode.id_periode 
                                                 group by tb_nilai.id_periode");
-                                                while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                                <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
-                                            <?php
-                                                } ?>
-                                            </select>
+                                                        while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                                        <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                                    <?php
+                                                        } ?>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@ if (isset($_SESSION['login'])) {
                                         <td><?php echo $nama_teknisi ?></td>
 
                                         <?php
-                                            $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
+                                                $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
                                             inner Join tb_periode
                                             on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
                                             INNER JOIN tb_kriteria
