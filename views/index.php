@@ -88,32 +88,31 @@ if (isset($_SESSION['login'])) {
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                         
                 <form action="" method="get">
                   <div class="container">
                     <div class="row">
                       <div class='col-sm-4 col-sm-offset-8'>
                         <div class="form-group">
-                            <div class='input-group date' >
-                              <span style="background:grey;" class="input-group-addon">
-                                  <span  class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                                <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
-                                  <option></option>
-                                  <?php
-                                    $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
+                          <div class='input-group date'>
+                            <span style="background:grey;" class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                              <option></option>
+                              <?php
+                                $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
                                     inner join tb_periode
                                     on tb_nilai.id_periode = tb_periode.id_periode 
                                     group by tb_nilai.id_periode");
-                                    while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
-                                  <?php
-                                    } ?>
-                                  </select>
-                              </div>
+                                while ($row = mysqli_fetch_array($queryperiode)) { ?>
+                                <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                              <?php
+                                } ?>
+                            </select>
                           </div>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </form>
 
@@ -142,70 +141,70 @@ if (isset($_SESSION['login'])) {
             </div>
             <div class="x_content">
 
-            <form action="" method="get">
-              <div class="container">
-                <div class="row">
-                  <div class='col-sm-4 col-sm-offset-4'>
+              <form action="" method="get">
+                <div class="container">
+                  <div class="row">
+                    <div class='col-sm-4 col-sm-offset-4'>
                       <div class="form-group">
-                          <div class='input-group date' id='filter_teknisi'>
-                            <span style="background:grey;" class="input-group-addon">
-                                <span  class="glyphicon glyphicon-user"></span>
-                              </span>
-                              <select name="filter_teknisi" class="form-control select-search-teknisi" id="filter_teknisi" style="width:100%;">
-                                <option></option>
-                                <?php
-                                    $queryteknisi1 = mysqli_query($conn, "SELECT tb_nilai.nik, tb_teknisi.nama FROM tb_nilai
+                        <div class='input-group date' id='filter_teknisi'>
+                          <span style="background:grey;" class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                          </span>
+                          <select name="filter_teknisi" class="form-control select-search-teknisi" id="filter_teknisi" style="width:100%;">
+                            <option></option>
+                            <?php
+                              $queryteknisi1 = mysqli_query($conn, "SELECT tb_nilai.nik, tb_teknisi.nama FROM tb_nilai
                                     inner join tb_teknisi
                                     on tb_nilai.nik = tb_teknisi.nik 
                                     group by tb_nilai.nik");
-                                    while ($row = mysqli_fetch_array($queryteknisi1)) { ?>
-                                    <option value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?></option>
-                                <?php
-                                    } ?>
-                                </select>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class='col-sm-4'>
-                      <div class="form-group">
-                          <div class='input-group date' id='filter_tahun'>
-                            <span style="background:grey;" class="input-group-addon">
-                                <span  class="glyphicon glyphicon-calendar"></span>
-                              </span>
-                              <select type="submit" name="filter_tahun" class="form-control select-search-tahun" id="filter_tahun" style="width:100%;">
-                                <option></option>
-                                <option>2019</option>
-                              </select>
-                          </div>
+                              while ($row = mysqli_fetch_array($queryteknisi1)) { ?>
+                              <option value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?></option>
+                            <?php
+                              } ?>
+                          </select>
+                        </div>
                       </div>
                     </div>
+
+                    <div class='col-sm-4'>
+                      <div class="form-group">
+                        <div class='input-group date' id='filter_tahun'>
+                          <span style="background:grey;" class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                          <select type="submit" name="filter_tahun" class="form-control select-search-tahun" id="filter_tahun" style="width:100%;">
+                            <option></option>
+                            <option>2019</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </form>
+
+              <div style="padding:1%">
+                <h2>
+                  <td>Teknisi</td>
+                  <td>:</td>
+                  <td>
+                    I Gusti Agung Bayu Prasetya Dikayana
+                  </td>
+                </h2>
+                <h4>
+                  Hasil Penilaian Teknisi Periode <a style="color:blue;"> Tahun 2019</a>
+                </h4>
               </div>
-          </form>
 
-        <div style="padding:1%">
-          <h2>
-            <td>Teknisi</td>
-            <td>:</td>
-            <td>
-              I Gusti Agung Bayu Prasetya Dikayana
-            </td>
-          </h2>
-          <h4>
-            Hasil Penilaian Teknisi Periode <a style="color:blue;"> Tahun 2019</a>
-          </h4>
-        </div>
-
-        <p></p>
-        <div class="x_content2">
-          <div id="graph_line" style="width:100%; height:300px;"></div>
+              <p></p>
+              <div class="x_content2">
+                <div id="graph_line" style="width:100%; height:300px;"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- Bar graph -->
+      <!-- Bar graph -->
 
       <div class="clearfix"></div>
     </div>
@@ -235,7 +234,6 @@ if (isset($_SESSION['login'])) {
 
 
     <script>
-
       $(".select-search-teknisi").select2({
         placeholder: "-- Pilih Teknisi --",
         allowClear: true
@@ -248,7 +246,6 @@ if (isset($_SESSION['login'])) {
         placeholder: "-- Pilih Tahun --",
         allowClear: true
       });
-
     </script>
 
   <?php

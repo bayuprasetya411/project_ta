@@ -190,7 +190,7 @@ if (isset($_SESSION['login'])) {
 
                         <div class="form-group">
                             <label class="control-label" for="nama_kriteria">
-                               Data Kriteria
+                                Data Kriteria
                             </label>
                             <select class="form-control select-kriteria" id="id_kriteria" name="id_kriteria[]" multiple="multiple" style="width:100%;" autofocus required>
                                 <?php
@@ -201,12 +201,12 @@ if (isset($_SESSION['login'])) {
                                     } ?>
                             </select>
                         </div>
-                        <br/>
+                        <br />
 
-                            <label class="control-label">
-                                * Catatan   
-                            </label>
-                            : Setelah di simpan Data Kriteria tidak bisa di edit pastikan menginputkan dengan benar
+                        <label class="control-label">
+                            *Catatan
+                        </label>
+                        : Setelah di simpan Data Kriteria tidak bisa di edit pastikan menginputkan dengan benar
 
                     </div>
 

@@ -96,6 +96,8 @@ if (isset($_SESSION['login'])) {
         <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="../assets/build/css/custom.min.css" rel="stylesheet">
+        <link rel='stylesheet' type='text/css' href='../assets/dist/sweetalert2.min.css'>
+        <script src="../assets/dist/sweetalert2.min.js"></script>
         <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
         <!-- Select2 -->
         <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
