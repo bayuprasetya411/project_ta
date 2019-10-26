@@ -144,6 +144,8 @@ $html .= '</tr>
     </tbody>
 </table>
         <br />
+        <br />
+        <br />
         <div style="text-align: right; margin-right:30px">
             Mengetahui & Menyetujui
         </div>
