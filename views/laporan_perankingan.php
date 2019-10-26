@@ -2,6 +2,18 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+include("../config/koneksi.php");
+$periode = $_GET['periode'];
+$query_periode_has_kriteria = mysqli_query(
+    $conn,
+    "SELECT * FROM tb_periode_has_kriteria
+    INNER JOIN tb_kriteria
+    ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+    INNER JOIN tb_periode
+    ON tb_periode_has_kriteria.id_periode = tb_periode.id_periode
+    WHERE tb_periode.nama_periode = '" . $periode . "'
+    "
+);
 
 $html = '
 <html>
@@ -17,6 +29,7 @@ $html = '
             }
             td { vertical-align: top; }
             .items td {
+                text-align: center;
                 border-left: 0.1mm solid #000000;
                 border-right: 0.1mm solid #000000;
                 border: 0.1mm solid #000000;
@@ -33,10 +46,14 @@ $html = '
         </style>
     </head>
 <body>
-
+        <div class="logo" style ="width: 150px; margin-left:80%;">
+            <img src="../assets/telkom2.jpg">
+        </div>
+        
         <div style="text-align: center;">
             <h3>LAPORAN HASIL PERANGKINGAN TEKNISI</h3>
         </div>
+        
 
         <table width="100%" style="font-size: 10pt; border-collapse: collapse;  border: 0.1mm solid #000000; " cellpadding="1">
             <tr>
@@ -48,7 +65,7 @@ $html = '
         <table width="100%" cellpadding="3" style="font-size: 10pt;">
             <tr>
                 <td width="20%">Periode</td>
-                <td>: Maret-2019</td>
+                <td>: ' . $periode . '</td>
             </tr>
         </table>
         <br />
@@ -56,71 +73,77 @@ $html = '
         <table class="items" width="100%" style="font-size: 10pt; border-collapse: collapse; " cellpadding="2">
             <thead>
                 <tr>
-                    <th width="7%">Rank</th>
                     <th width="40%">Nama Teknisi</th>
-                    <th width="10%">Presensi</th>
-                    <th width="10%">Disiplin</th>
-                    <th width="13%">Produktifitas</th>
-                    <th width="7%">Gaul</th>
+            ';
+
+while ($data_periode_has_kriteria = mysqli_fetch_array($query_periode_has_kriteria)) {
+    $id_periode = $data_periode_has_kriteria['id_periode'];
+    $nama_periode = $data_periode_has_kriteria['nama_periode'];
+    $nama_kriteria = $data_periode_has_kriteria['nama_kriteria'];
+
+
+    $html .= '<th class="text-center">' . $nama_kriteria . '</th>';
+}
+
+
+$html .= '
                     <th width="13%">Total Nilai</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody>';
+$query_teknisi = mysqli_query($conn, "SELECT tb_nilai.id_periode ,tb_nilai.nik ,tb_teknisi.nama FROM tb_nilai
+                INNER JOIN tb_teknisi
+                on tb_nilai.nik = tb_teknisi.nik
+                where tb_nilai.id_periode = '" . $id_periode . "'
+                group by tb_nilai.nik");
 
-                <tr>
-                    <td align="center">1</td>
-                    <td>I Gusti Agung Bayu Prasetya Dikayana</td>
-                    <td align="center">12</td>
-                    <td align="center">28</td>
-                    <td align="center">19.5</td>
-                    <td align="center">0</td>
-                    <td align="center">55</td>
-                </tr>
-                <tr>
-                    <td align="center">2</td>
-                    <td>Bayu Prasetya</td>
-                    <td align="center">12</td>
-                    <td align="center">28</td>
-                    <td align="center">19.5</td>
-                    <td align="center">0</td>
-                    <td align="center">55</td>
-                </tr>
+while ($data_teknisi = mysqli_fetch_assoc($query_teknisi)) {
+    $nik = $data_teknisi['nik'];
+    $nama_teknisi = $data_teknisi['nama'];
 
-                <tr>
-                    <td align="center">3</td>
-                    <td>Bayu Prasetya</td>
-                    <td align="center">12</td>
-                    <td align="center">28</td>
-                    <td align="center">19.5</td>
-                    <td align="center">0</td>
-                    <td align="center">55</td>
-                </tr>
+    $html .= '<tr>
+                <td style="text-align:left;">' . $nama_teknisi . '</td>';
+    $total_nilai = 0;
+    $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
+        inner Join tb_periode
+        on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
+        INNER JOIN tb_kriteria
+        ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+        WHERE tb_periode_has_kriteria.id_periode = '" . $id_periode . "'");
 
-                <tr>
-                    <td align="center">4</td>
-                    <td>Bayu Prasetya</td>
-                    <td align="center">12</td>
-                    <td align="center">28</td>
-                    <td align="center">19.5</td>
-                    <td align="center">0</td>
-                    <td align="center">55</td>
-                </tr>
+    while ($data_periode_has_kriteria2 = mysqli_fetch_array($query_periode_has_kriteria2)) {
 
-                <tr>
-                    <td align="center">5</td>
-                    <td>Bayu Prasetya</td>
-                    <td align="center">12</td>
-                    <td align="center">28</td>
-                    <td align="center">19.5</td>
-                    <td align="center">0</td>
-                    <td align="center">55</td>
-                </tr>
+        $nama_periode2 = $data_periode_has_kriteria2['nama_periode'];
+        $id_periode2 = $data_periode_has_kriteria2['id_periode'];
+        $id_kriteria = $data_periode_has_kriteria2['id_kriteria'];
+        $bobot_kriteria = $data_periode_has_kriteria2['bobot_kriteria'];
 
-            </tbody>
-        </table>
+        $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_periode_has_kriteria
+            inner join tb_kriteria
+            on tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+            where tb_periode_has_kriteria.id_periode ='" . $id_periode . "'
+    ");
+
+        while ($data_total_bobot = mysqli_fetch_array($result_total_bobot)) {
+            $bobot_normalisasi = $bobot_kriteria / $data_total_bobot['total_bobot'];
+            $query_subkriteria = mysqli_query($conn, "SELECT tb_nilai.nik, tb_nilai.id_kriteria, tb_subkriteria.nilai_sub_kriteria From tb_nilai
+                inner join tb_subkriteria
+                on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                Where tb_nilai.id_kriteria = '" . $id_kriteria . "' and tb_nilai.nik ='" . $nik . "' ");
+            while ($datasub = mysqli_fetch_array($query_subkriteria)) {
+                $nilai_ultility = $datasub['nilai_sub_kriteria'] * $bobot_normalisasi;
+                $total_nilai += $nilai_ultility;
+                $html .= '<td class="text-center">' . $nilai_ultility . '</td>';
+            }
+        }
+    }
+    $html .= '<td class="text-center">' . $total_nilai . '</td>';
+}
+$html .= '</tr>
+    </tbody>
+</table>
         <br />
-
         <div style="text-align: right; margin-right:30px">
             Mengetahui & Menyetujui
         </div>

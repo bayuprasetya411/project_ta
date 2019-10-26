@@ -94,21 +94,22 @@ if (isset($_SESSION['login'])) {
                       <div class='col-sm-4 col-sm-offset-8'>
                         <div class="form-group">
                           <div class='input-group'>
-                            <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                            <select name="periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
                               <option></option>
                               <?php
                                 $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
-                                    inner join tb_periode
-                                    on tb_nilai.id_periode = tb_periode.id_periode 
-                                    group by tb_nilai.id_periode");
+                                                        inner join tb_periode
+                                                        on tb_nilai.id_periode = tb_periode.id_periode 
+                                                        group by tb_nilai.id_periode");
                                 while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                <option value="<?php echo $row['nama_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                               <?php
                                 } ?>
                             </select>
+
+                            <span class="input-group-btn">
+                              <button type="submit" style="height: 38px;" class="btn btn-primary" name="filter"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
                           </div>
                         </div>
                       </div>

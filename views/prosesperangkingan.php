@@ -16,7 +16,6 @@ if (isset($_SESSION['login'])) {
 
         <title>SPK | Proses Perankingan</title>
 
-
         <!-- Bootstrap -->
         <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -71,7 +70,7 @@ if (isset($_SESSION['login'])) {
                                     <div class='col-sm-4 col-sm-offset-8'>
                                         <div class="form-group">
                                             <div class='input-group'>
-                                                <select name="periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                                                <select name="periode" class="form-control select-search-periode" id="filter_periode" style="width:100%; padding:2px;">
                                                     <option></option>
                                                     <?php
                                                         $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
@@ -85,7 +84,7 @@ if (isset($_SESSION['login'])) {
                                                 </select>
 
                                                 <span class="input-group-btn">
-                                                    <button type="submit" class="btn btn-primary" name="filter"><i class="glyphicon glyphicon-search"></i></button>
+                                                    <button type="submit" style="height: 38px;" class="btn btn-primary" name="filter"><i class="glyphicon glyphicon-search"></i></button>
                                                 </span>
                                             </div>
                                         </div>
@@ -99,7 +98,7 @@ if (isset($_SESSION['login'])) {
                                 <tr>
                                     <th class="text-center">Nama Teknisi</th>
 
-                                    <?php if (isset($_GET['filter'])) {
+                                    <?php if (!empty($_GET)) {
                                             $query_periode_has_kriteria = mysqli_query(
                                                 $conn,
                                                 "SELECT * FROM tb_periode_has_kriteria
@@ -134,7 +133,8 @@ if (isset($_SESSION['login'])) {
                                         INNER JOIN tb_teknisi
                                         on tb_nilai.nik = tb_teknisi.nik
                                         where tb_nilai.id_periode = '" . $id_periode . "'
-                                        group by tb_nilai.nik");
+                                        group by tb_nilai.nik
+                                        ");
 
                                         while ($data_teknisi = mysqli_fetch_assoc($query_teknisi)) {
                                             $nik = $data_teknisi['nik'];
@@ -169,7 +169,7 @@ if (isset($_SESSION['login'])) {
                                                             $query_subkriteria = mysqli_query($conn, "SELECT tb_nilai.nik, tb_nilai.id_kriteria, tb_subkriteria.nilai_sub_kriteria From tb_nilai
                                                             inner join tb_subkriteria
                                                             on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                                            Where tb_nilai.id_kriteria = '" . $id_kriteria . "' and tb_nilai.nik ='" . $nik . "' ");
+                                                            Where tb_nilai.id_kriteria = '" . $id_kriteria . "' and tb_nilai.nik ='" . $nik . "'");
                                                             ?>
 
                                                 <td class="text-center">
@@ -224,7 +224,9 @@ if (isset($_SESSION['login'])) {
                                 INNER JOIN tb_teknisi
                                 on tb_nilai.nik = tb_teknisi.nik
                                 where tb_nilai.id_periode = '" . $id_periode . "'
-                                group by tb_nilai.nik");
+                                group by tb_nilai.nik
+                                
+                                ");
 
                                         $rank = 1;
                                         while ($data_teknisi = mysqli_fetch_assoc($query_teknisi)) {
@@ -283,6 +285,7 @@ if (isset($_SESSION['login'])) {
                                 <?php
                                         }
                                     } ?>
+                                    </tr>
                             </tbody>
                         </table>
                         <a href="laporan_perankingan.php?periode=<?php echo $nama_periode ?>" target="_blank"><button type="button" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button></a>
@@ -329,6 +332,7 @@ if (isset($_SESSION['login'])) {
             placeholder: "-- Pilih Periode --",
             allowClear: true
         });
+
 
         $(function() {
             $('#example2').DataTable({

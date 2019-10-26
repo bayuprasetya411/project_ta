@@ -119,6 +119,7 @@ if (isset($_SESSION['login'])) {
     <!-- header -->
     <?php include('header.php');
         include('../config/function.php');
+        // error_reporting(0);
         $periode = tgl_indo(date('Y-m')); ?>
 
     <!-- Page Content -->
@@ -145,21 +146,22 @@ if (isset($_SESSION['login'])) {
                                 <div class='col-sm-4 col-sm-offset-8'>
                                     <div class="form-group">
                                         <div class='input-group'>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                            <select type="submit" name="filter_periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
+                                            <select name="periode" class="form-control select-search-periode" id="filter_periode" style="width:100%;">
                                                 <option></option>
                                                 <?php
                                                     $queryperiode = mysqli_query($conn, "SELECT tb_nilai.id_periode, tb_periode.nama_periode FROM tb_nilai
-                                            inner join tb_periode
-                                            on tb_nilai.id_periode = tb_periode.id_periode 
-                                            group by tb_nilai.id_periode");
+                                                        inner join tb_periode
+                                                        on tb_nilai.id_periode = tb_periode.id_periode 
+                                                        group by tb_nilai.id_periode");
                                                     while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                                    <option value="<?php echo $row['nama_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                                                 <?php
                                                     } ?>
                                             </select>
+
+                                            <span class="input-group-btn">
+                                                <button type="submit" style="height: 38px;" class="btn btn-primary" name="filter"><i class="glyphicon glyphicon-search"></i></button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -178,8 +180,41 @@ if (isset($_SESSION['login'])) {
                         </thead>
 
                         <tbody>
+
+
                             <?php
-                                $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
+                                if (!empty($_GET)) {
+                                    $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
+                                        INNER JOIN tb_periode
+                                        ON tb_nilai.id_periode = tb_periode.id_periode
+                                        INNER JOIN tb_teknisi
+                                        ON tb_nilai.nik = tb_teknisi.nik
+                                        INNER JOIN tb_subkriteria
+                                        on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                        where tb_periode.nama_periode ='" . $_GET['periode'] . "'
+                                        group by tb_nilai.nik ");
+                                    // echo "<pre>";
+
+                                    // print_r($row = mysqli_fetch_array($query_nilai));
+                                    // echo "</pre>";
+                                    // exit();
+
+                                    while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                    } else {
+                                        $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
                                     INNER JOIN tb_periode
                                     ON tb_nilai.id_periode = tb_periode.id_periode
                                     INNER JOIN tb_teknisi
@@ -187,26 +222,27 @@ if (isset($_SESSION['login'])) {
                                     INNER JOIN tb_subkriteria
                                     on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
                                     group by tb_nilai.nik ");
-                                // echo "<pre>";
+                                        // echo "<pre>";
 
-                                // print_r($row = mysqli_fetch_array($query_nilai));
-                                // echo "</pre>";
-                                // exit();
+                                        // print_r($row = mysqli_fetch_array($query_nilai));
+                                        // echo "</pre>";
+                                        // exit();
 
-                                while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
-                                    </td>
-                                    <td>
-                                        <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
-                                        <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                        while ($datanilai = mysqli_fetch_array($query_nilai)) { ?>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" id="nik" name="nik" value="<?php echo $datanilai['nik'] ?>"><?php echo $datanilai['nama'] ?>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
+                                        </td>
+                                    </tr>
+                            <?php   }
+                                } ?>
                         </tbody>
                     </table>
                 </div>
