@@ -1,6 +1,119 @@
 <?php
 session_start();
 if (isset($_SESSION['login'])) {
+  include('../config/koneksi.php');
+  include('../config/function.php');
+  error_reporting(0);
+  $tanggal = tgl_indo(date('Y-m'));
+
+
+  if (!empty($_GET)) {
+    $query_teknisi = mysqli_query($conn, "SELECT tb_periode.nama_periode, tb_nilai.id_periode ,tb_nilai.nik ,tb_teknisi.nama FROM tb_nilai
+                      INNER JOIN tb_periode
+                      on tb_nilai.id_periode = tb_periode.id_periode
+                      INNER JOIN tb_teknisi
+                      on tb_nilai.nik = tb_teknisi.nik
+                      where tb_periode.nama_periode = '" . $_GET['periode'] . "'
+                      group by tb_nilai.nik ");
+
+    $nama_teknisi = array();
+    $total_nilai1 = array();
+    while ($data_teknisi = mysqli_fetch_assoc($query_teknisi)) {
+      $nik = $data_teknisi['nik'];
+      $nama_teknisi[] = $data_teknisi['nama'];
+      $id_periode = $data_teknisi['id_periode'];
+
+      // echo "<pre>";
+      // print_r($nama_teknisi);
+      // echo "</pre>";
+      // exit();
+
+      $total_nilai = 0;
+      $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
+                                      inner Join tb_periode
+                                      on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
+                                      INNER JOIN tb_kriteria
+                                      ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+                                      WHERE tb_periode_has_kriteria.id_periode = '" . $id_periode . "'");
+
+      while ($data_periode_has_kriteria2 = mysqli_fetch_array($query_periode_has_kriteria2)) {
+        $id_kriteria = $data_periode_has_kriteria2['id_kriteria'];
+        $nama_periode = $data_periode_has_kriteria2['nama_periode'];
+        $bobot_kriteria = $data_periode_has_kriteria2['bobot_kriteria'];
+        $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_periode_has_kriteria
+                                inner join tb_kriteria
+                                on tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+                                where tb_periode_has_kriteria.id_periode ='" . $id_periode . "'");
+
+        while ($data_total_bobot = mysqli_fetch_array($result_total_bobot)) {
+          $bobot_normalisasi = $bobot_kriteria / $data_total_bobot['total_bobot'];
+          $query_subkriteria = mysqli_query($conn, "SELECT tb_nilai.nik, tb_nilai.id_kriteria, tb_subkriteria.nilai_sub_kriteria From tb_nilai
+                                inner join tb_subkriteria
+                                on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                Where tb_nilai.id_kriteria = '" . $id_kriteria . "' and tb_nilai.nik ='" . $nik . "' ");
+
+          while ($datasub = mysqli_fetch_array($query_subkriteria)) {
+            $nilai_ultility = $datasub['nilai_sub_kriteria'] * $bobot_normalisasi;
+            $total_nilai += $nilai_ultility;
+          }
+        }
+      }
+      $total_nilai1[] = $total_nilai;
+    }
+  } else {
+    $query_teknisi = mysqli_query($conn, "SELECT tb_periode.create_at, tb_periode.nama_periode, tb_nilai.id_periode ,tb_nilai.nik ,tb_teknisi.nama FROM tb_nilai
+                      INNER JOIN tb_periode
+                      on tb_nilai.id_periode = tb_periode.id_periode
+                      INNER JOIN tb_teknisi
+                      on tb_nilai.nik = tb_teknisi.nik
+                      order by tb_periode.create_at desc 
+                      group by tb_nilai.nik ");
+
+    $nama_teknisi = array();
+    $total_nilai1 = array();
+    while ($data_teknisi = mysqli_fetch_assoc($query_teknisi)) {
+      $nik = $data_teknisi['nik'];
+      $nama_teknisi[] = $data_teknisi['nama'];
+      $id_periode = $data_teknisi['id_periode'];
+
+      // echo "<pre>";
+      // print_r($nama_teknisi);
+      // echo "</pre>";
+      // exit();
+
+      $total_nilai = 0;
+      $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
+                                      inner Join tb_periode
+                                      on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
+                                      INNER JOIN tb_kriteria
+                                      ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+                                      WHERE tb_periode_has_kriteria.id_periode = '" . $id_periode . "'");
+
+      while ($data_periode_has_kriteria2 = mysqli_fetch_array($query_periode_has_kriteria2)) {
+        $id_kriteria = $data_periode_has_kriteria2['id_kriteria'];
+        $nama_periode = $data_periode_has_kriteria2['nama_periode'];
+        $bobot_kriteria = $data_periode_has_kriteria2['bobot_kriteria'];
+        $result_total_bobot = mysqli_query($conn, "SELECT SUM(bobot_kriteria) as total_bobot FROM tb_periode_has_kriteria
+                                inner join tb_kriteria
+                                on tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+                                where tb_periode_has_kriteria.id_periode ='" . $id_periode . "'");
+
+        while ($data_total_bobot = mysqli_fetch_array($result_total_bobot)) {
+          $bobot_normalisasi = $bobot_kriteria / $data_total_bobot['total_bobot'];
+          $query_subkriteria = mysqli_query($conn, "SELECT tb_nilai.nik, tb_nilai.id_kriteria, tb_subkriteria.nilai_sub_kriteria From tb_nilai
+                                inner join tb_subkriteria
+                                on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
+                                Where tb_nilai.id_kriteria = '" . $id_kriteria . "' and tb_nilai.nik ='" . $nik . "' ");
+
+          while ($datasub = mysqli_fetch_array($query_subkriteria)) {
+            $nilai_ultility = $datasub['nilai_sub_kriteria'] * $bobot_normalisasi;
+            $total_nilai += $nilai_ultility;
+          }
+        }
+      }
+      $total_nilai1[] = $total_nilai;
+    }
+  }
 
   ?>
 
@@ -40,7 +153,7 @@ if (isset($_SESSION['login'])) {
   <body class="nav-md">
 
     <?php include('header.php');
-      include('../config/koneksi.php'); ?>
+      ?>
 
     <!-- page content -->
     <div class="right_col" role="main">
@@ -80,6 +193,7 @@ if (isset($_SESSION['login'])) {
 
           <div class="clearfix"></div>
 
+
           <!-- Bar graph -->
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -88,6 +202,7 @@ if (isset($_SESSION['login'])) {
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
+
                 <form action="" method="get">
                   <div class="container">
                     <div class="row">
@@ -117,98 +232,22 @@ if (isset($_SESSION['login'])) {
                   </div>
                 </form>
 
-
                 <div style="padding:1%">
                   <h2>
-                    Hasil Penilaian Teknisi Periode <a style="color:blue;">Maret-2019</a>
+                    Hasil Penilaian Teknisi Periode <a style="color:blue;"><?php echo $nama_periode ?></a>
                   </h2>
                 </div>
 
                 <p></p>
 
-                <canvas id="mybarChart"></canvas>
+                <div id="grafik_teknisi" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
               </div>
             </div>
           </div>
         </div>
         <!-- Bar graph -->
-
-        <!-- line graph -->
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Grafik Individu Teknisi Per Tahun</h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-
-              <form action="" method="get">
-                <div class="container">
-                  <div class="row">
-                    <div class='col-sm-4 col-sm-offset-4'>
-                      <div class="form-group">
-                        <div class='input-group' id='filter_teknisi'>
-                          <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-user"></span>
-                          </span>
-                          <select name="filter_teknisi" class="form-control select-search-teknisi" id="filter_teknisi" style="width:100%;">
-                            <option></option>
-                            <?php
-                              $queryteknisi1 = mysqli_query($conn, "SELECT tb_nilai.nik, tb_teknisi.nama FROM tb_nilai
-                                    inner join tb_teknisi
-                                    on tb_nilai.nik = tb_teknisi.nik 
-                                    group by tb_nilai.nik");
-                              while ($row = mysqli_fetch_array($queryteknisi1)) { ?>
-                              <option value="<?php echo $row['nik'] ?>"><?php echo $row['nama'] ?></option>
-                            <?php
-                              } ?>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class='col-sm-4'>
-                      <div class="form-group">
-                        <div class='input-group' id='filter_tahun'>
-                          <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                          <select type="submit" name="filter_tahun" class="form-control select-search-tahun" id="filter_tahun" style="width:100%;">
-                            <option></option>
-                            <option>2019</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-
-              <div style="padding:1%">
-                <h2>
-                  <td>Teknisi</td>
-                  <td>:</td>
-                  <td>
-                    I Gusti Agung Bayu Prasetya Dikayana
-                  </td>
-                </h2>
-                <h4>
-                  Hasil Penilaian Teknisi Periode <a style="color:blue;"> Tahun 2019</a>
-                </h4>
-              </div>
-
-              <p></p>
-              <div class="x_content2">
-                <div id="graph_line" style="width:100%; height:300px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="clearfix"></div>
       </div>
-      <!-- Bar graph -->
-
-      <div class="clearfix"></div>
-    </div>
     </div>
     </div>
     <!-- page content -->
@@ -224,11 +263,10 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../assets/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="../assets/vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- morris.js -->
-    <script src="../assets/vendors/raphael/raphael.min.js"></script>
-    <script src="../assets/vendors/morris.js/morris.min.js"></script>
+
+    <script src="../assets/build/charts/highcharts.js"></script>
+    <script src="../assets/build/charts/exporting.js"></script>
+    <script src="../assets/build/charts/export-data.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
     <script src="../assets/build/select2/select2.min.js"></script>
@@ -247,6 +285,49 @@ if (isset($_SESSION['login'])) {
         placeholder: "-- Pilih Tahun --",
         allowClear: true
       });
+    </script>
+
+    <script>
+      // Grafik Semua Teknisi 
+      Highcharts.chart('grafik_teknisi', {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Hasil Penilaian Teknisi '
+        },
+
+        xAxis: {
+          categories: <?= json_encode($nama_teknisi); ?>,
+          crosshair: true
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Nilai'
+          }
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:15px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: 'Total Nilai',
+          data: <?= json_encode($total_nilai1); ?>
+
+        }]
+      });
+      // Grafik Semua Teknisi 
     </script>
 
   <?php
