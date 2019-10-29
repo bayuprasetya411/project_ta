@@ -40,7 +40,7 @@
                                 <strong>Login Gagal!!!</strong> Username atau Password Salah
                             </div>
                             <?php
-                                } else {
+
                                     if ($user == 'admin' or $pass == 'telkom135') {
                                         $_SESSION['login'] = true;
                                         $_SESSION['username'] = $user;
