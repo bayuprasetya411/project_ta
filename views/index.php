@@ -66,7 +66,7 @@ if (isset($_SESSION['login'])) {
                       on tb_nilai.id_periode = tb_periode.id_periode
                       INNER JOIN tb_teknisi
                       on tb_nilai.nik = tb_teknisi.nik
-                      order by tb_periode.create_at desc 
+                      where tb_periode.nama_periode = '" . $tanggal . "'
                       group by tb_nilai.nik ");
 
     $nama_teknisi = array();

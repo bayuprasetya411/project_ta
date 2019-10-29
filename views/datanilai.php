@@ -267,7 +267,7 @@ if (isset($_SESSION['login'])) {
                     <h2 class="modal-title text-center" id="modaltambahnilai">Tambah Data Nilai</h2>
                 </div>
 
-                <form id="form_tambah_nilai" method="post" role="form" action="">
+                <form id="form_tambah_nilai" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="id_periode">
@@ -402,6 +402,7 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/js/parsley.min.js"></script>
     <script src="../assets/build/select2/select2.min.js"></script>
 
 
@@ -418,6 +419,7 @@ if (isset($_SESSION['login'])) {
                 placeholder: "-- Pilih Periode --",
                 allowClear: true
             });
+
 
 
             $('.select-teknisi').select2({
@@ -448,7 +450,7 @@ if (isset($_SESSION['login'])) {
                             </td>
                             <td>
                                 <input type="hidden" value="` + val.id_kriteria + `" > 
-                                <select  name="id_sub_kriteria[` + val.id_kriteria + `]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%;" >
+                                <select  name="id_sub_kriteria[` + val.id_kriteria + `]" class="form-control   select-subkriteria" id="id_sub_kriteria` + val.id_kriteria + `" style="width:100%; required " >
                                     <option value="0">-- Pilih Sub Kriteria --</option>
                                 </select>
                             </td>`;
@@ -469,7 +471,6 @@ if (isset($_SESSION['login'])) {
                         });
                     }
                 });
-
             });
             // Script change periode
 
@@ -507,7 +508,7 @@ if (isset($_SESSION['login'])) {
                                 </td>
                                 <td>
                                     <input type="hidden" name="id_kriteria" value="` + dataEdit.nilai[key].id_kriteria + `" > 
-                                    <select  name="id_sub_kriteria[` + i + `]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%;" >
+                                    <select  name="id_sub_kriteria[` + i + `]" class="form-control select-subkriteria" id="id_sub_kriteria` + dataEdit.nilai[key].id_kriteria + `" style="width:100%; required" >
                                         <option value="` + dataEdit.nilai[key].id_sub_kriteria + `">` + dataEdit.nilai[key].nama_sub_kriteria + `</option>
                                     </select>
                                 </td>

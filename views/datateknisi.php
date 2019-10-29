@@ -189,7 +189,7 @@ if (isset($_SESSION['login'])) {
                     <h2 class="modal-title text-center" id="modaltambahteknisi">Tambah Data Teknisi</h2>
                 </div>
 
-                <form id="form_tambah_teknisi" method="post" role="form" action="">
+                <form id="form_tambah_teknisi" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="nik">Nik Karyawan</label>
@@ -240,7 +240,7 @@ if (isset($_SESSION['login'])) {
                     <h2 class="modal-title text-center" id="modalieditteknisi">Ubah Data Teknisi</h2>
                 </div>
 
-                <form id="form_edit" method="post" role="form" action="">
+                <form id="form_edit" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body" id="info-edit-teknisi">
 
                     </div>
@@ -297,6 +297,7 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
+    <script src="../assets/build/js/parsley.min.js"></script>
     <script src="../assets/build/js/custom.min.js"></script>
     <script src="../assets/build/select2/select2.min.js"></script>
 

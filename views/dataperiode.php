@@ -179,7 +179,7 @@ if (isset($_SESSION['login'])) {
                     <h2 class="modal-title text-center" id="modaltambahperiode">Tambah Data Periode</h2>
                 </div>
 
-                <form id="form_tambah_periode" method="post" role="form" action="">
+                <form id="form_tambah_periode" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="nama_periode">
@@ -230,7 +230,7 @@ if (isset($_SESSION['login'])) {
                     <h2 class="modal-title text-center" id="modalieditperiode">Ubah Data Periode</h2>
                 </div>
 
-                <form id="form_edit" method="post" role="form" action="">
+                <form id="form_edit" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body" id="info-edit-periode">
                         <!-- info-edit-periode -->
                     </div>
@@ -294,6 +294,7 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Hapus periode -->
 
+
     <!-- jQuery -->
     <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -315,23 +316,30 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../assets/build/js/custom.min.js"></script>
     <script src="../assets/build/select2/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select-kriteria').select2({
+                placeholder: "-- Pilih Kriteria --",
+                allowClear: true
+            });
+        });
+    </script>
+    <script src="../assets/build/js/custom.min.js"></script>
+    <script src="../assets/build/js/parsley.min.js"></script>
+
+
 
 
     <script>
         $(document).ready(function() {
 
-            $(document).ready(function() {
-                $('.select-kriteria').select2({
-                    placeholder: "-- Pilih Kriteria --",
-                    allowClear: true
-                });
-            });
-
-            $('.select-teknisi').select2({
-                dropdownParent: $('#modal-tambah-periode')
-            });
+            // $(document).ready(function() {
+            //     $('.select-kriteria').select2({
+            //         placeholder: "-- Pilih Kriteria --",
+            //         allowClear: true
+            //     });
+            // });
 
             // script edit periode
             $(document).on('click', '#edit_periode_btn', function() {

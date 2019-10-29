@@ -223,7 +223,7 @@ if (isset($_SESSION['login'])) {
 
                 </div>
 
-                <form id="form_tambah_kriteria" method="post" role="form" action="">
+                <form id="form_tambah_kriteria" method="post" data-parsley-validate role="form" action="">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label" for="id_kriteria">
@@ -268,7 +268,7 @@ if (isset($_SESSION['login'])) {
 
                 </div>
 
-                <form id="form_edit_kriteria" method="post" role="form" action="">
+                <form id="form_edit_kriteria" method="post" role="form" data-parsley-validate action="">
                     <div class="modal-body" id="info-edit-kriteria">
 
                     </div>
@@ -291,7 +291,7 @@ if (isset($_SESSION['login'])) {
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">&times;</button>
                     <h2 class="modal-title text-center" id="modaltambahsubkriteria">Tambah Data Sub Kriteria</h2>
                 </div>
-                <form id="form_tambah_sub" method="post" role="form" action="">
+                <form id="form_tambah_sub" method="post" data-parsley-validate role="form" action="">
                     <div class="modal-body" id="info-tambah-subkriteria">
                     </div>
                     <div class="modal-footer">
@@ -315,7 +315,7 @@ if (isset($_SESSION['login'])) {
 
                 </div>
 
-                <form id="form_detail_subkriteria" method="post" role="form" action="">
+                <form id="form_detail_subkriteria" method="post" data-parsley-validate role="form" action="">
                     <div class="modal-body" id="info-detail-subkriteria">
 
                     </div>
@@ -351,6 +351,7 @@ if (isset($_SESSION['login'])) {
     <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
+    <script src="../assets/build/js/parsley.min.js"></script>
     <script src="../assets/build/js/custom.min.js"></script>
 
 
