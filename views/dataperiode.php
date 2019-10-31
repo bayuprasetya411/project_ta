@@ -88,21 +88,7 @@ if (isset($_SESSION['login'])) {
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>SPK | Data Periode</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <!-- Bootstrap -->
-        <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- NProgress -->
-        <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
-        <!-- Datatables -->
-        <link href="../assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-        <link href="../assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-        <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-        <!-- Custom Theme Style -->
-        <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
-        <!-- Select2 -->
-        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
+        <?php include('../config/stylesheet.php'); ?>
 
     </head>
 
@@ -168,7 +154,6 @@ if (isset($_SESSION['login'])) {
     <?php include('footer.php'); ?>
     </div>
     <!-- /menu content -->
-
 
     <!-- Modal Tambah Periode -->
     <div id="modal-tambah-periode" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahperiode">
@@ -294,29 +279,8 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Hapus periode -->
 
+    <?php include('../config/javascript.php'); ?>
 
-    <!-- jQuery -->
-    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- NProgress -->
-    <script src="../assets/vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../assets/vendors/iCheck/icheck.min.js"></script>
-    <!-- FastClick -->
-    <script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- Datatables -->
-    <script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../assets/build/select2/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.select-kriteria').select2({
@@ -325,21 +289,9 @@ if (isset($_SESSION['login'])) {
             });
         });
     </script>
-    <script src="../assets/build/js/custom.min.js"></script>
-    <script src="../assets/build/js/parsley.min.js"></script>
-
-
-
 
     <script>
         $(document).ready(function() {
-
-            // $(document).ready(function() {
-            //     $('.select-kriteria').select2({
-            //         placeholder: "-- Pilih Kriteria --",
-            //         allowClear: true
-            //     });
-            // });
 
             // script edit periode
             $(document).on('click', '#edit_periode_btn', function() {

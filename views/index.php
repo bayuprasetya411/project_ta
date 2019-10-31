@@ -128,19 +128,7 @@ if (isset($_SESSION['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SPK | Dashboard</title>
-
-    <!-- Bootstrap -->
-    <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
-
+    <?php include('../config/stylesheet.php'); ?>
 
     <style>
       .count {
@@ -152,8 +140,7 @@ if (isset($_SESSION['login'])) {
 
   <body class="nav-md">
 
-    <?php include('header.php');
-      ?>
+    <?php include('header.php'); ?>
 
     <!-- page content -->
     <div class="right_col" role="main">
@@ -240,7 +227,7 @@ if (isset($_SESSION['login'])) {
 
                 <p></p>
 
-                <div id="grafik_teknisi" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="grafik_teknisi" style="width:100%; height: 500px; margin: 0 auto"></div>
               </div>
             </div>
           </div>
@@ -255,36 +242,21 @@ if (isset($_SESSION['login'])) {
     </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../assets/vendors/nprogress/nprogress.js"></script>
-
-    <script src="../assets/build/charts/highcharts.js"></script>
-    <script src="../assets/build/charts/exporting.js"></script>
-    <script src="../assets/build/charts/export-data.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../assets/build/js/custom.min.js"></script>
-    <script src="../assets/build/select2/select2.min.js"></script>
-
+    <?php include('../config/javascript.php'); ?>
 
     <script>
-      $(".select-search-teknisi").select2({
-        placeholder: "-- Pilih Teknisi --",
-        allowClear: true
-      });
+      // $(".select-search-teknisi").select2({
+      //   placeholder: "-- Pilih Teknisi --",
+      //   allowClear: true
+      // });
       $(".select-search-periode").select2({
         placeholder: "-- Pilih Periode --",
         allowClear: true
       });
-      $(".select-search-tahun").select2({
-        placeholder: "-- Pilih Tahun --",
-        allowClear: true
-      });
+      // $(".select-search-tahun").select2({
+      //   placeholder: "-- Pilih Tahun --",
+      //   allowClear: true
+      // });
     </script>
 
     <script>
@@ -339,7 +311,6 @@ if (isset($_SESSION['login'])) {
   ?>
 
   <?php
-
 
   if ((isset($_GET['aksi'])) and ($_GET['aksi'] == "logout")) {
     session_destroy();

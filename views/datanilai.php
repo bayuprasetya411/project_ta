@@ -16,38 +16,7 @@ if (isset($_SESSION['login'])) {
             $id_sub_kriteria = $_POST['id_sub_kriteria'][$id_kri];
             $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
             $tambah_nilai = mysqli_query($conn, $query_tambah);
-
-            //      echo "<pre>";
-            // print_r($data_kriteria);
-            // echo "</pre>";
-
         }
-        // exit();
-        // $data_kriteria = $_POST['id_kriteria'];
-        // $data_sub_kriteria = $_POST['id_sub_kriteria'];
-
-        // foreach ($data_sub_kriteria as $id_sub_kriteria) {
-        //     foreach ($data_kriteria as $id_kriteria ){
-
-        //     }
-        //     $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria, id_periode) value ('$nik','$id_kriteria','$id_sub_kriteria','$id_periode')";
-        //     $tambah_nilai = mysqli_query($conn, $query_tambah);
-        // }
-
-        // $data_sub_kriteria = $_POST['id_sub_kriteria'];
-        // foreach ($data_sub_kriteria as $id_sub_kriteria) {
-        //     echo "<pre>";
-        //         print_r($id_sub_kriteria);
-        //         echo "</pre>";
-        // $query_tambah =  "INSERT INTO tb_nilai (nik,id_kriteria, id_sub_kriteria,id_periode) value ('$nik',$id_kriteria,'$id_sub_kriteria','$id_periode')";
-        // $tambah_nilai = mysqli_query($conn, $query_tambah);
-        // }
-        // exit();
-        // echo "<pre>";
-        // print($nama_periode);
-        // print_r($id_kriteria);
-        // echo "</pre>";
-        // exit();
 
         if ($tambah_nilai) {
             echo "<script>
@@ -98,32 +67,18 @@ if (isset($_SESSION['login'])) {
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>SPK | Data Nilai</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <!-- Bootstrap -->
-        <link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- NProgress -->
-        <link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
-        <!-- Datatables -->
-        <link href="../assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-        <link href="../assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-        <link href="../assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-        <!-- Custom Theme Style -->
-        <link href="../assets/build/css/custom.min.css" rel="stylesheet">
-        <!-- <link href="../assets/build/css/style.css" rel="stylesheet"> -->
-        <!-- Select2 -->
-        <link href="../assets/build/select2/select2.min.css" rel="stylesheet">
-
+        <?php include('../config/stylesheet.php'); ?>
     </head>
 
     <!-- header -->
-    <?php include('header.php');
+    <?php
+        include('header.php');
         include('../config/function.php');
         // error_reporting(0);
-        $periode = tgl_indo(date('Y-m')); ?>
+        $periode = tgl_indo(date('Y-m'));
+        ?>
 
     <!-- Page Content -->
-
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -257,7 +212,6 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /menu content -->
 
-
     <!-- Modal Tambah Data Nilai -->
     <div id="modal-tambah-nilai" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahnilai">
         <div class="modal-dialog" role="documnet">
@@ -380,31 +334,7 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /Modal Detail Nilai -->
 
-    <!-- jQuery -->
-    <script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- NProgress -->
-    <script src="../assets/vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../assets/vendors/iCheck/icheck.min.js"></script>
-    <!-- FastClick -->
-    <script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- Datatables -->
-    <script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../assets/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../assets/build/js/custom.min.js"></script>
-    <script src="../assets/build/js/parsley.min.js"></script>
-    <script src="../assets/build/select2/select2.min.js"></script>
-
+    <?php include('../config/javascript.php'); ?>
 
     <script>
         $(document).ready(function() {
