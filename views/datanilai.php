@@ -115,7 +115,7 @@ if (isset($_SESSION['login'])) {
                                             </select>
 
                                             <span class="input-group-btn">
-                                                <button type="submit" style="height: 38px;" class="btn btn-primary" name="filter"><i class="glyphicon glyphicon-search"></i></button>
+                                                <button type="submit" style="height: 38px;" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
                                             </span>
                                         </div>
                                     </div>
@@ -176,7 +176,9 @@ if (isset($_SESSION['login'])) {
                                     ON tb_nilai.nik = tb_teknisi.nik
                                     INNER JOIN tb_subkriteria
                                     on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                    group by tb_nilai.nik ");
+                                    where tb_periode.nama_periode ='" . $periode . "'
+                                    group by tb_nilai.nik
+                                    ");
                                         // echo "<pre>";
 
                                         // print_r($row = mysqli_fetch_array($query_nilai));
@@ -338,6 +340,7 @@ if (isset($_SESSION['login'])) {
 
     <script>
         $(document).ready(function() {
+
 
             $(".select-search-periode").select2({
                 placeholder: "-- Pilih Periode --",

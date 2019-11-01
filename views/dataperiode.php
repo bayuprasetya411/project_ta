@@ -114,35 +114,32 @@ if (isset($_SESSION['login'])) {
                     </div>
 
                     <button class="btn btn-success" id="tambah_periode_btn" name="tambah_periode_btn" href="#" data-toggle="modal" data-target="#modal-tambah-periode"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
-                    <div class="table-responsive">
-                        <table id="datatable-responsive" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
+                    <table id="tb_periode" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width:75%">Nama Periode</th>
+                                <th class="text-center" style="width:25%">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                                $query_periode = "SELECT * FROM tb_periode order by create_at desc";
+                                $result_periode = mysqli_query($conn, $query_periode);
+                                while ($dataperiode = mysqli_fetch_array($result_periode)) { ?>
                                 <tr>
-                                    <th style="width:75%">Nama Periode</th>
-                                    <th class="text-center" style="width:25%">Aksi</th>
+                                    <td>
+                                        <input type="hidden" name="id_periode" value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                        <button type="button" class="btn btn-danger btn-xs " id="hapus_periode_btn"><i class="fa fa-trash"></i> Hapus</button>
+                                        <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
+                                    </td>
                                 </tr>
-                            </thead>
-
-                            <tbody>
-                                <?php
-                                    $query_periode = "SELECT * FROM tb_periode";
-                                    $result_periode = mysqli_query($conn, $query_periode);
-                                    while ($dataperiode = mysqli_fetch_array($result_periode)) { ?>
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" name="id_periode" value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
-                                            <button type="button" class="btn btn-danger btn-xs " id="hapus_periode_btn"><i class="fa fa-trash"></i> Hapus</button>
-                                            <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -286,6 +283,16 @@ if (isset($_SESSION['login'])) {
             $('.select-kriteria').select2({
                 placeholder: "-- Pilih Kriteria --",
                 allowClear: true
+            });
+        });
+        $(function() {
+            $('#tb_periode').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
             });
         });
     </script>
