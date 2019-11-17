@@ -138,6 +138,7 @@ if (isset($_SESSION['login'])) {
 
 
                             <?php
+                                // filter berdasarkan Periode
                                 if (!empty($_GET)) {
                                     $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
                                         INNER JOIN tb_periode
@@ -168,7 +169,11 @@ if (isset($_SESSION['login'])) {
                                         </td>
                                     </tr>
                                 <?php }
-                                    } else {
+                                    }
+                                    // filter berdasarkan Periode
+
+                                    // filter berdasarkan bulan sekarang
+                                    else {
                                         $query_nilai = mysqli_query($conn, "SELECT * FROM tb_nilai
                                     INNER JOIN tb_periode
                                     ON tb_nilai.id_periode = tb_periode.id_periode
@@ -199,7 +204,9 @@ if (isset($_SESSION['login'])) {
                                         </td>
                                     </tr>
                             <?php   }
-                                } ?>
+                                }
+                                // filter berdasarkan bulan sekarang
+                                ?>
                         </tbody>
                     </table>
                 </div>

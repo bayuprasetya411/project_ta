@@ -71,6 +71,7 @@ if (isset($_SESSION['login'])) {
                             </div>
                         </form>
 
+                        <!-- Filter Berdasarkan Periode -->
                         <?php if (!empty($_GET)) {
                                 $periode = $_GET['periode']; ?>
                             <label>
@@ -419,8 +420,11 @@ if (isset($_SESSION['login'])) {
                                 </tbody>
                             </table>
                         <?php
-                            } else { ?>
+                            }
+                            // Filter Berdasarkan Periode
 
+                            // Filter Berdasarkan Bulan Sekarang
+                            else { ?>
                             <label>
                                 <h2><b>Hasil Perhitungan Periode <a style="color:blue;"><?php echo $tanggal; ?></a></b></h2>
                             </label>
@@ -761,6 +765,8 @@ if (isset($_SESSION['login'])) {
                                 </tbody>
                             </table>
                         <?php } ?>
+                        <!--Filter Berdasarkan Bulan Sekarang -->
+
                     </div>
                     <a href="laporan_perankingan.php?periode=<?php echo $nama_periode ?>" target="_blank"><button type="button" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button></a>
                 </div>
