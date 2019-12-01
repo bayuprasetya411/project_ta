@@ -7,11 +7,12 @@ if (isset($_SESSION['login'])) {
     // aksi tambah teknisi
     if (isset($_POST['tambah_teknisi'])) {
 
-        $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
-        $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
-        $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
+        $nik = $_POST["nik"];
+        $nama = $_POST["nama"];
+        $no_telpon = $_POST["no_telpon"];
         $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
         $query_tambah_teknisi = "INSERT INTO tb_teknisi (nik, nama, no_telpon, id_area) VALUES ('$nik','$nama','$no_telpon','$id_area')";
+
         $insert = mysqli_query($conn, $query_tambah_teknisi);
 
         if ($insert) {
@@ -24,10 +25,10 @@ if (isset($_SESSION['login'])) {
 
     // aksi ubah teknisi
     if (isset($_POST['update_teknisi'])) {
-        $nik = mysqli_real_escape_string($conn, $_POST["nik"]);
-        $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
-        $no_telpon = mysqli_real_escape_string($conn, $_POST["no_telpon"]);
-        $id_area = mysqli_real_escape_string($conn, $_POST["id_area"]);
+        $nik = $_POST["nik"];
+        $nama = $_POST["nama"];
+        $no_telpon = $_POST["no_telpon"];
+        $id_area = $_POST["id_area"];
         $query_update_teknisi = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
         $update = mysqli_query($conn, $query_update_teknisi);
         if ($update) {

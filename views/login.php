@@ -73,9 +73,9 @@
                                 <input type="password" class="form-control has-feedback-left" id="password" name="password" class="form-control" placeholder="Password" required="" />
                                 <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
                             </div>
-                            
+
                             <button class="btn btn-primary btn-block" name="submit" id="tombollogin" type="submit" style="color:antiquewhite; background-color:red; width:94%; margin-left:3%">Login</button>
-                           
+
                         </div>
                     </div>
                 </div>
