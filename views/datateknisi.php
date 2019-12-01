@@ -15,11 +15,9 @@ if (isset($_SESSION['login'])) {
         $insert = mysqli_query($conn, $query_tambah_teknisi);
 
         if ($insert) {
-            echo "<script>window.alert('Data Berhasil di Simpan');
-                window.location=(href='datateknisi.php')</script>";
+            echo "<script>window.location=(href='datateknisi.php?status=1')</script>";
         } else {
-            echo "<script>window.alert('Data Gagal di Simpan');
-                window.location=(href='datateknisi.php')</script>";
+            echo "<script>window.location=(href='datateknisi.php?status=2')</script>";
         }
     }
     // aksi tambah teknisi
@@ -33,15 +31,9 @@ if (isset($_SESSION['login'])) {
         $query_update_teknisi = "UPDATE tb_teknisi SET nama ='" . $nama . "', id_area ='" . $id_area . "', no_telpon='" . $no_telpon . "' WHERE nik='" . $nik . "'";
         $update = mysqli_query($conn, $query_update_teknisi);
         if ($update) {
-            echo "<script>
-            window.alert('Data Berhasil di Ubah');
-            window.location ='datateknisi.php';
-        </script>";
+            echo "<script>window.location=(href='datateknisi.php?status=3')</script>";
         } else {
-            echo "<script>
-            window.alert('Data Gagal di Ubah');
-            window.location = (href = 'update_teknisi.php?nik=" . $nik . "');
-        </script>";
+            echo "<script>window.location=(href='datateknisi.php?status=4')</script>";
         }
     }
     // aksi ubah teknisi
@@ -53,15 +45,9 @@ if (isset($_SESSION['login'])) {
         $deleted = mysqli_query($conn, $query_deleted_teknisi);
 
         if ($deleted) {
-            echo "<script>
-        alert('Data Berhasil di Hapus');
-            window.location=(href='datateknisi.php')
-        </script>";
+            echo "<script>window.location=(href='datateknisi.php?status=5')</script>";
         } else {
-            echo "<script>
-        alert('Data Gagal di Hapus');
-            window.location=(href='datateknisi.php')
-        </script>";
+            echo "<script>window.location=(href='datateknisi.php?status=6')</script>";
         }
     }
     // aksi hapus teknisi
@@ -103,7 +89,40 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id="alert_tambah"></div>
+
+                        <?php if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
+                                echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Disimpan</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
+                                echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Disimpan</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
+                                echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Diperbaharui</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
+                                echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Diperbaharui</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 5)) {
+                                echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Dihapus</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 6)) {
+                                echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Dihapus</strong>
+                            </div>';
+                            }
+
+                            ?>
                         <button class="btn btn-success" id="modal_tambah_teknisi_btn" name="tambah_teknisi_btn" href="#" data-toggle="modal" data-target="#modal-tambah-teknisi"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -133,7 +152,7 @@ if (isset($_SESSION['login'])) {
                                             <td><?php echo $nama ?></td>
                                             <td class="text-center"><?php echo $no_telpon ?></td>
                                             <td class="text-center"><?php echo $area ?></td>
-                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-edit"></i> Edit</button>
                                                 <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
                                             </td>
                                         </tr>

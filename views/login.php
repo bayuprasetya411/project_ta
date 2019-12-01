@@ -59,9 +59,9 @@
                     </div>
 
                     <div class="separator"></div>
-                    <div style="background:red; border:black; height: 70px;  color:white; padding:2%; width:90%; border-radius:3%; position: relative; margin-left:5%; 
+                    <div style="background:red; border:black; color:white; padding:2%; width:90%; border-radius:3%; position: relative; margin-left:5%; 
                     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);">
-                        <h5>Log On Application</h5>
+                        <h5>Login Aplikasi</h5>
                     </div>
                     <div style="background:white; border:grey; height: 250px; color:black; padding:2%; border-radius:3%; margin-top:-8%; box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);">
                         <div style="background:white; border:black; color:black; border-radius:2%; margin-top:20%">

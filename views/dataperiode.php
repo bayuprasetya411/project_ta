@@ -22,15 +22,9 @@ if (isset($_SESSION['login'])) {
             $tambah2 = mysqli_query($conn, $query_tambah2);
         }
         if ($tambah) {
-            echo "<script>
-            alert('Data Berhasil di Simpan');
-            window.location = (href = 'dataperiode.php');
-            </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=1')</script>";
         } else {
-            echo "<script>
-            alert('Data Gagal di Simpan');
-            window.location = (href = 'dataperiode.php')
-            </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=2')</script>";
         }
     }
     // aksi tambah periode
@@ -42,15 +36,9 @@ if (isset($_SESSION['login'])) {
         $query_update = "UPDATE tb_periode SET nama_periode ='" . $nama_periode . "' WHERE id_periode = '" . $id_periode . "'";
         $update = mysqli_query($conn, $query_update);
         if ($update) {
-            echo "<script>
-            alert('Data Berhasil di Ubah');
-            window.location = (href = 'dataperiode.php');
-            </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=3')</script>";
         } else {
-            echo "<script>
-            alert('Data Gagal di Ubah');
-            window.location = (href = 'dataperiode.php')
-            </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=4')</script>";
         }
     }
     // aksi ubah periode
@@ -63,18 +51,11 @@ if (isset($_SESSION['login'])) {
         $deleted = mysqli_query($conn, $query_deleted_periode);
 
         if ($deleted) {
-            echo "<script>
-        alert('Data Berhasil di Hapus');
-            window.location=(href='dataperiode.php')
-        </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=5')</script>";
         } else {
-            echo "<script>
-        alert('Data Gagal di Hapus');
-            window.location=(href='dataperiode.php')
-        </script>";
+            echo "<script>window.location=(href='dataperiode.php?status=6')</script>";
         }
     }
-
 
     // aksi hapus periode
 
@@ -113,6 +94,40 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
 
+                    <?php if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Disimpan</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Disimpan</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Diperbaharui</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Diperbaharui</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 5)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Dihapus</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 6)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Dihapus</strong>
+                            </div>';
+                        }
+
+                        ?>
+
                     <button class="btn btn-success" id="tambah_periode_btn" name="tambah_periode_btn" href="#" data-toggle="modal" data-target="#modal-tambah-periode"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Periode</button>
                     <table id="tb_periode" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -132,7 +147,7 @@ if (isset($_SESSION['login'])) {
                                         <input type="hidden" name="id_periode" value="<?php echo $dataperiode['id_periode'] ?>"><?php echo $dataperiode['nama_periode'] ?>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                        <button type="button" class="btn btn-primary btn-xs " id="edit_periode_btn"><i class="fa fa-edit"></i> Edit</button>
                                         <button type="button" class="btn btn-danger btn-xs " id="hapus_periode_btn"><i class="fa fa-trash"></i> Hapus</button>
                                         <button type="button" class="btn btn-warning btn-xs " id="detail_periode_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                     </td>

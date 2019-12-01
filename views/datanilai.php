@@ -19,24 +19,18 @@ if (isset($_SESSION['login'])) {
         }
 
         if ($tambah_nilai) {
-            echo "<script>
-            alert('Data Berhasil di Simpan');
-            window.location = (href = 'datanilai.php');
-            </script>";
+            echo "<script>window.location=(href='datanilai.php?status=1&periode=$id_periode')</script>";
         } else {
-            echo "<script>
-            alert('Data Gagal di Simpan');
-            window.location = (href = 'datanilai.php')
-            </script>";
+            echo "<script>window.location=(href='datanilai.php?status=2&periode=$id_periode')</script>";
         }
     }
     // aksi tambah nilai
 
     // aksi ubah nilai
     if (isset($_POST['update_nilai'])) {
-
+        $id_periode =  $_POST['id_periode'];
         for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
-            $id_periode =  $_POST['id_periode'][$i];
+            
             $nik = $_POST['nik'][$i];
             $id_nilai = $_POST['id_nilai'][$i];
             $id_sub_kriteria =  $_POST['id_sub_kriteria'][$i];
@@ -45,14 +39,9 @@ if (isset($_SESSION['login'])) {
         }
 
         if ($update_nilai) {
-            echo "<script>  window.alert('Data Berhasil di Ubah');
-                window.location = (href = 'datanilai.php');
-                    </script>";
+            echo "<script>window.location=(href='datanilai.php?status=3&periode=$id_periode')</script>";
         } else {
-            echo "<script>
-                        window.alert('Data Gagal di Ubah');
-                        window.location = (href = 'datanilai.php');
-                </script>";
+            echo "<script>window.location=(href='datanilai.php?status=4&periode=$id_periode')</script>";
         }
     }
     // aksi ubah nilai
@@ -95,6 +84,30 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
 
+                    <?php
+                        if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Disimpan</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Disimpan</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Diperbaharui</strong>
+                            </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Diperbaharui</strong>
+                            </div>';
+                        }
+                        ?>
+
                     <form action="" method="get">
                         <div class="container">
                             <div class="row">
@@ -109,7 +122,7 @@ if (isset($_SESSION['login'])) {
                                                         on tb_nilai.id_periode = tb_periode.id_periode 
                                                         group by tb_nilai.id_periode");
                                                     while ($row = mysqli_fetch_array($queryperiode)) { ?>
-                                                    <option value="<?php echo $row['nama_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
+                                                    <option value="<?php echo $row['id_periode'] ?>"><?php echo $row['nama_periode'] ?></option>
                                                 <?php
                                                     } ?>
                                             </select>
@@ -147,7 +160,7 @@ if (isset($_SESSION['login'])) {
                                         ON tb_nilai.nik = tb_teknisi.nik
                                         INNER JOIN tb_subkriteria
                                         on tb_nilai.id_sub_kriteria = tb_subkriteria.id_sub_kriteria
-                                        where tb_periode.nama_periode ='" . $_GET['periode'] . "'
+                                        where tb_periode.id_periode ='" . $_GET['periode'] . "'
                                         group by tb_nilai.nik ");
                                     // echo "<pre>";
 
@@ -164,7 +177,7 @@ if (isset($_SESSION['login'])) {
                                             <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-edit"></i> Edit</button>
                                             <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
@@ -199,7 +212,7 @@ if (isset($_SESSION['login'])) {
                                             <input type="hidden" id="id_periode" name="id_periode" value="<?php echo $datanilai['id_periode'] ?>"><?php echo $datanilai['nama_periode'] ?>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-wrench"></i> Edit</button>
+                                            <button type="button" class="btn btn-primary btn-xs edit_nilai" id="edit_nilai_btn"><i class="fa fa-edit"></i> Edit</button>
                                             <button type="button" class="btn btn-warning btn-xs detail_periode" id="detail_nilai_btn"><i class="glyphicon glyphicon-resize-full"></i> Detail</button>
                                         </td>
                                     </tr>
@@ -468,10 +481,12 @@ if (isset($_SESSION['login'])) {
                             });
                         });
                         item_nilai += ` 
-                        
+
+                            
+                            <input type = "hidden" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.id_periode + `"  readonly / >
                             <div class="form-group">
                                 <label class = "control-label" 'for = "id_periode">Periode</label>
-                                <input type = "text" name = "id_periode" class = "form-control" id = "id_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
+                                <input type = "text" name = "nama_periode" class = "form-control" id = "nama_periode" value = "` + dataEdit.nama_periode + `"  readonly / >
                             </div>
 
                             <div class="form-group">

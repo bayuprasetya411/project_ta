@@ -4,7 +4,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 include("../config/koneksi.php");
-$periode = $_GET['periode'];
+$periode = $_POST['periode'];
 $query_periode_has_kriteria = mysqli_query(
     $conn,
     "SELECT * FROM tb_periode_has_kriteria
@@ -162,8 +162,8 @@ $html .= '</tr>
         <div style="text-align: right; margin-right:45px">
             <u><b>Akhmad Syrifudin</b></u>
         </div>
-        <div style="text-align: right; margin-right:10px">
-            Manager BGES Service Denpasar
+        <div style="text-align: right; margin-right:0px">
+            Manager Corporate Service Denpasar
         </div>
         
 

@@ -32,6 +32,7 @@ if (isset($_GET)) {
     $result_edit['nilai'] = $result_nilai;
     $result_edit['nama'] = $data_teknisi['nama'];
     $result_edit['nama_periode'] = $data_periode['nama_periode'];
+    $result_edit['id_periode'] = $data_periode['id_periode'];
     echo json_encode($result_edit);
     // exit();
 

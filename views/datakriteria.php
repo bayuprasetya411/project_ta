@@ -7,24 +7,21 @@ if (isset($_SESSION['login'])) {
     // aksi tambah kriteria
     if (isset($_POST['tambah_kriteria'])) {
 
-        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-        $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
-        $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+        $id_kriteria = $_POST["id_kriteria"];
+        $nama_kriteria = $_POST["nama_kriteria"];
+        $bobot_kriteria = $_POST["bobot_kriteria"];
 
         if ($_POST['bobot_kriteria'] <= 100) {
 
             $query_tambah_kriteria = "INSERT INTO tb_kriteria (id_kriteria, nama_kriteria, bobot_kriteria) VALUES ('$id_kriteria','$nama_kriteria','$bobot_kriteria')";
             $insert_kriteria = mysqli_query($conn, $query_tambah_kriteria);
             if ($insert_kriteria) {
-                echo "<script> window.alert('Data Berhasil di Simpan');
-                            window.location=(href='datakriteria.php') </script>";
+                echo "<script>window.location=(href='datakriteria.php?status=1')</script>";
             } else {
-                echo "<script> window.alert('Data Gagal di Simpan');
-                window.location=(href='datakriteria.php') </script>";
+                echo "<script>window.location=(href='datakriteria.php?status=2')</script>";
             }
         } else {
-            echo "<script> window.alert('bobot kriteria maksimal 100');
-            window.location=(href='datakriteria.php'); </script>";
+            echo "<script>window.location=(href='datakriteria.php?status=7')</script>";
         }
     }
     // aksi tambah kriteria
@@ -33,50 +30,38 @@ if (isset($_SESSION['login'])) {
     if (isset($_POST['update_kriteria'])) {
 
         if ($_POST['bobot_kriteria'] <= 100) {
-            $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-            $nama_kriteria = mysqli_real_escape_string($conn, $_POST["nama_kriteria"]);
-            $bobot_kriteria = mysqli_real_escape_string($conn, $_POST["bobot_kriteria"]);
+            $id_kriteria = $_POST["id_kriteria"];
+            $nama_kriteria = $_POST["nama_kriteria"];
+            $bobot_kriteria = $_POST["bobot_kriteria"];
             $query_update_kriteria  = "UPDATE tb_kriteria SET nama_kriteria ='" . $nama_kriteria . "', bobot_kriteria ='" . $bobot_kriteria . "' WHERE id_kriteria ='" . $id_kriteria . "'";
             $update_kriteria = mysqli_query($conn, $query_update_kriteria);
             if ($update_kriteria) {
-                echo "<script>window.alert('Data Berhasil di Ubah');
-                        window.location=(href='datakriteria.php')</script>";
+                echo "<script>window.location=(href='datakriteria.php?status=3')</script>";
             } else {
-                echo "<script>window.alert('Data Gagal di Ubah');
-                window.location=(href='datakriteria.php')</script>";
+                echo "<script>window.location=(href='datakriteria.php?status=4')</script>";
             }
         } else {
-            echo "<script> window.alert('bobot kriteria maksimal 100');
-            window.location=(href='datakriteria.php') </script>";
+            echo "<script>window.location=(href='datakriteria.php?status=7')</script>";
         }
     }
     // aksi ubah kriteria
 
     // aksi tambah sub Kriteria
     if (isset($_POST['tambah_subkriteria'])) {
-        $id_kriteria = mysqli_real_escape_string($conn, $_POST["id_kriteria"]);
-        $nama_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nama_sub_kriteria"]);
-        $nilai_sub_kriteria = mysqli_real_escape_string($conn, $_POST["nilai_sub_kriteria"]);
+        $id_kriteria = $_POST["id_kriteria"];
+        $nama_sub_kriteria = $_POST["nama_sub_kriteria"];
+        $nilai_sub_kriteria = $_POST["nilai_sub_kriteria"];
 
         if ($nilai_sub_kriteria <= 100) {
             $query_tambah_subkriteria = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
             $insert_subkriteria = mysqli_query($conn, $query_tambah_subkriteria);
             if ($insert_subkriteria) {
-                echo "<script>
-                alert('Data Berhasil di Simpan');
-                window.location = (href = 'datakriteria.php');
-                </script>";
+                echo "<script>window.location=(href='datakriteria.php?status=1')</<script>";
             } else {
-                echo "<script>
-                alert('Data Gagal di Simpan');
-                window.location = (href = 'datakriteria.php')
-                </script>";
+                echo "<script>window.location=(href='datakriteria.php?status=2')</script>";
             }
         } else {
-            echo "<script>
-        alert('Nilai Sub Kriteria Maksimal 100');
-        window.location = (href = 'datakriteria.php')
-        </script>";
+            echo "<script>window.location=(href='datakriteria.php?status=8')</script>";
         }
     }
     // aksi tambah sub Kriteria
@@ -93,14 +78,9 @@ if (isset($_SESSION['login'])) {
             $update_subkriteria = mysqli_query($conn, $query_update_subkriteria);
         }
         if ($update_subkriteria) {
-            echo "<script>  window.alert('Data Berhasil di Ubah');
-            window.location = (href = 'datakriteria.php');
-                </script>";
+            echo "<script>window.location=(href='datakriteria.php?status=3')</script>";
         } else {
-            echo "<script>
-                    window.alert('Data Gagal di Ubah');
-                    window.location = (href = 'datakriteria.php');
-            </script>";
+            echo "<script>window.location=(href='datakriteria.php?status=4')</script>";
         }
     }
     // aksi ubah sub kriteria
@@ -138,6 +118,39 @@ if (isset($_SESSION['login'])) {
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        <?php if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
+                                echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Disimpan</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
+                                echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Disimpan</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
+                                echo '<div class="alert alert-success alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Berhasil Diperbaharui</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
+                                echo '<div class="alert alert-danger alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Data Gagal Diperbaharui</strong>
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 7)) {
+                                echo '<div class="alert alert-warning alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Peringatan!!!</strong> Bobot Kriteria Maksimal 100
+                            </div>';
+                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 8)) {
+                                echo '<div class="alert alert-warning alert-dismissible fade in">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                                <strong>Peringatan!!!</strong> Nilai Sub Kriteria Maksimal 100
+                            </div>';
+                            }
+
+                            ?>
                         <button class="btn btn-success" id="modal_tambah_kriteria_btn" name="modal_tambah_kriteria_btn" href="#" data-toggle="modal" data-target="#modal-tambah-kriteria"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Kriteria</button>
                         <div class="table-responsive">
                             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -165,9 +178,9 @@ if (isset($_SESSION['login'])) {
                                             <td class="text-center"><?php echo $datakriteria['bobot_kriteria']; ?></td>
                                             <td class="text-center"><?php echo $datakriteria['bobot_kriteria'] / $data_total_bobot['total_bobot']; ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-wrench"></i> Edit</button>
+                                                <button type="button" class="btn btn-primary btn-xs edit_kriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-edit"></i> Edit</button>
                                                 <button type="button" class="btn btn-success btn-xs tambah_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-plus"></i> Tambah Sub Kriteria</button>
-                                                <button type="button" class="btn btn-warning btn-xs edit_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="glyphicon glyphicon-resize-full"></i> Edit Sub Kriteria </button>
+                                                <button type="button" class="btn btn-warning btn-xs edit_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-edit"></i> Edit Sub Kriteria </button>
                                             </td>
                                         </tr>
                                     <?php  } ?>
