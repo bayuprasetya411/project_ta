@@ -25,6 +25,7 @@ if (isset($_GET)) {
             'id_kriteria' => $data_nilai['id_kriteria'],
             'nama_kriteria' => $data_nilai['nama_kriteria'],
             'id_sub_kriteria' => $data_nilai['id_sub_kriteria'],
+            'nama_sub_kriteria' => $data_nilai['nama_sub_kriteria'],
             'nilai_sub_kriteria' => $data_nilai['nilai_sub_kriteria']
         );
         $result_nilai[] = $row;

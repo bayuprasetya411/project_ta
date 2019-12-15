@@ -30,7 +30,7 @@ if (isset($_SESSION['login'])) {
     if (isset($_POST['update_nilai'])) {
         $id_periode =  $_POST['id_periode'];
         for ($i = 0; $i < count($_POST['id_sub_kriteria']); $i++) {
-            
+
             $nik = $_POST['nik'][$i];
             $id_nilai = $_POST['id_nilai'][$i];
             $id_sub_kriteria =  $_POST['id_sub_kriteria'][$i];
@@ -548,6 +548,7 @@ if (isset($_SESSION['login'])) {
                             junk += `
                             <tr>
                                 <td>` + dataDetail.nilai[key].nama_kriteria + `</td>
+                                <td>` + dataDetail.nilai[key].nama_sub_kriteria + `</td>
                                 <td class ="text-center">` + dataDetail.nilai[key].nilai_sub_kriteria + `</td>
                             </tr>
                             `;
@@ -574,7 +575,8 @@ if (isset($_SESSION['login'])) {
                                 <thead style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
                                         <th style="width:50%">Kriteria</th>
-                                        <th class ="text-center" style="width:50%">Nilai</th>
+                                        <th style="width:30%">Sub Kriteria</th>
+                                        <th class ="text-center" style="width:20%">Nilai</th>
                                     </tr>
                                 </thead>
 
@@ -585,7 +587,8 @@ if (isset($_SESSION['login'])) {
                                 <tfoot style="background-color:#ddffdd; border: 1px solid #ddffdd;">
                                     <tr>
                                         <th style="width:50%">Kriteria</th>
-                                        <th class ="text-center" style="width:50%">Nilai</th>
+                                        <th style="width:30%">Sub Kriteria</th>
+                                        <th class ="text-center" style="width:20%">Nilai</th>
                                     </tr>
                                 </tfoot>
                             </table>
