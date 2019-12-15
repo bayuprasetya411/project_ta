@@ -111,7 +111,7 @@ if (isset($_SESSION['login'])) {
                 </form>
 
                 <?php if (!empty($_GET)) {
-                    $query_teknisi = mysqli_query($conn, "SELECT tb_periode.nama_periode, tb_nilai.id_periode ,tb_nilai.nik ,tb_teknisi.nama FROM tb_nilai
+                    $query_teknisi = mysqli_query($conn, "SELECT tb_periode.nama_periode, tb_nilai.id_periode ,tb_nilai.nik,tb_teknisi.nama FROM tb_nilai
                       INNER JOIN tb_periode
                       on tb_nilai.id_periode = tb_periode.id_periode
                       INNER JOIN tb_teknisi

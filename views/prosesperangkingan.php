@@ -80,9 +80,11 @@ if (isset($_SESSION['login'])) {
                             <br />
                             <br />
                             <!-- tabel bobot normalisasi -->
-                            <label style="margin-left:40%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Normalisasi Bobot</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Normalisasi Bobot</b></h3>
+                                </label>
+                            </div>
 
                             <table class="table table-bordered table-striped table-hover nw">
                                 <thead>
@@ -227,9 +229,11 @@ if (isset($_SESSION['login'])) {
                             <!-- /tabel bobot normalisasi -->
 
                             <!-- tabel nilai ultility -->
-                            <label style="margin-left:43%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Ultility</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Ultility</b></h3>
+                                </label>
+                            </div>
 
                             <table id="tb_nilai_ultility" class="table table-bordered table-striped table-hover nw">
                                 <thead>
@@ -309,9 +313,11 @@ if (isset($_SESSION['login'])) {
                             <br />
 
                             <!-- tabel hasil perangkingan -->
-                            <label style="margin-left:43%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Akhir</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Akhir</b></h3>
+                                </label>
+                            </div>
 
                             <table id="tb_nilai_akhir" class="table table-bordered table-striped table-hover nw" width="100%">
                                 <thead>
@@ -432,9 +438,11 @@ if (isset($_SESSION['login'])) {
                             <br />
 
                             <!-- tabel bobot normalisasi -->
-                            <label style="margin-left:40%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Normalisasi Bobot</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Normalisasi Bobot</b></h3>
+                                </label>
+                            </div>
 
                             <table class="table table-bordered table-striped table-hover nw">
                                 <thead>
@@ -578,9 +586,11 @@ if (isset($_SESSION['login'])) {
                             <!-- /tabel bobot normalisasi -->
 
                             <!-- tabel nilai ultility -->
-                            <label style="margin-left:43%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Ultility</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Ultility</b></h3>
+                                </label>
+                            </div>
 
                             <table id="tb_nilai_ultility" class="table table-bordered table-striped table-hover nw">
                                 <thead>
@@ -659,9 +669,11 @@ if (isset($_SESSION['login'])) {
                             <br />
 
                             <!-- tabel hasil perangkingan -->
-                            <label style="margin-left:43%;">
-                                <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Akhir</b></h3>
-                            </label>
+                            <div style="text-align: center">
+                                <label>
+                                    <h3 class="panel-title" style=" font-size:15pt"><b>Tabel Nilai Akhir</b></h3>
+                                </label>
+                            </div>
 
                             <table id="tb_nilai_akhir" class="table table-bordered table-striped table-hover nw" width="100%">
                                 <thead>
@@ -769,8 +781,8 @@ if (isset($_SESSION['login'])) {
 
                     </div>
                     <form method="POST" action="laporan_perankingan.php" target="_blank">
-                            <input type="hidden" name="periode" value="<?php echo $nama_periode ?>" >
-                            <button type="submit" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button>
+                        <input type="hidden" name="periode" value="<?php echo $nama_periode ?>">
+                        <button type="submit" class="btn btn-primary" name="cetak_laporan" id="cetak_laporan"><i class="fa fa-print"></i> Cetak Laporan</button>
                     </form>
                 </div>
             </div>

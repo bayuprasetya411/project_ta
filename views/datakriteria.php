@@ -126,7 +126,7 @@ if (isset($_SESSION['login'])) {
                             } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
                                 echo '<div class="alert alert-danger alert-dismissible fade in">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Gagal Disimpan</strong>
+                                <strong>Data Sudah Terdaftar!!!</strong>
                             </div>';
                             } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
                                 echo '<div class="alert alert-success alert-dismissible fade in">
