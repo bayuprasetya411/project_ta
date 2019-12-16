@@ -243,7 +243,7 @@ if (isset($_SESSION['login'])) {
                             <label class="control-label" for="bobot_kriteria">
                                 Bobot Kriteria
                             </label>
-                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" required placeholder="Bobot Kriteria (1-100)">
+                            <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" required placeholder="Bobot Kriteria (0-100)">
                         </div>
 
                     </div>

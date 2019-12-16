@@ -55,5 +55,5 @@ $query_area = mysqli_query($conn, "SELECT * FROM tb_area ORDER BY id_area DESC")
 
 <div class="form-group">
     <label class="control-label" for="no_telpon">No Telpon (08xxxxxxxxxxxxxx)</label>
-    <input type="text" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
+    <input type="number" name="no_telpon" class="form-control" id="no_telpon" value="<?php echo $no_telpon ?>" required>
 </div>

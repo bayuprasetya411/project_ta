@@ -36,5 +36,5 @@ if (isset($_POST['edit_id_kriteria'])) {
     <label class="control-label" for="bobot_kriteria">
         Bobot Kriteria
     </label>
-    <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" Value="<?php echo $bobot_kriteria ?>" required placeholder="Bobot Kriteria (1-100)">
+    <input type="number" name="bobot_kriteria" class="form-control" id="bobot_kriteria" Value="<?php echo $bobot_kriteria ?>" required placeholder="Bobot Kriteria (0-100)">
 </div>
