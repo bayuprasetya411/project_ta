@@ -74,108 +74,101 @@ if (isset($_SESSION['login'])) {
 
     <!-- page content -->
     <div class="right_col" role="main">
-        <div class="">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>Data Teknisi</h3>
-                </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Tabel Data Teknisi<small>Corporate Service</small></h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-
-                        <?php if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
-                                echo '<div class="alert alert-success alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Berhasil Disimpan</strong>
-                            </div>';
-                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
-                                echo '<div class="alert alert-danger alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Sudah Terdaftar!!!</strong>
-                            </div>';
-                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
-                                echo '<div class="alert alert-success alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Berhasil Diperbaharui</strong>
-                            </div>';
-                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
-                                echo '<div class="alert alert-danger alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Gagal Diperbaharui</strong>
-                            </div>';
-                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 5)) {
-                                echo '<div class="alert alert-success alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Berhasil Dihapus</strong>
-                            </div>';
-                            } elseif ((isset($_GET['status'])) and ($_GET['status'] == 6)) {
-                                echo '<div class="alert alert-danger alert-dismissible fade in">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
-                                <strong>Data Gagal Dihapus</strong>
-                            </div>';
-                            }
-
-                            ?>
-                        <button class="btn btn-success" id="modal_tambah_teknisi_btn" name="tambah_teknisi_btn" href="#" data-toggle="modal" data-target="#modal-tambah-teknisi"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
-                        <div class="table-responsive">
-                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th style="width:10%">Nik</th>
-                                        <th style="width:40%">Nama</th>
-                                        <th class="text-center" style="width:30%">No Telpon</th>
-                                        <th class="text-center" style="width:10%">Area</th>
-                                        <th class="text-center" style="width:10%">Aksi</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <?php
-                                        $query_teknisi = "SELECT tb_teknisi.nik,tb_teknisi.nama,tb_teknisi.no_telpon, tb_area.area, tb_area.id_area FROM tb_teknisi
-                                        inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area";
-                                        $result_teknisi = mysqli_query($conn, $query_teknisi);
-                                        while ($datateknisi = mysqli_fetch_array($result_teknisi)) {
-                                            $nik = $datateknisi['nik'];
-                                            $nama = $datateknisi['nama'];
-                                            $no_telpon = $datateknisi['no_telpon'];
-                                            $area = $datateknisi['area'];
-                                            ?>
-                                        <tr>
-                                            <td><?php echo $nik ?></td>
-                                            <td><?php echo $nama ?></td>
-                                            <td class="text-center"><?php echo $no_telpon ?></td>
-                                            <td class="text-center"><?php echo $area ?></td>
-                                            <td><button type="button" id="<?php echo $nik ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-edit"></i> Edit</button>
-                                                <button type="button" id="<?php echo $nik ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                        }
-                                        ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Data Teknisi</h3>
             </div>
         </div>
+
         <div class="clearfix"></div>
-    </div>
 
-    <!-- /page content -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Tabel Data Teknisi<small>Corporate Service</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
 
-    <?php include('footer.php') ?>
+                    <?php if ((isset($_GET['status'])) and ($_GET['status'] == 1)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Berhasil Disimpan</strong>
+                        </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 2)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Sudah Terdaftar!!!</strong>
+                        </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 3)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Berhasil Diperbaharui</strong>
+                        </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 4)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Gagal Diperbaharui</strong>
+                        </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 5)) {
+                            echo '<div class="alert alert-success alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Berhasil Dihapus</strong>
+                        </div>';
+                        } elseif ((isset($_GET['status'])) and ($_GET['status'] == 6)) {
+                            echo '<div class="alert alert-danger alert-dismissible fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+                            <strong>Data Gagal Dihapus</strong>
+                        </div>';
+                        }
 
+                        ?>
+
+                    <button class="btn btn-success" id="modal_tambah_teknisi_btn" name="tambah_teknisi_btn" href="#" data-toggle="modal" data-target="#modal-tambah-teknisi"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Teknisi</button>
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">Nik</th>
+                                    <th style="width:40%">Nama</th>
+                                    <th class="text-center" style="width:30%">No Telpon</th>
+                                    <th class="text-center" style="width:10%">Area</th>
+                                    <th class="text-center" style="width:10%">Aksi</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                    $query_teknisi = "SELECT * FROM tb_teknisi
+                                    inner JOIN tb_area on tb_teknisi.id_area = tb_area.id_area";
+                                    $result_teknisi = mysqli_query($conn, $query_teknisi);
+                                    while ($datateknisi = mysqli_fetch_array($result_teknisi)) {
+                                    
+                                        ?>
+                                    <tr>
+                                        <td><?php echo $datateknisi['nik']?></td>
+                                        <td><?php echo $datateknisi['nama']?></td>
+                                        <td class="text-center"><?php echo $datateknisi['no_telpon'] ?></td>
+                                        <td class="text-center"><?php echo $datateknisi['area'] ?></td>
+                                        <td><button type="button" id="<?php echo $datateknisi['nik'] ?>" class="btn btn-primary btn-xs edit_data_btn"><i class="fa fa-edit"></i> Edit</button>
+                                            <button type="button" id="<?php echo $datateknisi['nik'] ?>" class="btn btn-danger btn-xs hapus_data_btn"><i class="fa fa-trash"></i> Hapus</button>
+                                        </td>
+                                    </tr>
+                                    
+                                <?php
+                                    }
+                                    ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- /page content -->
+        </div>
+        <?php include('footer.php')?>
     </div>
-    </div>
+</div>
+    
 
     <!-- Modal Tambah Teknisi -->
     <div id="modal-tambah-teknisi" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="#modaltambahteknisi">
@@ -337,4 +330,4 @@ if (isset($_SESSION['login'])) {
 ?>
 </body>
 
-    </html>
+</html>

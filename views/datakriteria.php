@@ -56,7 +56,7 @@ if (isset($_SESSION['login'])) {
             $query_tambah_subkriteria = "INSERT INTO tb_subkriteria (id_sub_kriteria, nama_sub_kriteria, nilai_sub_kriteria, id_kriteria) VALUES ('','$nama_sub_kriteria','$nilai_sub_kriteria','$id_kriteria')";
             $insert_subkriteria = mysqli_query($conn, $query_tambah_subkriteria);
             if ($insert_subkriteria) {
-                echo "<script>window.location=(href='datakriteria.php?status=1')</<script>";
+                echo "<script>window.location=(href='datakriteria.php?status=1')</script>";
             } else {
                 echo "<script>window.location=(href='datakriteria.php?status=2')</script>";
             }
@@ -183,6 +183,7 @@ if (isset($_SESSION['login'])) {
                                                 <button type="button" class="btn btn-warning btn-xs edit_subkriteria_btn" id="<?php echo $datakriteria['id_kriteria']; ?>"><i class="fa fa-edit"></i> Edit Sub Kriteria </button>
                                             </td>
                                         </tr>
+                                        
                                     <?php  } ?>
                                 </tbody>
                             </table>
@@ -199,7 +200,6 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- /menu content -->
 
-
     <!-- Modal Tambah kriteria -->
     <?php
 
@@ -208,9 +208,9 @@ if (isset($_SESSION['login'])) {
         $id_kriteria = $dataid['id_kriteria'];
         $no = substr($id_kriteria, 1);
         $tambah_id_kriteria = (int) $no + 1;
-
-        if (strlen($tambah_id_kriteria) == 1) {
-            $kode_kriteria = "C" . $tambah_id_kriteria;
+        
+        if (strlen($tambah_id_kriteria) == 2) {
+            $kode_kriteria = "C" . str_pad($tambah_id_kriteria, 2, "0", STR_PAD_LEFT);
         }
         ?>
 

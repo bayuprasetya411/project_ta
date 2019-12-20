@@ -200,11 +200,11 @@ if (isset($_SESSION['login'])) {
 
             $total_nilai = 0;
             $query_periode_has_kriteria2 = mysqli_query($conn, "SELECT *, tb_periode.nama_periode FROM tb_periode_has_kriteria
-                                          inner Join tb_periode
-                                          on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
-                                          INNER JOIN tb_kriteria
-                                          ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
-                                          WHERE tb_periode_has_kriteria.id_periode = '" . $id_periode . "'");
+            inner Join tb_periode
+            on tb_periode_has_kriteria.id_periode = tb_periode.id_periode
+            INNER JOIN tb_kriteria
+            ON tb_periode_has_kriteria.id_kriteria = tb_kriteria.id_kriteria
+            WHERE tb_periode_has_kriteria.id_periode = '" . $id_periode . "'");
 
             while ($data_periode_has_kriteria2 = mysqli_fetch_array($query_periode_has_kriteria2)) {
               $id_kriteria = $data_periode_has_kriteria2['id_kriteria'];
@@ -259,18 +259,12 @@ if (isset($_SESSION['login'])) {
   <?php include('../config/javascript.php'); ?>
 
   <script>
-    // $(".select-search-teknisi").select2({
-    //   placeholder: "-- Pilih Teknisi --",
-    //   allowClear: true
-    // });
+    
     $(".select-search-periode").select2({
       placeholder: "-- Pilih Periode --",
       allowClear: true
     });
-    // $(".select-search-tahun").select2({
-    //   placeholder: "-- Pilih Tahun --",
-    //   allowClear: true
-    // });
+  
   </script>
 
   <script>
